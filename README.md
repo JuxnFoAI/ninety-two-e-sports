@@ -80,7 +80,7 @@ Convenciones detalladas (imports, nombres ES/EN, animaciones reveal, assets): ve
 | `@assets` | `assets/` |
 
 ## Tecnologías
-
+- Cursor AI
 - React 18 + TypeScript
 - Vite 6
 - Tailwind CSS 4
