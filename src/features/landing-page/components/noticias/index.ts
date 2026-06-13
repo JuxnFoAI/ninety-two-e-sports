@@ -1,0 +1,1 @@
+export { NoticiasSection } from "./NoticiasSection";

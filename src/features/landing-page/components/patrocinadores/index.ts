@@ -1,0 +1,1 @@
+export { PatrocinadoresSection } from "./PatrocinadoresSection";

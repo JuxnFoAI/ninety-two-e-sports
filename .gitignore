@@ -1,0 +1,24 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+*.tsbuildinfo
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Vercel
+.vercel
+
+# Test coverage
+coverage
+
+# Local overrides
+*.local
+
+# OS
+.DS_Store
+Thumbs.db

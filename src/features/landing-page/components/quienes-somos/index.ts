@@ -1,0 +1,1 @@
+export { QuienesSomosSection } from "./QuienesSomosSection";

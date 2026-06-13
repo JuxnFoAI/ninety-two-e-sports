@@ -1,0 +1,1 @@
+export { EquiposSection } from "./EquiposSection";
