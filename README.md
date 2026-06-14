@@ -2,6 +2,18 @@
 
 Sitio web de la organización: landing con pantalla de carga, equipos, noticias, torneos y patrocinadores.
 
+## Vista previa
+
+**Pantalla de carga**
+
+![Pantalla de carga con animación del logo N2](docs/preview/loading-screen.png)
+
+**Página principal**
+
+![Landing page con hero, navegación y secciones](docs/preview/landing-page.png)
+
+Sitio en producción: [ninety-two-e-sports.vercel.app](https://ninety-two-e-sports.vercel.app)
+
 ## Requisitos
 
 - [Node.js](https://nodejs.org/) 20 o superior
@@ -42,7 +54,7 @@ Abre [http://localhost:5173](http://localhost:5173).
 │   ├── features/    # Módulos por pantalla (landing, loading-screen, accessibility)
 │   ├── shared/      # Hooks y utilidades reutilizables
 │   └── styles/      # Estilos globales
-├── docs/            # Guías para desarrolladores (convenciones)
+├── docs/            # Guías para desarrolladores (convenciones, capturas)
 ├── index.html       # Punto de entrada HTML
 └── dist/            # Salida de `npm run build` (no editar; se regenera)
 ```
