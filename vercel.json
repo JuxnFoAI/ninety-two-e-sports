@@ -1,4 +1,5 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "headers": [
     {
       "source": "/site.webmanifest",
@@ -10,7 +11,25 @@
       ]
     },
     {
-      "source": "/((icons/.*)|favicon\\.png|apple-touch-icon\\.png)",
+      "source": "/favicon.png",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/apple-touch-icon.png",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/icons/:path*",
       "headers": [
         {
           "key": "Cache-Control",
@@ -21,8 +40,8 @@
   ],
   "rewrites": [
     {
-      "source": "/((?!icons/|favicon\\.png|apple-touch-icon\\.png|site\\.webmanifest).*)",
-      "destination": "/"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
