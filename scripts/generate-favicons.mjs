@@ -20,10 +20,11 @@ const { version } = JSON.parse(
 const ICON_SPECS = [
   { name: "favicon-16x16.png", size: 16 },
   { name: "favicon-32x32.png", size: 32 },
-  { name: "apple-touch-icon.png", size: 180 },
   { name: "android-chrome-192x192.png", size: 192 },
   { name: "android-chrome-512x512.png", size: 512 },
 ];
+
+const APPLE_TOUCH_ICON = { name: "apple-touch-icon.png", size: 180 };
 
 const BLACK_BACKGROUND = { r: 0, g: 0, b: 0, alpha: 1 };
 
@@ -44,10 +45,8 @@ for (const { name, size } of ICON_SPECS) {
 }
 
 const favicon32 = await readFile(join(iconsDir, "favicon-32x32.png"));
-const appleTouchIcon = await readFile(join(iconsDir, "apple-touch-icon.png"));
-
 await writeFile(join(publicDir, "favicon.png"), favicon32);
-await writeFile(join(publicDir, "apple-touch-icon.png"), appleTouchIcon);
+await renderIcon(APPLE_TOUCH_ICON.size, join(publicDir, APPLE_TOUCH_ICON.name));
 
 const manifest = {
   name: "Ninety Two E-Sports",
