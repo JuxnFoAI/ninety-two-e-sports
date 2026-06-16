@@ -5,6 +5,7 @@ import danielAvilaPhoto from "@assets/integrantes/americanos/Daniel-avila.jpg";
 import franciscoJavierPhoto from "@assets/integrantes/americanos/francisco-javier.jpg";
 import joaoPessoaPhoto from "@assets/integrantes/americanos/Joao-pessoa.jpg";
 import joshuaRodriguezPhoto from "@assets/integrantes/americanos/joshua-rodriguez.jpg";
+import juanJosePhoto from "@assets/integrantes/americanos/juan-jose.jpg";
 import mateoEstevezPhoto from "@assets/integrantes/americanos/Mateo-estevez.jpg";
 import nicolasSaavedraPhoto from "@assets/integrantes/americanos/nicolas-saavedra.jpg";
 import orestesFilomenoPhoto from "@assets/integrantes/americanos/Orestes-filomeno.jpg";
@@ -251,6 +252,19 @@ export const DIVISION_ROSTERS: readonly DivisionRoster[] = [
         photoFit: {
           position: "center 33%",
           scale: 1.1,
+        },
+      },
+      {
+        id: "am-11",
+        alias: "JUAN JOSÉ",
+        realName: "Juan José",
+        country: "COLOMBIA",
+        countryFlag: "🇨🇴",
+        role: "FLEX",
+        photo: juanJosePhoto,
+        photoFit: {
+          position: "center 33%",
+          scale: 1.3,
         },
       },
     ],
