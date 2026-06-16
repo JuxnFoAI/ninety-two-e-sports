@@ -13,6 +13,7 @@ import federicoCerviPhoto from "@assets/integrantes/europeos/federico-cervi.jpg"
 import giorgioCorolloPhoto from "@assets/integrantes/europeos/giorgio-corollo.jpg";
 import miroslawKravchenkoPhoto from "@assets/integrantes/europeos/miroslaw.jpg";
 import nicholasFontanaPhoto from "@assets/integrantes/europeos/nicholas-fontana.jpg";
+import kevinFernandezPhoto from "@assets/integrantes/europeos/kevin-fernandez.jpg";
 import samuelMorenoPhoto from "@assets/integrantes/europeos/samuel-moreno.jpg";
 import marioSolerPhoto from "@assets/lideres/mario-soler.jpg";
 import niltonGrajalesPhoto from "@assets/lideres/nilton-grajales.jpg";
@@ -112,6 +113,15 @@ export const DIVISION_ROSTERS: readonly DivisionRoster[] = [
           position: "center 10%",
           scale: 1.2,
         },
+      },
+      {
+        id: "eu-7",
+        alias: "KEVIN FERNANDEZ",
+        realName: "Kevin Fernandez",
+        country: "ESPAÑA",
+        countryFlag: "🇪🇸",
+        role: "FLEX",
+        photo: kevinFernandezPhoto,
       },
     ],
   },
