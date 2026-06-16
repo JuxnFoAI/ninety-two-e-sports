@@ -30,6 +30,9 @@ export const DIVISION_ROSTERS: readonly DivisionRoster[] = [
     id: "europe",
     title: "Pilotos europeos",
     leaderLabel: "Líder División Europea",
+    buttonLabel: "EUROPEA",
+    badgeLabel: "DIVISION EUROPEA",
+    gradient: "linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%)",
     leader: {
       id: "eu-leader",
       alias: "MARIO SOLER",
@@ -130,6 +133,9 @@ export const DIVISION_ROSTERS: readonly DivisionRoster[] = [
     id: "america",
     title: "Pilotos americanos",
     leaderLabel: "Líder División Americana",
+    buttonLabel: "AMERICANA",
+    badgeLabel: "DIVISIÓN AMERICANA",
+    gradient: "linear-gradient(135deg, #65a30d 0%, #bef264 100%)",
     leader: {
       id: "am-leader",
       alias: "NILTON GRAJALES",

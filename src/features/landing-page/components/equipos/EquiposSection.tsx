@@ -6,33 +6,12 @@ import { SectionHeader } from "../SectionHeader";
 import { RevealItem, RevealSection } from "../reveal";
 import { DivisionRoster } from "./DivisionRoster";
 
-const DIVISION_UI: Record<
-  DivisionId,
-  {
-    buttonLabel: string;
-    badgeLabel: string;
-    gradient: string;
-  }
-> = {
-  america: {
-    buttonLabel: "AMERICANA",
-    badgeLabel: "DIVISIÓN AMERICANA",
-    gradient: "linear-gradient(135deg, #65a30d 0%, #bef264 100%)",
-  },
-  europe: {
-    buttonLabel: "EUROPEA",
-    badgeLabel: "DIVISION EUROPEA",
-    gradient: "linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%)",
-  },
-};
-
 export const EquiposSection = (): JSX.Element => {
   const [activeDivisionId, setActiveDivisionId] =
     useState<DivisionId>("america");
   const activeDivision =
     DIVISION_ROSTERS.find((division) => division.id === activeDivisionId) ??
     DIVISION_ROSTERS[0];
-  const activeDivisionUi = DIVISION_UI[activeDivision.id];
 
   return (
     <RevealSection
@@ -49,7 +28,6 @@ export const EquiposSection = (): JSX.Element => {
       >
         {DIVISION_ROSTERS.map((division) => {
           const isActive = division.id === activeDivision.id;
-          const divisionUi = DIVISION_UI[division.id];
 
           return (
             <button
@@ -62,11 +40,11 @@ export const EquiposSection = (): JSX.Element => {
                   : "border-white/20 bg-black/35 text-white/80 hover:border-white/40"
               }`}
               style={
-                isActive ? { backgroundImage: divisionUi.gradient } : undefined
+                isActive ? { backgroundImage: division.gradient } : undefined
               }
               aria-pressed={isActive}
             >
-              {divisionUi.buttonLabel}
+              {division.buttonLabel}
             </button>
           );
         })}
@@ -75,9 +53,8 @@ export const EquiposSection = (): JSX.Element => {
       <DivisionRoster
         key={activeDivision.id}
         animatedKey={activeDivision.id}
-        division={{ ...activeDivision, title: activeDivisionUi.badgeLabel }}
+        division={activeDivision}
         revealStartIndex={SECTION_COMPACT_HEADER_WITH_CONTROLS_REVEAL_START}
-        divisionGradient={activeDivisionUi.gradient}
       />
     </RevealSection>
   );

@@ -1,8 +1,8 @@
 import { NEWS_ARTICLES } from "../../data/news";
 import { SECTION_HEADER_REVEAL_COUNT } from "../../lib/revealOffsets";
-import { SECTION_FOOTER_CLASS } from "../../styles/sectionClasses";
+import { SectionFooterReveal } from "../SectionFooterReveal";
 import { SectionHeader } from "../SectionHeader";
-import { RevealItem, RevealSection } from "../reveal";
+import { RevealSection } from "../reveal";
 import { NewsGrid } from "./NewsGrid";
 
 export const NoticiasSection = (): JSX.Element => {
@@ -19,13 +19,9 @@ export const NoticiasSection = (): JSX.Element => {
 
       <NewsGrid revealStartIndex={SECTION_HEADER_REVEAL_COUNT} />
 
-      <RevealItem
-        as="p"
-        index={footerRevealIndex}
-        className={SECTION_FOOTER_CLASS}
-      >
+      <SectionFooterReveal index={footerRevealIndex}>
         Más actualizaciones en nuestras redes sociales.
-      </RevealItem>
+      </SectionFooterReveal>
     </RevealSection>
   );
 };

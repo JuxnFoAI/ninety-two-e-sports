@@ -5,7 +5,7 @@ import type {
   AccessibilityViewport,
   ColorBlindMode,
 } from "../types";
-import { useAccessibility } from "../useAccessibility";
+import { useAccessibility } from "../accessibilityContext";
 import { AccessibilityResetButton } from "./AccessibilityResetButton";
 
 const OPTION_ROW_CLASS =

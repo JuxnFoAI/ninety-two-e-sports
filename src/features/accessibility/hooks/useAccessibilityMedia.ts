@@ -1,6 +1,6 @@
 import { usePrefersReducedMotion } from "@/shared/hooks";
 
-import { useAccessibility } from "../useAccessibility";
+import { useAccessibility } from "../accessibilityContext";
 
 /** System preference OR user-enabled reduced motion from accessibility settings. */
 export const useEffectiveReducedMotion = (): boolean => {

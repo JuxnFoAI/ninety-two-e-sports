@@ -1,11 +1,13 @@
 import { ABOUT_IMAGES } from "../../data/about";
 import type { AboutImage } from "../../data/about";
+import {
+  MEDIA_FRAME_INNER_CLASS,
+  MEDIA_FRAME_OVERLAY_CLASS,
+} from "../../styles/mediaFrameStyles";
 import { RevealItem } from "../reveal";
 import {
   ABOUT_GALLERY_CLASS,
   ABOUT_IMAGE_FRAME_CLASS,
-  ABOUT_IMAGE_INNER_CLASS,
-  ABOUT_IMAGE_OVERLAY_CLASS,
   getAboutImageClass,
 } from "./aboutGalleryStyles";
 
@@ -23,8 +25,8 @@ const AboutImageCard = ({
   revealIndex,
 }: AboutImageCardProps): JSX.Element => (
   <RevealItem as="div" index={revealIndex} className={ABOUT_IMAGE_FRAME_CLASS}>
-    <div className={ABOUT_IMAGE_INNER_CLASS}>
-      <div className={ABOUT_IMAGE_OVERLAY_CLASS} aria-hidden />
+    <div className={MEDIA_FRAME_INNER_CLASS}>
+      <div className={MEDIA_FRAME_OVERLAY_CLASS} aria-hidden />
       <img
         src={image.src}
         alt={image.alt}

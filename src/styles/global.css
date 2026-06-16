@@ -11,6 +11,7 @@
   --header-height: 4.5rem;
   --font-orbitron: "Orbitron", system-ui, sans-serif;
   --font-rajdhani: "Rajdhani", system-ui, sans-serif;
+  --font-lexend: "Lexend", system-ui, sans-serif;
 }
 
 @media (min-width: 1024px) {

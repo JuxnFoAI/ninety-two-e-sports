@@ -1,5 +1,5 @@
 /** Builds a privacy-enhanced YouTube embed URL. */
-export interface YoutubeEmbedOptions {
+interface YoutubeEmbedOptions {
   captions?: boolean;
 }
 

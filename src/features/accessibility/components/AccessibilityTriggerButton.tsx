@@ -1,4 +1,4 @@
-import { useAccessibility } from "../useAccessibility";
+import { useAccessibility } from "../accessibilityContext";
 import { AccessibilityIcon } from "./AccessibilityIcon";
 
 const TRIGGER_CLASS =

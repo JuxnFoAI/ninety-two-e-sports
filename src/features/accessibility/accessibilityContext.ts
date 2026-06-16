@@ -6,7 +6,7 @@ import type {
   ColorBlindMode,
 } from "./types";
 
-export interface AccessibilityContextValue {
+interface AccessibilityContextValue {
   settings: AccessibilitySettings;
   panelLabel: string;
   setBoolean: (key: AccessibilityBooleanKey, value: boolean) => void;
@@ -17,11 +17,11 @@ export interface AccessibilityContextValue {
 export const AccessibilityContext =
   createContext<AccessibilityContextValue | null>(null);
 
-export const useAccessibilityContext = (): AccessibilityContextValue => {
+export const useAccessibility = (): AccessibilityContextValue => {
   const context = useContext(AccessibilityContext);
   if (!context) {
     throw new Error(
-      "useAccessibilityContext must be used within AccessibilityProvider",
+      "useAccessibility must be used within AccessibilityProvider",
     );
   }
 

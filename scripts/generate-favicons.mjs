@@ -27,11 +27,62 @@ const ICON_SPECS = [
 const APPLE_TOUCH_ICON = { name: "apple-touch-icon.png", size: 180 };
 
 const BLACK_BACKGROUND = { r: 0, g: 0, b: 0, alpha: 1 };
+const CONTENT_PADDING_RATIO = 0.04;
+
+const getContentBounds = async (input) => {
+  const { data, info } = await sharp(input)
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+
+  let minX = info.width;
+  let minY = info.height;
+  let maxX = 0;
+  let maxY = 0;
+
+  for (let y = 0; y < info.height; y++) {
+    for (let x = 0; x < info.width; x++) {
+      const i = (y * info.width + x) * info.channels;
+      const r = data[i];
+      const g = data[i + 1];
+      const b = data[i + 2];
+      const a = data[i + 3];
+
+      if (a > 10 && (r > 20 || g > 20 || b > 20)) {
+        minX = Math.min(minX, x);
+        maxX = Math.max(maxX, x);
+        minY = Math.min(minY, y);
+        maxY = Math.max(maxY, y);
+      }
+    }
+  }
+
+  if (maxX < minX || maxY < minY) {
+    return { left: 0, top: 0, width: info.width, height: info.height };
+  }
+
+  const padX = Math.round((maxX - minX + 1) * CONTENT_PADDING_RATIO);
+  const padY = Math.round((maxY - minY + 1) * CONTENT_PADDING_RATIO);
+  const left = Math.max(0, minX - padX);
+  const top = Math.max(0, minY - padY);
+  const right = Math.min(info.width - 1, maxX + padX);
+  const bottom = Math.min(info.height - 1, maxY + padY);
+
+  return {
+    left,
+    top,
+    width: right - left + 1,
+    height: bottom - top + 1,
+  };
+};
+
+const logoBounds = await getContentBounds(sourceLogo);
 
 const renderIcon = async (size, outputPath) => {
   await sharp(sourceLogo)
+    .extract(logoBounds)
     .resize(size, size, {
-      fit: "contain",
+      fit: "cover",
       background: BLACK_BACKGROUND,
     })
     .png({ compressionLevel: 9 })

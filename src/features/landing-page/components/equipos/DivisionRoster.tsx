@@ -5,17 +5,15 @@ import { PilotCard } from "./PilotCard";
 interface DivisionRosterProps {
   division: DivisionRosterData;
   revealStartIndex: number;
-  divisionGradient: string;
   animatedKey: string;
 }
 
 export const DivisionRoster = ({
   division,
   revealStartIndex,
-  divisionGradient,
   animatedKey,
 }: DivisionRosterProps): JSX.Element => {
-  const { title, leaderLabel, leader, pilots } = division;
+  const { badgeLabel, leaderLabel, leader, pilots, gradient } = division;
   const roster = [leader, ...pilots];
 
   return (
@@ -31,9 +29,9 @@ export const DivisionRoster = ({
         <span className="h-px flex-1 bg-gradient-to-r from-transparent to-white/35" />
         <span
           className="inline-flex rounded-full border border-white/20 px-3 py-1 font-[var(--font-orbitron)] text-[0.68rem] font-semibold uppercase tracking-[0.17em] text-white"
-          style={{ backgroundImage: divisionGradient }}
+          style={{ backgroundImage: gradient }}
         >
-          {title}
+          {badgeLabel}
         </span>
         <span className="h-px flex-1 bg-gradient-to-l from-transparent to-white/35" />
       </RevealItem>

@@ -26,6 +26,9 @@ export interface DivisionRoster {
   id: DivisionId;
   title: string;
   leaderLabel: string;
+  buttonLabel: string;
+  badgeLabel: string;
+  gradient: string;
   leader: Pilot;
   pilots: Pilot[];
 }

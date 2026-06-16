@@ -55,7 +55,7 @@ html[data-a11y-focus="true"] :focus-visible {
 /* ── Cognitive ────────────────────────────────────────────────────────────── */
 
 html[data-a11y-dyslexia-font="true"] {
-  font-family: "Lexend", system-ui, sans-serif;
+  font-family: var(--font-lexend);
   letter-spacing: 0.04em;
   word-spacing: 0.06em;
   line-height: 1.75;
