@@ -8,10 +8,6 @@ const readViewportWidth = (): number =>
 export const isInAppBrowser = (): boolean =>
   IN_APP_BROWSER_PATTERN.test(navigator.userAgent);
 
-/** True when the page runs inside Instagram's in-app browser. */
-export const isInstagramBrowser = (): boolean =>
-  /Instagram|IABMV\/1/i.test(navigator.userAgent);
-
 /**
  * In-app browsers often report a desktop layout width while the visible area
  * stays phone-sized. Force the mobile layout only in those environments.
@@ -32,10 +28,6 @@ export const shouldForceMobileLayout = (): boolean => {
 export const initInAppBrowserClass = (): void => {
   if (isInAppBrowser()) {
     document.documentElement.classList.add("in-app-browser");
-
-    if (isInstagramBrowser()) {
-      document.documentElement.classList.add("instagram-browser");
-    }
   }
 
   if (shouldForceMobileLayout()) {

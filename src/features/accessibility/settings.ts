@@ -4,8 +4,6 @@ import type {
   ColorBlindMode,
 } from "./types";
 
-export const ACCESSIBILITY_STORAGE_KEY = "n2-a11y-settings";
-
 export const DEFAULT_ACCESSIBILITY_SETTINGS: AccessibilitySettings = {
   increaseTextSize: false,
   colorBlindMode: "off",

@@ -1,5 +1,4 @@
 export { useAnimationLoop } from "./useAnimationLoop";
-export { DESKTOP_UI_MEDIA_QUERY, useDesktopUi } from "./useDesktopUi";
 export { useHorizontalDragScroll } from "./useHorizontalDragScroll";
 export { useIntersectionReveal } from "./useIntersectionReveal";
 export { useMediaQuery } from "./useMediaQuery";

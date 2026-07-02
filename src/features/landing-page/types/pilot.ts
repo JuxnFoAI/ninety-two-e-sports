@@ -12,9 +12,7 @@ export interface PilotPhotoFit {
 export interface Pilot {
   id: string;
   alias: string;
-  realName: string;
   country: string;
-  countryFlag: string;
   role: string;
   /** URL del import desde `assets/` (alias `@assets`). Opcional hasta tener la foto. */
   photo?: string;

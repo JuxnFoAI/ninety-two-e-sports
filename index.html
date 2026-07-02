@@ -16,9 +16,6 @@
 
         if (isInApp) {
           document.documentElement.classList.add("in-app-browser");
-          if (/Instagram|IABMV\/1/i.test(ua)) {
-            document.documentElement.classList.add("instagram-browser");
-          }
 
           var viewportMeta = document.querySelector('meta[name="viewport"]');
           if (viewportMeta) {
@@ -59,14 +56,9 @@
 
         function syncViewportMetrics() {
           var height = readViewportHeight();
-          var width = readViewportWidth();
           document.documentElement.style.setProperty(
             "--app-vh",
             height * 0.01 + "px",
-          );
-          document.documentElement.style.setProperty(
-            "--app-vw",
-            width * 0.01 + "px",
           );
         }
 

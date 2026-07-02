@@ -1,7 +1,7 @@
 import gts92Photo from "@assets/quienes-somos/gts92.png";
 import equipoGts92Photo from "@assets/quienes-somos/equipo-gts92.jpg";
 
-export interface AboutParagraph {
+interface AboutParagraph {
   id: string;
   text: string;
 }

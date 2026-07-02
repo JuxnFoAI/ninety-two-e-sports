@@ -27,7 +27,41 @@ const ICON_SPECS = [
 const APPLE_TOUCH_ICON = { name: "apple-touch-icon.png", size: 180 };
 
 const BLACK_BACKGROUND = { r: 0, g: 0, b: 0, alpha: 1 };
-const CONTENT_PADDING_RATIO = 0.04;
+const TRANSPARENT_BACKGROUND = { r: 0, g: 0, b: 0, alpha: 0 };
+const CONTENT_PADDING_RATIO = 0.1;
+const ICON_INSET_RATIO = 0.1;
+const BACKGROUND_KEY_THRESHOLD = 20;
+
+const makeLogoTransparent = async (input) => {
+  const { data, info } = await sharp(input)
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+
+  for (let i = 0; i < data.length; i += info.channels) {
+    const r = data[i];
+    const g = data[i + 1];
+    const b = data[i + 2];
+
+    if (
+      r <= BACKGROUND_KEY_THRESHOLD &&
+      g <= BACKGROUND_KEY_THRESHOLD &&
+      b <= BACKGROUND_KEY_THRESHOLD
+    ) {
+      data[i + 3] = 0;
+    }
+  }
+
+  return sharp(data, {
+    raw: {
+      width: info.width,
+      height: info.height,
+      channels: info.channels,
+    },
+  })
+    .png()
+    .toBuffer();
+};
 
 const getContentBounds = async (input) => {
   const { data, info } = await sharp(input)
@@ -77,14 +111,34 @@ const getContentBounds = async (input) => {
 };
 
 const logoBounds = await getContentBounds(sourceLogo);
+const transparentLogo = await makeLogoTransparent(sourceLogo);
 
-const renderIcon = async (size, outputPath) => {
-  await sharp(sourceLogo)
+const renderIcon = async (
+  size,
+  outputPath,
+  { background = TRANSPARENT_BACKGROUND } = {},
+) => {
+  const inset = Math.round(size * ICON_INSET_RATIO);
+  const innerSize = Math.max(1, size - inset * 2);
+
+  const logoBuffer = await sharp(transparentLogo)
     .extract(logoBounds)
-    .resize(size, size, {
-      fit: "cover",
-      background: BLACK_BACKGROUND,
+    .resize(innerSize, innerSize, {
+      fit: "contain",
+      background: TRANSPARENT_BACKGROUND,
     })
+    .png()
+    .toBuffer();
+
+  await sharp({
+    create: {
+      width: size,
+      height: size,
+      channels: 4,
+      background,
+    },
+  })
+    .composite([{ input: logoBuffer, gravity: "center" }])
     .png({ compressionLevel: 9 })
     .toFile(outputPath);
 };
@@ -97,7 +151,13 @@ for (const { name, size } of ICON_SPECS) {
 
 const favicon32 = await readFile(join(iconsDir, "favicon-32x32.png"));
 await writeFile(join(publicDir, "favicon.png"), favicon32);
-await renderIcon(APPLE_TOUCH_ICON.size, join(publicDir, APPLE_TOUCH_ICON.name));
+await renderIcon(
+  APPLE_TOUCH_ICON.size,
+  join(publicDir, APPLE_TOUCH_ICON.name),
+  {
+    background: BLACK_BACKGROUND,
+  },
+);
 
 const manifest = {
   name: "Ninety Two E-Sports",

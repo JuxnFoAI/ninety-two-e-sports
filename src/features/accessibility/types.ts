@@ -37,7 +37,7 @@ export type AccessibilityBooleanKey = {
     : never;
 }[keyof AccessibilitySettings];
 
-export interface AccessibilitySection {
+interface AccessibilitySection {
   id: string;
   title: string;
   description: string;

@@ -12,6 +12,7 @@ import orestesFilomenoPhoto from "@assets/integrantes/americanos/Orestes-filomen
 import ericFructuosoPhoto from "@assets/integrantes/europeos/eric-fructuoso.jpg";
 import federicoCerviPhoto from "@assets/integrantes/europeos/federico-cervi.jpg";
 import giorgioCorolloPhoto from "@assets/integrantes/europeos/giorgio-corollo.jpg";
+import ignasiLligadasPhoto from "@assets/integrantes/europeos/Ignasi Lligadas.jpg";
 import miroslawKravchenkoPhoto from "@assets/integrantes/europeos/miroslaw.jpg";
 import nicholasFontanaPhoto from "@assets/integrantes/europeos/nicholas-fontana.jpg";
 import kevinFernandezPhoto from "@assets/integrantes/europeos/kevin-fernandez.jpg";
@@ -36,9 +37,7 @@ export const DIVISION_ROSTERS: readonly DivisionRoster[] = [
     leader: {
       id: "eu-leader",
       alias: "MARIO SOLER",
-      realName: "Mario Soler",
       country: "ESPAÑA",
-      countryFlag: "🇪🇸",
       role: "LÍDER DIVISIÓN EUROPEA",
       photo: marioSolerPhoto,
     },
@@ -46,9 +45,7 @@ export const DIVISION_ROSTERS: readonly DivisionRoster[] = [
       {
         id: "eu-1",
         alias: "NICHOLAS FONTANA",
-        realName: "Nicholas Fontana",
         country: "ITALIA",
-        countryFlag: "🇮🇹",
         role: "SNIPER",
         photo: nicholasFontanaPhoto,
         photoFit: {
@@ -60,9 +57,7 @@ export const DIVISION_ROSTERS: readonly DivisionRoster[] = [
       {
         id: "eu-2",
         alias: "GIORGIO COROLLO",
-        realName: "Giorgio Corollo",
         country: "ITALIA",
-        countryFlag: "🇮🇹",
         role: "ENTRY",
         photo: giorgioCorolloPhoto,
         photoFit: {
@@ -73,9 +68,7 @@ export const DIVISION_ROSTERS: readonly DivisionRoster[] = [
       {
         id: "eu-3",
         alias: "MIROSLAW KRAVCHENKO",
-        realName: "Miroslaw Kravchenko",
         country: "ALEMANIA",
-        countryFlag: "🇩🇪",
         role: "SUPPORT",
         photo: miroslawKravchenkoPhoto,
         photoFit: {
@@ -86,9 +79,7 @@ export const DIVISION_ROSTERS: readonly DivisionRoster[] = [
       {
         id: "eu-4",
         alias: "FEDERICO CERVI",
-        realName: "Federico Cervi",
         country: "ITALIA",
-        countryFlag: "🇮🇹",
         role: "FLEX",
         photo: federicoCerviPhoto,
         photoFit: {
@@ -99,18 +90,14 @@ export const DIVISION_ROSTERS: readonly DivisionRoster[] = [
       {
         id: "eu-5",
         alias: "SAMUEL MORENO",
-        realName: "Samuel Moreno",
         country: "ESPAÑA",
-        countryFlag: "🇪🇸",
         role: "FLEX",
         photo: samuelMorenoPhoto,
       },
       {
         id: "eu-6",
         alias: "ERIC FRUCTUOSO",
-        realName: "Eric Fructuoso",
         country: "ESPAÑA",
-        countryFlag: "🇪🇸",
         role: "FLEX",
         photo: ericFructuosoPhoto,
         photoFit: {
@@ -121,11 +108,20 @@ export const DIVISION_ROSTERS: readonly DivisionRoster[] = [
       {
         id: "eu-7",
         alias: "KEVIN FERNANDEZ",
-        realName: "Kevin Fernandez",
         country: "ESPAÑA",
-        countryFlag: "🇪🇸",
         role: "FLEX",
         photo: kevinFernandezPhoto,
+      },
+      {
+        id: "eu-8",
+        alias: "IGNASI LLIGADAS",
+        country: "ESPAÑA",
+        role: "FLEX",
+        photo: ignasiLligadasPhoto,
+        photoFit: {
+          position: "center 50%",
+          scale: 1,
+        },
       },
     ],
   },
@@ -139,9 +135,7 @@ export const DIVISION_ROSTERS: readonly DivisionRoster[] = [
     leader: {
       id: "am-leader",
       alias: "NILTON GRAJALES",
-      realName: "Nilton Grajales",
       country: "COLOMBIA",
-      countryFlag: "🇨🇴",
       role: "LIDER DIVISIÓN AMERICANA",
       photo: niltonGrajalesPhoto,
     },
@@ -149,18 +143,14 @@ export const DIVISION_ROSTERS: readonly DivisionRoster[] = [
       {
         id: "am-1",
         alias: "DANIEL AVILA",
-        realName: "Daniel Avila",
         country: "COLOMBIA",
-        countryFlag: "🇨🇴",
         role: "ENTRY",
         photo: danielAvilaPhoto,
       },
       {
         id: "am-2",
         alias: "MATEO ESTEVEZ",
-        realName: "Mateo Estevez",
         country: "ARGENTINA",
-        countryFlag: "🇦🇷",
         role: "SNIPER",
         photo: mateoEstevezPhoto,
         photoFit: {
@@ -171,27 +161,21 @@ export const DIVISION_ROSTERS: readonly DivisionRoster[] = [
       {
         id: "am-3",
         alias: "CARLOS AGUILAR",
-        realName: "Carlos Aguilar",
         country: "GUATEMALA",
-        countryFlag: "🇬🇹",
         role: "SUPPORT",
         photo: carlosAguilarPhoto,
       },
       {
         id: "am-4",
         alias: "JOAO PESSOA",
-        realName: "Joao Pessoa",
         country: "BRASIL",
-        countryFlag: "🇧🇷",
         role: "AWPER",
         photo: joaoPessoaPhoto,
       },
       {
         id: "am-5",
         alias: "ORESTES FILOMENO",
-        realName: "Orestes Filomeno",
         country: "COLOMBIA",
-        countryFlag: "🇨🇴",
         role: "FLEX",
         photo: orestesFilomenoPhoto,
         photoFit: {
@@ -202,9 +186,7 @@ export const DIVISION_ROSTERS: readonly DivisionRoster[] = [
       {
         id: "am-6",
         alias: "ARNOLDO DAETZ",
-        realName: "Arnoldo Daetz",
         country: "GUATEMALA",
-        countryFlag: "🇬🇹",
         role: "FLEX",
         photo: ardaetzPhoto,
         photoFit: {
@@ -215,18 +197,14 @@ export const DIVISION_ROSTERS: readonly DivisionRoster[] = [
       {
         id: "am-7",
         alias: "FRANCISCO CAMPOS",
-        realName: "Francisco Campos",
         country: "MÉXICO",
-        countryFlag: "🇲🇽",
         role: "FLEX",
         photo: franciscoJavierPhoto,
       },
       {
         id: "am-8",
         alias: "BERNAL VALVERDE",
-        realName: "Bernal Valverde",
         country: "COSTA RICA",
-        countryFlag: "🇨🇷",
         role: "FLEX",
         photo: bernalValverdePhoto,
         photoFit: {
@@ -237,9 +215,7 @@ export const DIVISION_ROSTERS: readonly DivisionRoster[] = [
       {
         id: "am-9",
         alias: "JOSHUA RODRIGUEZ",
-        realName: "Joshua Rodriguez",
         country: "VENEZUELA",
-        countryFlag: "🇻🇪",
         role: "FLEX",
         photo: joshuaRodriguezPhoto,
         photoFit: {
@@ -250,9 +226,7 @@ export const DIVISION_ROSTERS: readonly DivisionRoster[] = [
       {
         id: "am-10",
         alias: "NICOLAS SAAVEDRA",
-        realName: "Nicolas Saavedra",
         country: "ARGENTINA",
-        countryFlag: "🇦🇷",
         role: "FLEX",
         photo: nicolasSaavedraPhoto,
         photoFit: {
@@ -263,9 +237,7 @@ export const DIVISION_ROSTERS: readonly DivisionRoster[] = [
       {
         id: "am-11",
         alias: "JUAN JOSÉ",
-        realName: "Juan José",
         country: "COLOMBIA",
-        countryFlag: "🇨🇴",
         role: "FLEX",
         photo: juanJosePhoto,
         photoFit: {

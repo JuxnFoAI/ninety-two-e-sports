@@ -2,7 +2,7 @@ import type { NewsArticle } from "../../types/news";
 import { NewsCompanionGallery } from "./NewsCompanionGallery";
 import { NewsStoryContent } from "./NewsStoryContent";
 import { NewsStoryShell } from "./NewsStoryShell";
-import { getNewsStoryGridModifier } from "./newsStoryLayout";
+import { getNewsStoryGridClassName } from "./newsStoryLayout";
 import { PilotPortrait } from "./PilotPortrait";
 import "./newsStory.css";
 
@@ -20,13 +20,14 @@ export const NewsCard = ({ article, index }: NewsCardProps): JSX.Element => {
     portraitScale,
     companionImages,
     href,
+    layout = "default",
   } = article;
-  const gridModifier = getNewsStoryGridModifier(index);
+  const gridClassName = getNewsStoryGridClassName(index, layout);
   const companions = companionImages ?? [];
 
   return (
     <NewsStoryShell storyId={id} href={href}>
-      <div className={`news-story-grid ${gridModifier}`.trim()}>
+      <div className={gridClassName}>
         <PilotPortrait
           image={image}
           imageAlt={imageAlt}

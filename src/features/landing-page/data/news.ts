@@ -1,5 +1,7 @@
 import bmwPhoto from "@assets/noticias/bmw.jpg";
+import campeonesPhoto from "@assets/noticias/campeones.jpg";
 import espanaPhoto from "@assets/noticias/espana.jpg";
+import ignasiLligadasFichajePhoto from "@assets/noticias/Ignasi Lligadas-fichaje.jpg";
 import joaoPessoaPhoto from "@assets/noticias/JoaoPessoa.png";
 import lamborghiniPhoto from "@assets/noticias/lamborghini.jpg";
 import mateoEstevezPhoto from "@assets/noticias/MateoEstevez.png";
@@ -11,6 +13,37 @@ import volkswagenPhoto from "@assets/noticias/Wolksvagen.jpg";
 import type { NewsArticle } from "../types/news";
 
 export const NEWS_ARTICLES: readonly NewsArticle[] = [
+  {
+    id: "ignasi-lligadas-fichaje",
+    title: "Bienvenido Ignasi Lligadas",
+    excerpt:
+      "Tenemos el honor de anunciar la entrada al equipo de uno de los pilotos españoles con mayor proyección y velocidad de la actualidad, gran piloto de karting y sin duda un contendiente a futuro en la GT World Series",
+    image: ignasiLligadasFichajePhoto,
+    imageAlt: "Ignasi Lligadas",
+    layout: "feature",
+    portraitFocus: "center 38%",
+    portraitScale: 1.08,
+  },
+  {
+    id: "campeones-infinity-g-series",
+    title: "Campeones del evento INFINITY G SERIES",
+    excerpt:
+      "Tras años compitiendo mano a mano contra los mejores del mundo, terminamos siendo campeones en una temporada histórica donde logramos llevarnos el título incluso con una carrera de antelación ante los mejores equipos de Europa.",
+    image: campeonesPhoto,
+    imageAlt: "Ninety Two campeones INFINITY G SERIES",
+    layout: "feature",
+    creditsTitle: "GRACIAS",
+    credits: [
+      "Joao Pessoa",
+      "Federico Cervi",
+      "Nicholas Fontana",
+      "Samuel Moreno",
+      "Mateo Estevez",
+      "Antonio Santos",
+      "Bryant Marconi",
+      "Mario Soler",
+    ],
+  },
   {
     id: "joao-pessoa-volkswagen-singapur",
     title: "Joao Pessoa debuta con Volkswagen en Singapur",

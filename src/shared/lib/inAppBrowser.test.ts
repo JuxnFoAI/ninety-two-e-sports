@@ -1,10 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 
-import {
-  isInAppBrowser,
-  isInstagramBrowser,
-  shouldForceMobileLayout,
-} from "./inAppBrowser";
+import { isInAppBrowser, shouldForceMobileLayout } from "./inAppBrowser";
 
 describe("inAppBrowser", () => {
   it("detects Instagram user agents", () => {
@@ -18,7 +14,6 @@ describe("inAppBrowser", () => {
       visualViewport: { width: 390, height: 844 },
     });
 
-    expect(isInstagramBrowser()).toBe(true);
     expect(isInAppBrowser()).toBe(true);
     expect(shouldForceMobileLayout()).toBe(true);
   });
@@ -34,7 +29,6 @@ describe("inAppBrowser", () => {
       visualViewport: { width: 412, height: 892 },
     });
 
-    expect(isInstagramBrowser()).toBe(true);
     expect(isInAppBrowser()).toBe(true);
   });
 
@@ -49,7 +43,6 @@ describe("inAppBrowser", () => {
       visualViewport: { width: 390, height: 844 },
     });
 
-    expect(isInstagramBrowser()).toBe(false);
     expect(isInAppBrowser()).toBe(false);
     expect(shouldForceMobileLayout()).toBe(false);
   });

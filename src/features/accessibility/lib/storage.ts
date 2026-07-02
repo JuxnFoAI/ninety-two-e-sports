@@ -1,8 +1,7 @@
-import {
-  ACCESSIBILITY_STORAGE_KEY,
-  DEFAULT_ACCESSIBILITY_SETTINGS,
-} from "../settings";
+import { DEFAULT_ACCESSIBILITY_SETTINGS } from "../settings";
 import type { AccessibilitySettings } from "../types";
+
+const ACCESSIBILITY_STORAGE_KEY = "n2-a11y-settings";
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === "object" && value !== null;

@@ -12,7 +12,6 @@ const BOOLEAN_ATTRIBUTES: ReadonlyArray<{
   { setting: "readingMode", attribute: "data-a11y-reading" },
   { setting: "dyslexiaFriendlyFont", attribute: "data-a11y-dyslexia-font" },
   { setting: "underlineLinks", attribute: "data-a11y-underline-links" },
-  { setting: "emphasizeCaptions", attribute: "data-a11y-captions" },
 ];
 
 /** Applies accessibility settings as `data-a11y-*` attributes on `<html>`. */
