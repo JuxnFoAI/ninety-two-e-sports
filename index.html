@@ -4,8 +4,81 @@
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content"
     />
+    <script>
+      (function () {
+        var ua = navigator.userAgent || "";
+        var isInApp =
+          /Instagram|FBAN|FBAV|FB_IAB|IABMV\/1|Twitter|Line\/|TikTok|Snapchat|Pinterest/i.test(
+            ua,
+          );
+
+        if (isInApp) {
+          document.documentElement.classList.add("in-app-browser");
+          if (/Instagram|IABMV\/1/i.test(ua)) {
+            document.documentElement.classList.add("instagram-browser");
+          }
+
+          var viewportMeta = document.querySelector('meta[name="viewport"]');
+          if (viewportMeta) {
+            viewportMeta.setAttribute(
+              "content",
+              "width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover, interactive-widget=resizes-content",
+            );
+          }
+        }
+
+        function readViewportWidth() {
+          return window.visualViewport
+            ? window.visualViewport.width
+            : window.innerWidth;
+        }
+
+        function readViewportHeight() {
+          return window.visualViewport
+            ? window.visualViewport.height
+            : window.innerHeight;
+        }
+
+        function shouldForceMobile() {
+          if (isInApp) {
+            return true;
+          }
+
+          var layoutWidth = window.innerWidth;
+          var visualWidth = readViewportWidth();
+          var coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+
+          return coarsePointer && layoutWidth > visualWidth + 1;
+        }
+
+        if (shouldForceMobile()) {
+          document.documentElement.setAttribute("data-force-mobile", "true");
+        }
+
+        function syncViewportMetrics() {
+          var height = readViewportHeight();
+          var width = readViewportWidth();
+          document.documentElement.style.setProperty(
+            "--app-vh",
+            height * 0.01 + "px",
+          );
+          document.documentElement.style.setProperty(
+            "--app-vw",
+            width * 0.01 + "px",
+          );
+        }
+
+        syncViewportMetrics();
+        if (window.visualViewport) {
+          window.visualViewport.addEventListener("resize", syncViewportMetrics);
+          window.visualViewport.addEventListener("scroll", syncViewportMetrics);
+        }
+        window.addEventListener("resize", syncViewportMetrics);
+        window.addEventListener("orientationchange", syncViewportMetrics);
+      })();
+    </script>
     <meta
       name="description"
       content="Ninety Two E-Sports — organización de simracing. Equipos, noticias, torneos y patrocinadores."

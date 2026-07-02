@@ -5,7 +5,7 @@ export const Hero = (): JSX.Element => {
   return (
     <section
       id="inicio"
-      className="relative flex min-h-dvh flex-col items-center justify-center px-[clamp(1rem,4vw,4rem)] pb-[clamp(2.5rem,8vh,4rem)] pt-[calc(var(--header-height)+clamp(2rem,8vh,4rem))] text-center"
+      className="relative flex min-h-app-screen flex-col items-center justify-center px-[clamp(1rem,4vw,4rem)] pb-[clamp(2.5rem,8vh,4rem)] pt-[calc(var(--header-height)+clamp(2rem,8vh,4rem))] text-center"
       aria-labelledby="hero-title"
     >
       <div className="w-full max-w-3xl">

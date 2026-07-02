@@ -21,10 +21,10 @@ const TOGGLE_CLASS =
   "mt-2 w-full rounded-md border border-white/12 bg-white/[0.04] px-3 py-2 text-[0.62rem] font-medium uppercase tracking-[0.16em] text-white/70 transition-colors duration-200 hover:border-white/25 hover:bg-white/[0.08] hover:text-white focus-visible:border-white/25 focus-visible:bg-white/[0.08] focus-visible:text-white";
 
 const DESKTOP_OVERLAY_CLASS =
-  "pointer-events-none absolute inset-0 z-10 hidden flex-col overflow-y-auto bg-gradient-to-b from-black/94 via-black/97 to-black p-4 opacity-0 backdrop-blur-sm transition-[opacity,visibility] duration-300 invisible sm:p-5 lg:flex lg:group-hover:pointer-events-auto lg:group-hover:opacity-100 lg:group-hover:visible lg:group-focus-within:pointer-events-auto lg:group-focus-within:opacity-100 lg:group-focus-within:visible";
+  "sponsor-desktop-overlay pointer-events-none absolute inset-0 z-10 hidden flex-col overflow-y-auto bg-gradient-to-b from-black/94 via-black/97 to-black p-4 opacity-0 backdrop-blur-sm transition-[opacity,visibility] duration-300 invisible sm:p-5 lg:flex lg:group-hover:pointer-events-auto lg:group-hover:opacity-100 lg:group-hover:visible lg:group-focus-within:pointer-events-auto lg:group-focus-within:opacity-100 lg:group-focus-within:visible";
 
 const MOBILE_DETAIL_CLASS =
-  "border-t border-white/10 bg-black/40 px-4 py-4 sm:px-5 sm:py-5";
+  "sponsor-mobile-detail border-t border-white/10 bg-black/40 px-4 py-4 sm:px-5 sm:py-5";
 
 export const SponsorCard = ({ sponsor }: SponsorCardProps): JSX.Element => {
   const { id, name, logo, detail } = sponsor;
@@ -86,7 +86,7 @@ export const SponsorCard = ({ sponsor }: SponsorCardProps): JSX.Element => {
         {detail ? (
           <button
             type="button"
-            className={`${TOGGLE_CLASS} lg:hidden`}
+            className={`${TOGGLE_CLASS} sponsor-mobile-toggle lg:hidden`}
             aria-expanded={mobileDetailOpen}
             aria-controls={`${id}-detail`}
             onClick={() => setMobileDetailOpen((open) => !open)}

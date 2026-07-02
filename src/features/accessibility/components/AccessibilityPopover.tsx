@@ -45,7 +45,7 @@ export const AccessibilityPopover = ({
   }, [open, onOpenChange]);
 
   return (
-    <div ref={containerRef} className="relative hidden lg:block">
+    <div ref={containerRef} className="relative hidden desktop-ui:block" data-desktop-only="true">
       <AccessibilityTriggerButton
         expanded={open}
         controls={open ? panelId : undefined}

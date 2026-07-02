@@ -10,8 +10,10 @@ import {
 } from "@/features/accessibility";
 import { useMediaQuery } from "@/shared/hooks";
 
-const DESKTOP_MEDIA_QUERY = "(min-width: 48rem)";
-const BACKGROUND_MEDIA_CLASS = "h-full w-full scale-[1.02] object-cover";
+const DESKTOP_BACKGROUND_MEDIA_QUERY =
+  "(min-width: 48rem) and (hover: hover) and (pointer: fine)";
+const BACKGROUND_MEDIA_CLASS =
+  "site-background-media h-full w-full object-cover desktop-ui:scale-[1.02]";
 
 const BackgroundOverlays = (): JSX.Element => (
   <>
@@ -32,9 +34,9 @@ export const BackgroundVideo = (): JSX.Element => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const prefersReducedMotion = useEffectiveReducedMotion();
   const backgroundMediaEnabled = useBackgroundMediaEnabled();
-  const isDesktop = useMediaQuery(DESKTOP_MEDIA_QUERY);
+  const isDesktopBackground = useMediaQuery(DESKTOP_BACKGROUND_MEDIA_QUERY);
   const showVideo =
-    isDesktop && !prefersReducedMotion && backgroundMediaEnabled;
+    isDesktopBackground && !prefersReducedMotion && backgroundMediaEnabled;
 
   useEffect(() => {
     const video = videoRef.current;
@@ -48,7 +50,7 @@ export const BackgroundVideo = (): JSX.Element => {
 
   return (
     <div
-      className={`pointer-events-none fixed inset-0 z-0 overflow-hidden bg-black ${A11Y_COLOR_FILTER_LAYER_CLASS}`}
+      className={`site-background pointer-events-none fixed inset-0 z-0 overflow-hidden bg-black ${A11Y_COLOR_FILTER_LAYER_CLASS}`}
       aria-hidden="true"
     >
       {showVideo ? (

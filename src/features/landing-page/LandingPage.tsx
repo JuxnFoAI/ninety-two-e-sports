@@ -10,12 +10,12 @@ export const LandingPage = (): JSX.Element => {
   const prefersReducedMotion = useEffectiveReducedMotion();
 
   return (
-    <div className="relative min-h-dvh overflow-x-clip text-white">
+    <div className="relative min-h-app-screen overflow-x-clip text-white">
       <SkipToMainLink />
       <BackgroundVideo />
 
       <div
-        className={`${A11Y_COLOR_FILTER_LAYER_CLASS} relative z-10 flex min-h-dvh flex-col ${
+        className={`${A11Y_COLOR_FILTER_LAYER_CLASS} relative z-10 flex min-h-app-screen flex-col ${
           prefersReducedMotion
             ? ""
             : "motion-safe:animate-[fadeIn_1s_ease_both] motion-safe:[animation-delay:60ms]"

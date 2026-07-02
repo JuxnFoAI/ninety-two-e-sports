@@ -1,0 +1,98 @@
+/**
+ * Overrides for social in-app browsers (Instagram, Facebook, etc.).
+ * Uses attribute selectors so layout stays mobile even when width media queries lie.
+ */
+
+html.in-app-browser,
+html[data-force-mobile="true"] {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden !important;
+}
+
+html.in-app-browser body,
+html[data-force-mobile="true"] body,
+html.in-app-browser #root,
+html[data-force-mobile="true"] #root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden !important;
+}
+
+html.in-app-browser :root,
+html[data-force-mobile="true"] :root {
+  --header-height: 4.5rem;
+}
+
+/* Navbar: always use mobile shell in in-app browsers */
+html.in-app-browser header nav[aria-label="Principal"],
+html[data-force-mobile="true"] header nav[aria-label="Principal"] {
+  display: none !important;
+}
+
+html.in-app-browser header button[aria-controls="mobile-nav"],
+html[data-force-mobile="true"] header button[aria-controls="mobile-nav"] {
+  display: inline-flex !important;
+}
+
+html.in-app-browser header nav[aria-label="Principal móvil"],
+html[data-force-mobile="true"] header nav[aria-label="Principal móvil"] {
+  display: grid !important;
+}
+
+html.in-app-browser header [data-desktop-only="true"],
+html[data-force-mobile="true"] header [data-desktop-only="true"] {
+  display: none !important;
+}
+
+html.in-app-browser header [data-mobile-only="true"],
+html[data-force-mobile="true"] header [data-mobile-only="true"] {
+  display: revert !important;
+}
+
+/* Section grids: keep single-column stacks */
+html.in-app-browser .layout-stack-mobile,
+html[data-force-mobile="true"] .layout-stack-mobile {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+html.in-app-browser .layout-sponsor-grid,
+html[data-force-mobile="true"] .layout-sponsor-grid {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+@media (min-width: 520px) {
+  html.in-app-browser .layout-sponsor-grid,
+  html[data-force-mobile="true"] .layout-sponsor-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Sponsors: hide desktop hover overlay, keep mobile toggle */
+html.in-app-browser .sponsor-desktop-overlay,
+html[data-force-mobile="true"] .sponsor-desktop-overlay {
+  display: none !important;
+}
+
+html.in-app-browser .sponsor-mobile-toggle,
+html[data-force-mobile="true"] .sponsor-mobile-toggle {
+  display: inline-flex !important;
+}
+
+html.in-app-browser .sponsor-mobile-detail,
+html[data-force-mobile="true"] .sponsor-mobile-detail {
+  display: block !important;
+}
+
+/* Fixed background: reduce repaint glitches in WebViews */
+html.in-app-browser .site-background,
+html[data-force-mobile="true"] .site-background {
+  transform: translateZ(0);
+  width: 100%;
+  height: calc(var(--app-vh, 1vh) * 100);
+}
+
+html.in-app-browser .site-background-media,
+html[data-force-mobile="true"] .site-background-media {
+  transform: none !important;
+}
