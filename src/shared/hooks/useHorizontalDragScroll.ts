@@ -9,6 +9,17 @@ import {
 
 const DRAG_ACTIVATION_PX = 6;
 
+const INTERACTIVE_TARGET_SELECTOR =
+  'button, a[href], input, textarea, select, [role="button"]';
+
+const isInteractiveDragTarget = (target: EventTarget | null): boolean => {
+  if (!(target instanceof Element)) {
+    return false;
+  }
+
+  return Boolean(target.closest(INTERACTIVE_TARGET_SELECTOR));
+};
+
 type ScrollElement = HTMLElement;
 
 interface PointerDragState {
@@ -56,7 +67,7 @@ export const useHorizontalDragScroll = (
 
   const handlePointerDown = useCallback(
     (event: ReactPointerEvent<ScrollElement>) => {
-      if (!enabled || event.button !== 0) {
+      if (!enabled || event.button !== 0 || isInteractiveDragTarget(event.target)) {
         return;
       }
 
@@ -65,6 +76,7 @@ export const useHorizontalDragScroll = (
         return;
       }
 
+      didDragRef.current = false;
       dragStateRef.current = {
         pointerId: event.pointerId,
         startClientX: event.clientX,

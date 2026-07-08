@@ -41,6 +41,46 @@ export const getLatestTournamentVideo = (
 
 const TOURNAMENT_THUMB_STRIP_SELECTOR = "[data-tournament-thumb-strip]";
 
+const THUMB_STRIP_SCROLL_TOLERANCE_PX = 1;
+
+/** Whether the horizontal thumbnail strip can scroll further in either direction. */
+export const getTournamentThumbStripScrollState = (
+  strip: HTMLElement | null,
+): { canScrollPrev: boolean; canScrollNext: boolean } => {
+  if (!strip) {
+    return { canScrollPrev: false, canScrollNext: false };
+  }
+
+  const maxScrollLeft = strip.scrollWidth - strip.clientWidth;
+
+  if (maxScrollLeft <= THUMB_STRIP_SCROLL_TOLERANCE_PX) {
+    return { canScrollPrev: false, canScrollNext: false };
+  }
+
+  return {
+    canScrollPrev: strip.scrollLeft > THUMB_STRIP_SCROLL_TOLERANCE_PX,
+    canScrollNext:
+      strip.scrollLeft < maxScrollLeft - THUMB_STRIP_SCROLL_TOLERANCE_PX,
+  };
+};
+
+/** Scrolls the thumbnail strip horizontally without changing the active video. */
+export const scrollTournamentThumbStrip = (
+  strip: HTMLElement | null,
+  direction: -1 | 1,
+): void => {
+  if (!strip) {
+    return;
+  }
+
+  const step = Math.max(strip.clientWidth * 0.75, 160);
+
+  strip.scrollBy({
+    left: direction * step,
+    behavior: "smooth",
+  });
+};
+
 /** Scrolls a thumbnail into view within the horizontal strip only (never the page). */
 export const scrollTournamentThumbIntoStrip = (
   button: HTMLButtonElement | null,
