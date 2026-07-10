@@ -9,6 +9,7 @@ import juanJosePhoto from "@assets/integrantes/americanos/juan-jose.jpg";
 import mateoEstevezPhoto from "@assets/integrantes/americanos/Mateo-estevez.jpg";
 import nicolasSaavedraPhoto from "@assets/integrantes/americanos/nicolas-saavedra.jpg";
 import orestesFilomenoPhoto from "@assets/integrantes/americanos/Orestes-filomeno.jpg";
+import arieHaydarPhoto from "@assets/integrantes/europeos/Arie-Haydar.jpg";
 import ericFructuosoPhoto from "@assets/integrantes/europeos/eric-fructuoso.jpg";
 import federicoCerviPhoto from "@assets/integrantes/europeos/federico-cervi.jpg";
 import giorgioCorolloPhoto from "@assets/integrantes/europeos/giorgio-corollo.jpg";
@@ -120,6 +121,17 @@ export const DIVISION_ROSTERS: readonly DivisionRoster[] = [
         photo: ignasiLligadasPhoto,
         photoFit: {
           position: "center 50%",
+          scale: 1,
+        },
+      },
+      {
+        id: "eu-9",
+        alias: "ARIE HAYDAR",
+        country: "HOLANDA",
+        role: "FLEX",
+        photo: arieHaydarPhoto,
+        photoFit: {
+          position: "center 10%",
           scale: 1,
         },
       },

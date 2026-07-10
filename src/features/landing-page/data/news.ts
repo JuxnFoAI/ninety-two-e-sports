@@ -1,3 +1,4 @@
+import arieFichajePhoto from "@assets/noticias/Arie-fichaje.jpg";
 import bmwPhoto from "@assets/noticias/bmw.jpg";
 import campeonesPhoto from "@assets/noticias/campeones.jpg";
 import espanaPhoto from "@assets/noticias/espana.jpg";
@@ -13,6 +14,17 @@ import volkswagenPhoto from "@assets/noticias/Wolksvagen.jpg";
 import type { NewsArticle } from "../types/news";
 
 export const NEWS_ARTICLES: readonly NewsArticle[] = [
+  {
+    id: "arie-haydar-fichaje",
+    title: "Bienvenido Arie Haydar",
+    excerpt:
+      "Con múltiples récords mundiales de Gran Turismo, entra al equipo un talento internacional que busca elevar al equipo al siguiente nivel, siempre arriba en las tablas de tiempos.",
+    image: arieFichajePhoto,
+    imageAlt: "Arie Haydar",
+    layout: "feature",
+    portraitFocus: "center 38%",
+    portraitScale: 1.08,
+  },
   {
     id: "ignasi-lligadas-fichaje",
     title: "Bienvenido Ignasi Lligadas",
