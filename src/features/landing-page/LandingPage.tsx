@@ -1,13 +1,29 @@
+import { useState } from "react";
+
 import {
   A11Y_COLOR_FILTER_LAYER_CLASS,
   SkipToMainLink,
   useEffectiveReducedMotion,
 } from "@/features/accessibility";
+import { useScrollLock } from "@/shared/hooks";
 
-import { BackgroundVideo, ContentSections, Hero, Navbar } from "./components";
+import {
+  BackgroundVideo,
+  ContentSections,
+  DesignsPushNav,
+  Hero,
+  Navbar,
+} from "./components";
 
 export const LandingPage = (): JSX.Element => {
   const prefersReducedMotion = useEffectiveReducedMotion();
+  const [designsOpen, setDesignsOpen] = useState(false);
+
+  useScrollLock(designsOpen);
+
+  const pushTransition = prefersReducedMotion
+    ? ""
+    : "transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]";
 
   return (
     <div className="relative min-h-app-screen overflow-x-clip text-white">
@@ -19,12 +35,16 @@ export const LandingPage = (): JSX.Element => {
           prefersReducedMotion
             ? ""
             : "motion-safe:animate-[fadeIn_1s_ease_both] motion-safe:[animation-delay:60ms]"
-        }`}
+        } ${pushTransition}`}
+        style={{
+          transform: designsOpen ? "translateX(-100%)" : "translateX(0)",
+        }}
+        aria-hidden={designsOpen || undefined}
       >
         <Navbar />
 
         <main id="contenido-principal" tabIndex={-1}>
-          <Hero />
+          <Hero onOpenDesigns={() => setDesignsOpen(true)} />
           <ContentSections />
         </main>
 
@@ -37,6 +57,11 @@ export const LandingPage = (): JSX.Element => {
           </p>
         </footer>
       </div>
+
+      <DesignsPushNav
+        open={designsOpen}
+        onClose={() => setDesignsOpen(false)}
+      />
     </div>
   );
 };

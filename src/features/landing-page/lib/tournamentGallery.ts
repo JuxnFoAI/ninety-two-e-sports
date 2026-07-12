@@ -11,25 +11,6 @@ export const orderTournamentVideosForGalleryStrip = (
   videos: readonly TournamentVideo[],
 ): TournamentVideo[] => [...videos].sort((a, b) => b.round - a.round);
 
-export const findTournamentVideoIndex = (
-  videos: readonly TournamentVideo[],
-  videoKey: string,
-): number =>
-  videos.findIndex((video) => getTournamentVideoKey(video) === videoKey);
-
-export const getTournamentVideoByOffset = (
-  videos: readonly TournamentVideo[],
-  currentKey: string,
-  offset: number,
-): TournamentVideo | undefined => {
-  const currentIndex = findTournamentVideoIndex(videos, currentKey);
-  if (currentIndex < 0) {
-    return undefined;
-  }
-
-  return videos[currentIndex + offset];
-};
-
 /** Returns the highest-round video (leftmost / default player selection). */
 export const getLatestTournamentVideo = (
   videos: readonly TournamentVideo[],

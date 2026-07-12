@@ -1,0 +1,46 @@
+.close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.72);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.close:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.55);
+  outline-offset: 4px;
+}
+
+.icon {
+  display: block;
+  width: 1.35rem;
+  height: 1.35rem;
+  transition:
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 280ms ease;
+  will-change: transform;
+}
+
+.close:hover .icon,
+.close:focus-visible .icon {
+  color: #fff;
+  transform: rotate(90deg) scale(1.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon {
+    transition: color 180ms ease;
+  }
+
+  .close:hover .icon,
+  .close:focus-visible .icon {
+    transform: none;
+  }
+}

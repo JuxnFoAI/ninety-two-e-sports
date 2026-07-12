@@ -67,7 +67,11 @@ export const useHorizontalDragScroll = (
 
   const handlePointerDown = useCallback(
     (event: ReactPointerEvent<ScrollElement>) => {
-      if (!enabled || event.button !== 0 || isInteractiveDragTarget(event.target)) {
+      if (
+        !enabled ||
+        event.button !== 0 ||
+        isInteractiveDragTarget(event.target)
+      ) {
         return;
       }
 

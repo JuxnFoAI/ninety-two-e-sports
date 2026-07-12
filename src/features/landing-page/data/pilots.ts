@@ -10,6 +10,7 @@ import mateoEstevezPhoto from "@assets/integrantes/americanos/Mateo-estevez.jpg"
 import nicolasSaavedraPhoto from "@assets/integrantes/americanos/nicolas-saavedra.jpg";
 import orestesFilomenoPhoto from "@assets/integrantes/americanos/Orestes-filomeno.jpg";
 import arieHaydarPhoto from "@assets/integrantes/europeos/Arie-Haydar.jpg";
+import davidCeladaPhoto from "@assets/integrantes/europeos/David-Celada.jpg";
 import ericFructuosoPhoto from "@assets/integrantes/europeos/eric-fructuoso.jpg";
 import federicoCerviPhoto from "@assets/integrantes/europeos/federico-cervi.jpg";
 import giorgioCorolloPhoto from "@assets/integrantes/europeos/giorgio-corollo.jpg";
@@ -133,6 +134,17 @@ export const DIVISION_ROSTERS: readonly DivisionRoster[] = [
         photoFit: {
           position: "center 10%",
           scale: 1,
+        },
+      },
+      {
+        id: "eu-10",
+        alias: "DAVID CELADA",
+        country: "ESPAÑA",
+        role: "FLEX",
+        photo: davidCeladaPhoto,
+        photoFit: {
+          position: "center 10%",
+          scale: 1.1,
         },
       },
     ],

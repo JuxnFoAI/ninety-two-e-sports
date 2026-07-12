@@ -1,10 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  type Ref,
-} from "react";
+import { useCallback, useEffect, useRef, useState, type Ref } from "react";
 
 import { useCaptionsPreferred } from "@/features/accessibility";
 import { useHorizontalDragScroll, useMediaQuery } from "@/shared/hooks";

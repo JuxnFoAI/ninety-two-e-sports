@@ -1,7 +1,11 @@
 import { HeroCtaButton } from "./HeroCtaButton";
 import { HeroTitle } from "./HeroTitle";
 
-export const Hero = (): JSX.Element => {
+interface HeroProps {
+  onOpenDesigns: () => void;
+}
+
+export const Hero = ({ onOpenDesigns }: HeroProps): JSX.Element => {
   return (
     <section
       id="inicio"
@@ -19,8 +23,11 @@ export const Hero = (): JSX.Element => {
           Precisión en competición. Evolución en cada escenario.
         </p>
 
-        <div className="mt-8 flex justify-center sm:mt-9">
+        <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-9 sm:flex-row sm:items-center sm:gap-4">
           <HeroCtaButton href="#quienes-somos">Quiénes somos</HeroCtaButton>
+          <HeroCtaButton onClick={onOpenDesigns}>
+            Diseños del Equipo
+          </HeroCtaButton>
         </div>
       </div>
 
