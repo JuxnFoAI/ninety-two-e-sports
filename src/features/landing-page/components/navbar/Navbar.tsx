@@ -7,6 +7,7 @@ import { NavbarBrand } from "./NavbarBrand";
 import { NavbarDesktopNav } from "./NavbarLinkList";
 import { NavbarHeaderActions } from "./NavbarHeaderActions";
 import { NavbarMenuToggle } from "./NavbarMenuToggle";
+import { NavbarMobileBackdrop } from "./NavbarMobileBackdrop";
 import { NavbarMobileNav } from "./NavbarMobileNav";
 
 export const Navbar = (): JSX.Element => {
@@ -51,7 +52,9 @@ export const Navbar = (): JSX.Element => {
     <header
       className={`fixed inset-x-0 top-0 z-20 px-[clamp(1rem,4vw,4rem)] pt-[max(1.25rem,env(safe-area-inset-top))] transition-[background-color,backdrop-filter,border-color] duration-500 ease-out ${NAVBAR_ENTRANCE_CLASS} ${headerSurfaceClass}`}
     >
-      <div className="relative flex items-center justify-between gap-3 pb-4 lg:pb-6">
+      <NavbarMobileBackdrop open={menuOpen} onClose={closeMenu} />
+
+      <div className="relative z-10 flex items-center justify-between gap-3 pb-4 lg:pb-6">
         <NavbarBrand onNavigate={closeMenu} />
         <NavbarDesktopNav />
         <NavbarHeaderActions
@@ -65,6 +68,7 @@ export const Navbar = (): JSX.Element => {
       </div>
 
       <NavbarMobileNav
+        className="relative z-10"
         menuOpen={menuOpen}
         mobileAccessibilityOpen={mobileAccessibilityOpen}
         onNavigate={closeMenu}

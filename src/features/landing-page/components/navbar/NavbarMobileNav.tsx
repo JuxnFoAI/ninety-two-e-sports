@@ -3,6 +3,7 @@ import { MobileAccessibilityPanel } from "@/features/accessibility";
 import { NavbarLinkList } from "./NavbarLinkList";
 
 type NavbarMobileNavProps = {
+  className?: string;
   menuOpen: boolean;
   mobileAccessibilityOpen: boolean;
   onNavigate: () => void;
@@ -10,6 +11,7 @@ type NavbarMobileNavProps = {
 };
 
 export const NavbarMobileNav = ({
+  className = "",
   menuOpen,
   mobileAccessibilityOpen,
   onNavigate,
@@ -17,7 +19,7 @@ export const NavbarMobileNav = ({
 }: NavbarMobileNavProps): JSX.Element => (
   <nav
     id="mobile-nav"
-    className={`grid border-t border-white/10 transition-[grid-template-rows,opacity] duration-300 ease-out desktop-ui:hidden ${
+    className={`grid border-t border-white/10 transition-[grid-template-rows,opacity] duration-300 ease-out desktop-ui:hidden ${className} ${
       menuOpen
         ? "grid-rows-[1fr] opacity-100"
         : "pointer-events-none grid-rows-[0fr] opacity-0"
