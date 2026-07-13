@@ -26,19 +26,17 @@ export const LandingPage = (): JSX.Element => {
     : "transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]";
 
   return (
-    <div className="relative min-h-app-screen overflow-x-clip text-white">
+    <div className="relative min-h-dvh overflow-x-clip text-white">
       <SkipToMainLink />
       <BackgroundVideo />
 
       <div
-        className={`${A11Y_COLOR_FILTER_LAYER_CLASS} relative z-10 flex min-h-app-screen flex-col ${
+        className={`${A11Y_COLOR_FILTER_LAYER_CLASS} relative z-10 flex min-h-dvh flex-col ${
           prefersReducedMotion
             ? ""
             : "motion-safe:animate-[fadeIn_1s_ease_both] motion-safe:[animation-delay:60ms]"
         } ${pushTransition}`}
-        style={{
-          transform: designsOpen ? "translateX(-100%)" : "translateX(0)",
-        }}
+        style={designsOpen ? { transform: "translateX(-100%)" } : undefined}
         aria-hidden={designsOpen || undefined}
       >
         <Navbar />

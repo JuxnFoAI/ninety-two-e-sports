@@ -1,7 +1,4 @@
 @import "tailwindcss";
-@import "./inAppBrowser.css";
-
-@variant desktop-ui (@media (min-width: 1024px) and (hover: hover) and (pointer: fine));
 
 @theme {
   --color-bg: #000;
@@ -93,10 +90,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--header-height);
-  overflow-x: hidden;
   overflow-x: clip;
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
 }
 
 html.scroll-locked {
@@ -139,29 +133,6 @@ body {
 #root {
   min-height: 100vh;
   min-height: 100dvh;
-  min-height: calc(var(--app-vh, 1vh) * 100);
-}
-
-.min-h-app-screen {
-  min-height: 100vh;
-  min-height: 100dvh;
-  min-height: calc(var(--app-vh, 1vh) * 100);
-}
-
-.max-h-app-nav-panel {
-  max-height: calc(
-    var(--app-vh, 1vh) * 100 - var(--header-height) -
-      env(safe-area-inset-top, 0px) - 0.5rem
-  );
-}
-
-html.in-app-browser img,
-html.in-app-browser video {
-  max-width: 100%;
-}
-
-html.in-app-browser .pointer-events-none.fixed {
-  transform: translateZ(0);
 }
 
 .sr-only {

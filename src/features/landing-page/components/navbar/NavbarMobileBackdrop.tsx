@@ -21,7 +21,7 @@ export const NavbarMobileBackdrop = ({
       tabIndex={open ? 0 : -1}
       aria-hidden={!open}
       aria-label="Cerrar menú"
-      className={`fixed inset-0 z-0 bg-black/55 desktop-ui:hidden motion-reduce:backdrop-blur-none ${transitionClass} ${
+      className={`fixed inset-0 z-0 bg-black/55 lg:hidden motion-reduce:backdrop-blur-none ${transitionClass} ${
         prefersReducedMotion ? "" : "backdrop-blur-md"
       } ${open ? "opacity-100" : "pointer-events-none opacity-0"}`}
       onClick={onClose}

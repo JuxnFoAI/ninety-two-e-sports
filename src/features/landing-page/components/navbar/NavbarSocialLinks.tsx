@@ -18,7 +18,7 @@ export const NavbarSocialLinks = (): JSX.Element => (
           <SocialIcon name={icon} />
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-[calc(100%+0.55rem)] z-30 hidden -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-full border border-white/15 bg-black/75 px-3 py-1.5 text-[0.58rem] font-medium uppercase tracking-[0.2em] text-white/90 opacity-0 shadow-[0_8px_24px_rgba(0,0,0,0.35)] backdrop-blur-md transition-[opacity,transform] duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100 motion-reduce:transition-none desktop-ui:block"
+            className="pointer-events-none absolute left-1/2 top-[calc(100%+0.55rem)] z-30 hidden -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-full border border-white/15 bg-black/75 px-3 py-1.5 text-[0.58rem] font-medium uppercase tracking-[0.2em] text-white/90 opacity-0 shadow-[0_8px_24px_rgba(0,0,0,0.35)] backdrop-blur-md transition-[opacity,transform] duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100 motion-reduce:transition-none lg:block"
           >
             {label}
           </span>

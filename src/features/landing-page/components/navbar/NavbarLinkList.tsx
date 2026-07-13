@@ -35,8 +35,7 @@ export const NavbarLinkList = ({
 
 export const NavbarDesktopNav = (): JSX.Element => (
   <nav
-    className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 desktop-ui:block"
-    data-desktop-only="true"
+    className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 lg:block"
     aria-label="Principal"
   >
     <NavbarLinkList variant="desktop" />
