@@ -6,7 +6,9 @@ type CountryFlagProps = {
 };
 
 /** Compact decorative flag beside a country label. */
-export const CountryFlag = ({ country }: CountryFlagProps): JSX.Element | null => {
+export const CountryFlag = ({
+  country,
+}: CountryFlagProps): JSX.Element | null => {
   const code = getCountryFlagCode(country);
   if (!code) {
     return null;

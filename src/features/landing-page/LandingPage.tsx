@@ -15,9 +15,8 @@ import {
 
 export const LandingPage = (): JSX.Element => {
   const prefersReducedMotion = useEffectiveReducedMotion();
-  const [navbarInteractive, setNavbarInteractive] = useState(
-    prefersReducedMotion,
-  );
+  const [navbarInteractive, setNavbarInteractive] =
+    useState(prefersReducedMotion);
 
   useEffect(() => {
     if (prefersReducedMotion) {

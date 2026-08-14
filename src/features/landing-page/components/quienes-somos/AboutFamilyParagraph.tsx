@@ -9,7 +9,11 @@ type AboutFamilyParagraphProps = {
 export const AboutFamilyParagraph = ({
   children,
 }: AboutFamilyParagraphProps): JSX.Element => (
-  <AboutScrollReveal as="p" className={styles.root} xFrom={-ABOUT_TEXT_SLIDE_PX}>
+  <AboutScrollReveal
+    as="p"
+    className={styles.root}
+    xFrom={-ABOUT_TEXT_SLIDE_PX}
+  >
     {children}
   </AboutScrollReveal>
 );

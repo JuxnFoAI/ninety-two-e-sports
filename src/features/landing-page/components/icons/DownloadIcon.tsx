@@ -1,11 +1,14 @@
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from "react";
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+} from "react";
 import { motion, useAnimate } from "motion/react";
 
 import { useEffectiveReducedMotion } from "@/features/accessibility";
-import type {
-  AnimatedIconHandle,
-  AnimatedIconProps,
-} from "@/shared/icons";
+import type { AnimatedIconHandle, AnimatedIconProps } from "@/shared/icons";
 
 type DownloadIconProps = AnimatedIconProps & {
   /** When false, hover is driven by the parent link/button. */

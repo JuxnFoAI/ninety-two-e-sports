@@ -2,10 +2,7 @@ import { forwardRef, useImperativeHandle } from "react";
 import { motion, useAnimate } from "motion/react";
 
 import { useEffectiveReducedMotion } from "@/features/accessibility";
-import type {
-  AnimatedIconHandle,
-  AnimatedIconProps,
-} from "@/shared/icons";
+import type { AnimatedIconHandle, AnimatedIconProps } from "@/shared/icons";
 
 type InstagramIconProps = AnimatedIconProps & {
   /** When false, hover is driven by the parent link/button. */

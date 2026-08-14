@@ -48,7 +48,10 @@ export const AccessibilityPopover = ({
   }, [open, onOpenChange]);
 
   return (
-    <div ref={containerRef} className="relative hidden min-w-min overflow-visible lg:block">
+    <div
+      ref={containerRef}
+      className="relative hidden min-w-min overflow-visible lg:block"
+    >
       <AccessibilityTriggerButton
         expanded={open}
         controls={open ? panelId : undefined}

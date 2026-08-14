@@ -69,11 +69,7 @@ export const NavbarLinkList = ({
     <ul className="m-0 flex list-none flex-col gap-1 p-0 pb-3 pt-3">
       {NAV_LINKS.map(({ href, label }) => (
         <li key={href}>
-          <Link
-            className={MOBILE_LINK_CLASS}
-            to={href}
-            onClick={onNavigate}
-          >
+          <Link className={MOBILE_LINK_CLASS} to={href} onClick={onNavigate}>
             {label}
           </Link>
         </li>

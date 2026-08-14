@@ -24,7 +24,10 @@ const DesignCard = ({
   loading: "lazy" | "eager";
   inertForAssistiveTech?: boolean;
 }): JSX.Element => (
-  <figure className={styles.card} aria-hidden={inertForAssistiveTech || undefined}>
+  <figure
+    className={styles.card}
+    aria-hidden={inertForAssistiveTech || undefined}
+  >
     <div className={styles.media}>
       <img
         src={design.src}

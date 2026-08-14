@@ -16,11 +16,7 @@ export const AboutNewBeginningMark = (): JSX.Element => {
   const y = useTransform(progress, [0, 1], [22, 0]);
   const scale = useTransform(progress, [0, 1], [0.94, 1]);
   const blur = useTransform(progress, [0, 0.55, 1], [5, 1.2, 0]);
-  const letterSpacing = useTransform(
-    progress,
-    [0, 1],
-    ["0.32em", "0.14em"],
-  );
+  const letterSpacing = useTransform(progress, [0, 1], ["0.32em", "0.14em"]);
   const filter = useTransform(blur, (value) => `blur(${value}px)`);
 
   if (prefersReducedMotion) {
@@ -35,11 +31,7 @@ export const AboutNewBeginningMark = (): JSX.Element => {
     <motion.p
       ref={ref as never}
       className={`${styles.scrollRoot} ${settled ? styles.settled : ""}`.trim()}
-      style={
-        settled
-          ? undefined
-          : { opacity, y, scale, filter, letterSpacing }
-      }
+      style={settled ? undefined : { opacity, y, scale, filter, letterSpacing }}
     >
       Un nuevo comienzo
     </motion.p>

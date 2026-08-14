@@ -24,11 +24,7 @@ export const SponsorGrid = ({
   const prefersReducedMotion = useEffectiveReducedMotion();
 
   return (
-    <ul
-      className={styles.grid}
-      role="list"
-      aria-label="Marcas patrocinadoras"
-    >
+    <ul className={styles.grid} role="list" aria-label="Marcas patrocinadoras">
       {sponsors.map((sponsor, sponsorIndex) => {
         const delayMs = prefersReducedMotion
           ? 0

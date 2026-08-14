@@ -24,9 +24,7 @@ const twitchHandleFromUrl = (url: string): string => {
  * Photo-first card: alias sits under the photo at rest; the info panel
  * wipes open on hover / focus and keeps the alias inside.
  */
-export const PilotCard = ({
-  pilot,
-}: PilotCardProps): JSX.Element => {
+export const PilotCard = ({ pilot }: PilotCardProps): JSX.Element => {
   const prefersReducedMotion = useEffectiveReducedMotion();
   const { caption, twitchUrl } = pilot;
   const twitchHandle = twitchUrl ? twitchHandleFromUrl(twitchUrl) : null;

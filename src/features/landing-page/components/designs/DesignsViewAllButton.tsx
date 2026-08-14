@@ -1,8 +1,4 @@
-import {
-  useEffect,
-  useState,
-  type AnimationEvent,
-} from "react";
+import { useEffect, useState, type AnimationEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useEffectiveReducedMotion } from "@/features/accessibility";
@@ -54,10 +50,7 @@ export const DesignsViewAllButton = (): JSX.Element => {
         }`}
         onAnimationEnd={handleEntranceAnimationEnd}
       >
-        <StretchInkButton
-          followDesignsWhite
-          onClick={() => navigate("/fotos")}
-        >
+        <StretchInkButton followDesignsWhite onClick={() => navigate("/fotos")}>
           Todas las fotos
         </StretchInkButton>
       </span>

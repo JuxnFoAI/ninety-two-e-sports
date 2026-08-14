@@ -4,15 +4,15 @@ Guía para quien mantenga o extienda el código de Ninety Two E-Sports.
 
 ## Organización por features
 
-| Carpeta                        | Responsabilidad                                                              |
-| ------------------------------ | ---------------------------------------------------------------------------- |
-| `src/app/`                     | Composición raíz (`AccessibilityProvider` → `LoadingScreen` → rutas + `ScrollManager`) |
+| Carpeta                        | Responsabilidad                                                                                                         |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| `src/app/`                     | Composición raíz (`AccessibilityProvider` → `LoadingScreen` → rutas + `ScrollManager`)                                  |
 | `src/features/landing-page/`   | Inicio (`/`), páginas propias (`/equipos`, `/fotos`, `/noticias`, `/torneos`) vía `SiteShell` / `StandaloneSectionPage` |
-| `src/features/loading-screen/` | Animación de carga (canvas)                                                  |
-| `src/features/accessibility/`  | Panel de accesibilidad, preferencias y anuncios para lectores de pantalla    |
-| `src/shared/`                  | Hooks y utilidades reutilizables entre features                              |
-| `assets/`                      | Imágenes y videos importados con `@assets`                                   |
-| `public/`                      | Solo archivos con URL fija (`/favicon.png`)                                  |
+| `src/features/loading-screen/` | Animación de carga (canvas)                                                                                             |
+| `src/features/accessibility/`  | Panel de accesibilidad, preferencias y anuncios para lectores de pantalla                                               |
+| `src/shared/`                  | Hooks y utilidades reutilizables entre features                                                                         |
+| `assets/`                      | Imágenes y videos importados con `@assets`                                                                              |
+| `public/`                      | Solo archivos con URL fija (`/favicon.png`)                                                                             |
 
 Cada feature puede tener `components/`, `hooks/`, `data/`, `lib/`, `types/` según necesite.
 

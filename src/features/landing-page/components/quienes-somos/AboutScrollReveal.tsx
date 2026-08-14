@@ -29,7 +29,8 @@ export const AboutScrollReveal = ({
   "aria-label": ariaLabel,
 }: AboutScrollRevealProps): JSX.Element => {
   const { ref, style } = useOneWayScrollReveal({ yFrom, xFrom, scaleFrom });
-  const Component = as === "p" ? motion.p : as === "h2" ? motion.h2 : motion.div;
+  const Component =
+    as === "p" ? motion.p : as === "h2" ? motion.h2 : motion.div;
 
   return (
     <Component

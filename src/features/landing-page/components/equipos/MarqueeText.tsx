@@ -1,4 +1,10 @@
-import { useCallback, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
+import {
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+} from "react";
 
 import { useEffectiveReducedMotion } from "@/features/accessibility";
 
@@ -36,7 +42,10 @@ export const MarqueeText = ({
       return;
     }
 
-    const next = Math.max(0, Math.ceil(track.scrollWidth - viewport.clientWidth));
+    const next = Math.max(
+      0,
+      Math.ceil(track.scrollWidth - viewport.clientWidth),
+    );
     setOverflowPx((current) => (current === next ? current : next));
   }, []);
 
