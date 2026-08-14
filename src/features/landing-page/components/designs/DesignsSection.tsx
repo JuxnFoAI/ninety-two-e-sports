@@ -7,12 +7,14 @@ import { DesignsViewAllButton } from "./DesignsViewAllButton";
 export const DesignsSection = (): JSX.Element => (
   <RevealSection id="disenos" aria-labelledby="disenos-title" surface="flush">
     <div className="flex flex-col items-center gap-12 sm:flex-row sm:items-center sm:justify-between sm:gap-6 lg:gap-8">
-      <SectionDisplayTitle
-        id="disenos-title"
-        label="Diseños del Equipo"
-        ariaLabel="Diseños del Equipo"
-        reveal="slideLeft"
-      />
+      <div className="w-full text-center sm:w-auto sm:text-left">
+        <SectionDisplayTitle
+          id="disenos-title"
+          label="Diseños del Equipo"
+          ariaLabel="Diseños del Equipo"
+          reveal="slideLeft"
+        />
+      </div>
       <DesignsViewAllButton />
     </div>
 
