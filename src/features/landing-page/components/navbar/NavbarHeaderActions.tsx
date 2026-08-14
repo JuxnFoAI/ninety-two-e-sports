@@ -5,17 +5,26 @@ import { NavbarSocialLinks } from "./NavbarSocialLinks";
 type NavbarHeaderActionsProps = {
   desktopAccessibilityOpen: boolean;
   onDesktopAccessibilityOpenChange: (open: boolean) => void;
+  /** Inline name reveal on hover; off while the navbar is in pill mode. */
+  revealLabels?: boolean;
+  socialsClassName?: string;
 };
 
 export const NavbarHeaderActions = ({
   desktopAccessibilityOpen,
   onDesktopAccessibilityOpenChange,
+  revealLabels = true,
+  socialsClassName,
 }: NavbarHeaderActionsProps): JSX.Element => (
-  <div className="pointer-events-none absolute inset-x-0 flex items-center justify-center gap-2 lg:pointer-events-auto lg:static lg:inset-auto">
+  <div className="flex min-w-min items-center gap-1 overflow-visible sm:gap-1.5">
     <AccessibilityPopover
       open={desktopAccessibilityOpen}
       onOpenChange={onDesktopAccessibilityOpenChange}
+      revealLabel={revealLabels ? "Accesibilidad" : undefined}
     />
-    <NavbarSocialLinks />
+    <NavbarSocialLinks
+      className={socialsClassName}
+      revealLabels={revealLabels}
+    />
   </div>
 );

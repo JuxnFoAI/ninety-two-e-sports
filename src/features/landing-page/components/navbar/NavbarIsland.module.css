@@ -1,0 +1,174 @@
+.shell {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 20;
+  padding-top: max(0.65rem, env(safe-area-inset-top));
+  pointer-events: none;
+}
+
+.shellInactive .island {
+  pointer-events: none;
+}
+
+.island {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 100%;
+  margin-inline: auto;
+  pointer-events: auto;
+  /* Keep overflow visible: a clipped ancestor disables backdrop-filter. */
+  border: 1px solid transparent;
+  border-radius: 0;
+  background-color: transparent;
+  padding-inline: clamp(1rem, 4vw, 4rem);
+  transition:
+    width 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    max-width 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    padding 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-radius 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Frosted glass on the same node as overflow+radius so blur can sample the page. */
+.frost {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  background-color: transparent;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.islandActive {
+  width: calc(100% - 1.25rem);
+  max-width: 56rem;
+  /* Same radius closed and open: the bar grows taller instead of rounding into a circle. */
+  border-radius: 2.25rem;
+  border-color: rgb(255 255 255 / 0.12);
+  padding-inline: clamp(0.85rem, 2.5vw, 1.35rem);
+}
+
+.islandActive .frost {
+  opacity: 1;
+  background-color: rgb(0 0 0 / 0.22);
+  backdrop-filter: blur(56px) saturate(1.25);
+  -webkit-backdrop-filter: blur(56px) saturate(1.25);
+}
+
+.islandMenu {
+  padding-bottom: 0.85rem;
+}
+
+/* Home soft-black settle: only while full-bleed (not island). */
+.islandTop.islandNight {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: rgb(
+    255 255 255 / calc(var(--scroll-soft-black, 0) * 0.1)
+  );
+  background-color: rgb(0 0 0 / calc(var(--scroll-soft-black, 0) * 0.9));
+}
+
+.row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+  /* Keep padding-top stable so the brand doesn’t jump on morph. */
+  padding-top: 0.55rem;
+  padding-bottom: 1rem;
+  transition: padding 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (min-width: 1024px) {
+  .row {
+    gap: 0.85rem;
+    padding-top: 0.65rem;
+    padding-bottom: 1.5rem;
+  }
+}
+
+.islandActive .row {
+  padding-bottom: 0.55rem;
+}
+
+@media (min-width: 1024px) {
+  .islandActive .row {
+    padding-bottom: 0.65rem;
+  }
+}
+
+/*
+  Balanced flex rails: equal grow on start/end keeps sections centered at rest.
+  When a label expands, end’s min-content grows and the middle nav slides aside;
+  on mouse-out it eases back with the label collapse.
+*/
+.start {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1 1 0;
+  justify-content: flex-start;
+  min-width: 0;
+}
+
+.middle {
+  display: none;
+  flex: 0 1 auto;
+  justify-content: center;
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .middle {
+    display: flex;
+  }
+}
+
+.end {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.35rem;
+  min-width: min-content;
+  overflow: visible;
+}
+
+/* Mobile: socials sit in the true navbar center, not the right cluster. */
+@media (max-width: 1023px) {
+  .end {
+    position: static;
+  }
+
+  .socials {
+    position: absolute;
+    left: 50%;
+    z-index: 2;
+    transform: translateX(-50%);
+  }
+}
+
+.panel {
+  position: relative;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .island,
+  .frost,
+  .row {
+    transition: none;
+  }
+}

@@ -1,23 +1,50 @@
 import { useEffect, useState } from "react";
 
+import { useEffectiveReducedMotion } from "@/features/accessibility";
 import { useScrolledPast, useScrollLock } from "@/shared/hooks";
 
-import { NAVBAR_ENTRANCE_CLASS } from "../../styles/navbarAnimation";
+import { getNavbarEntranceClass } from "../../styles/navbarAnimation";
 import { NavbarBrand } from "./NavbarBrand";
 import { NavbarDesktopNav } from "./NavbarLinkList";
 import { NavbarHeaderActions } from "./NavbarHeaderActions";
+import styles from "./NavbarIsland.module.css";
 import { NavbarMenuToggle } from "./NavbarMenuToggle";
 import { NavbarMobileBackdrop } from "./NavbarMobileBackdrop";
 import { NavbarMobileNav } from "./NavbarMobileNav";
 
-export const Navbar = (): JSX.Element => {
+type NavbarProps = {
+  entranceDelayMs?: number;
+  interactive?: boolean;
+  /** Home: surface tracks the soft-black night settle instead of a hard scrolled band. */
+  blendWithScrollNight?: boolean;
+};
+
+export const Navbar = ({
+  entranceDelayMs = 120,
+  interactive = true,
+  blendWithScrollNight = false,
+}: NavbarProps): JSX.Element => {
   const isScrolled = useScrolledPast();
+  const prefersReducedMotion = useEffectiveReducedMotion();
   const [menuOpen, setMenuOpen] = useState(false);
   const [desktopAccessibilityOpen, setDesktopAccessibilityOpen] =
     useState(false);
   const [mobileAccessibilityOpen, setMobileAccessibilityOpen] = useState(false);
+  /** Drop entrance animation after it finishes so leftover transform doesn’t kill backdrop-filter. */
+  const [entranceClass, setEntranceClass] = useState(() =>
+    prefersReducedMotion ? "" : getNavbarEntranceClass(entranceDelayMs),
+  );
 
   useScrollLock(menuOpen);
+
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      setEntranceClass("");
+      return;
+    }
+
+    setEntranceClass(getNavbarEntranceClass(entranceDelayMs));
+  }, [entranceDelayMs, prefersReducedMotion]);
 
   useEffect(() => {
     if (!menuOpen) {
@@ -43,37 +70,64 @@ export const Navbar = (): JSX.Element => {
     setMobileAccessibilityOpen(false);
   };
 
-  const headerSurfaceClass =
-    isScrolled || menuOpen
-      ? "border-b border-white/10 bg-black/70 backdrop-blur-md"
-      : "border-b border-transparent bg-transparent";
+  const isIsland = isScrolled || menuOpen;
+  const useNightBlend =
+    blendWithScrollNight && !prefersReducedMotion && !menuOpen;
+
+  const islandClassName = [
+    styles.island,
+    isIsland ? styles.islandActive : styles.islandTop,
+    menuOpen ? styles.islandMenu : "",
+    useNightBlend ? styles.islandNight : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-20 px-[clamp(1rem,4vw,4rem)] pt-[max(1.25rem,env(safe-area-inset-top))] transition-[background-color,backdrop-filter,border-color] duration-500 ease-out ${NAVBAR_ENTRANCE_CLASS} ${headerSurfaceClass}`}
+      className={`${styles.shell} ${entranceClass} ${
+        interactive ? "" : styles.shellInactive
+      }`}
+      aria-hidden={interactive ? undefined : true}
+      onAnimationEnd={(event) => {
+        if (event.target !== event.currentTarget) {
+          return;
+        }
+        setEntranceClass("");
+      }}
     >
       <NavbarMobileBackdrop open={menuOpen} onClose={closeMenu} />
 
-      <div className="relative z-10 flex items-center justify-between gap-3 pb-4 lg:pb-6">
-        <NavbarBrand onNavigate={closeMenu} />
-        <NavbarDesktopNav />
-        <NavbarHeaderActions
-          desktopAccessibilityOpen={desktopAccessibilityOpen}
-          onDesktopAccessibilityOpenChange={setDesktopAccessibilityOpen}
-        />
-        <NavbarMenuToggle
-          menuOpen={menuOpen}
-          onToggle={() => setMenuOpen((open) => !open)}
-        />
-      </div>
+      <div className={islandClassName}>
+        <div className={styles.frost} aria-hidden="true" />
+        <div className={styles.row}>
+          <div className={styles.start}>
+            <NavbarBrand onNavigate={closeMenu} />
+          </div>
+          <NavbarDesktopNav className={styles.middle} />
+          <div className={styles.end}>
+            <NavbarHeaderActions
+              desktopAccessibilityOpen={desktopAccessibilityOpen}
+              onDesktopAccessibilityOpenChange={setDesktopAccessibilityOpen}
+              revealLabels={!isIsland}
+              socialsClassName={styles.socials}
+            />
+            <NavbarMenuToggle
+              menuOpen={menuOpen}
+              onToggle={() => setMenuOpen((open) => !open)}
+            />
+          </div>
+        </div>
 
-      <NavbarMobileNav
-        className="relative z-10"
-        menuOpen={menuOpen}
-        mobileAccessibilityOpen={mobileAccessibilityOpen}
-        onNavigate={closeMenu}
-        onMobileAccessibilityOpenChange={setMobileAccessibilityOpen}
-      />
+        <div className={styles.panel}>
+          <NavbarMobileNav
+            menuOpen={menuOpen}
+            mobileAccessibilityOpen={mobileAccessibilityOpen}
+            onNavigate={closeMenu}
+            onMobileAccessibilityOpenChange={setMobileAccessibilityOpen}
+          />
+        </div>
+      </div>
     </header>
   );
 };

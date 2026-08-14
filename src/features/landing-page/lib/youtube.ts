@@ -1,6 +1,8 @@
 /** Builds a privacy-enhanced YouTube embed URL. */
 interface YoutubeEmbedOptions {
   captions?: boolean;
+  /** Start playback as soon as the embed loads (after an explicit user click). */
+  autoplay?: boolean;
 }
 
 export const getYoutubeEmbedUrl = (
@@ -21,9 +23,17 @@ export const getYoutubeEmbedUrl = (
     params.set("cc_load_policy", "1");
   }
 
+  if (options?.autoplay) {
+    params.set("autoplay", "1");
+  }
+
   return `https://www.youtube-nocookie.com/embed/${videoId}?${params.toString()}`;
 };
 
 /** Standard YouTube thumbnail (`hq` is reliable for all videos). */
 export const getYoutubeThumbnailUrl = (videoId: string): string =>
   `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+
+/** Wider poster for the broadcast hero; may 404 on older videos. */
+export const getYoutubeHeroThumbnailUrl = (videoId: string): string =>
+  `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;

@@ -1,26 +1,51 @@
+import type { MouseEvent } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+
 import n2Logo from "@assets/marca/ninety-two.png";
+
+import { useEffectiveReducedMotion } from "@/features/accessibility";
+import { scrollToPageTop } from "@/shared/lib/scrollToPageTop";
+
+import styles from "./NavbarBrand.module.css";
 
 type NavbarBrandProps = {
   onNavigate?: () => void;
 };
 
-export const NavbarBrand = ({ onNavigate }: NavbarBrandProps): JSX.Element => (
-  <a
-    className="relative z-10 inline-flex min-w-0 shrink items-center gap-2 text-white no-underline sm:gap-2.5"
-    href="#inicio"
-    aria-label="Ninety Two E-Sports, inicio"
-    onClick={onNavigate}
-  >
-    <img
-      className="block h-8 w-8 shrink-0 opacity-95 sm:h-9 sm:w-9"
-      src={n2Logo}
-      alt=""
-      width={36}
-      height={36}
-      draggable={false}
-    />
-    <span className="hidden truncate text-[0.72rem] font-medium uppercase tracking-[0.18em] lg:inline sm:text-[0.8rem] sm:tracking-[0.2em]">
-      Ninety Two
-    </span>
-  </a>
-);
+export const NavbarBrand = ({ onNavigate }: NavbarBrandProps): JSX.Element => {
+  const navigate = useNavigate();
+  const { pathname, hash } = useLocation();
+  const prefersReducedMotion = useEffectiveReducedMotion();
+
+  const handleClick = (event: MouseEvent<HTMLAnchorElement>): void => {
+    onNavigate?.();
+
+    // Already on home: Link alone won’t remount or scroll — force top.
+    if (pathname === "/") {
+      event.preventDefault();
+
+      if (hash) {
+        navigate("/", { replace: true });
+      }
+
+      scrollToPageTop(prefersReducedMotion);
+    }
+  };
+
+  return (
+    <Link
+      className={styles.root}
+      to="/"
+      aria-label="Ninety Two E-Sports, inicio"
+      onClick={handleClick}
+      style={{ ["--logo-mask" as string]: `url(${n2Logo})` }}
+    >
+      <span className={styles.logo} aria-hidden="true" />
+      <span className={styles.labelClip} aria-hidden="true">
+        <span className={styles.labelInner}>
+          <span className={styles.label}>Ninety Two</span>
+        </span>
+      </span>
+    </Link>
+  );
+};

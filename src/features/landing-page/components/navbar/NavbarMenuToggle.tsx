@@ -1,4 +1,7 @@
-import { CloseIcon, MenuIcon } from "./NavbarIcons";
+import { Menu, X } from "lucide";
+import { MorphIcon } from "morphicons/react";
+
+import { useEffectiveReducedMotion } from "@/features/accessibility";
 
 type NavbarMenuToggleProps = {
   menuOpen: boolean;
@@ -8,15 +11,26 @@ type NavbarMenuToggleProps = {
 export const NavbarMenuToggle = ({
   menuOpen,
   onToggle,
-}: NavbarMenuToggleProps): JSX.Element => (
-  <button
-    type="button"
-    className="relative z-10 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/[0.07] text-white transition-colors duration-200 hover:border-white/35 hover:bg-white/10 focus-visible:border-white/35 focus-visible:bg-white/10 lg:hidden"
-    aria-expanded={menuOpen}
-    aria-controls="mobile-nav"
-    aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
-    onClick={onToggle}
-  >
-    {menuOpen ? <CloseIcon /> : <MenuIcon />}
-  </button>
-);
+}: NavbarMenuToggleProps): JSX.Element => {
+  const prefersReducedMotion = useEffectiveReducedMotion();
+
+  return (
+    <button
+      type="button"
+      className="relative z-10 inline-flex h-8 w-8 shrink-0 items-center justify-center border-0 bg-transparent p-0 text-white/80 transition-colors duration-200 hover:text-white focus-visible:text-white sm:h-9 sm:w-9 lg:hidden"
+      aria-expanded={menuOpen}
+      aria-controls="mobile-nav"
+      aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
+      onClick={onToggle}
+    >
+      <MorphIcon
+        icon={menuOpen ? X : Menu}
+        size={20}
+        strokeWidth={1.75}
+        spring="snappy"
+        reducedMotion={prefersReducedMotion ? "always" : "never"}
+        className="block"
+      />
+    </button>
+  );
+};

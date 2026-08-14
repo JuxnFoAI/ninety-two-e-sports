@@ -1,0 +1,99 @@
+.section {
+  /* Title sits on the page chrome; black panel wraps only the section body. */
+  padding-top: clamp(3.5rem, 9vw, 6rem) !important;
+  /* Panel meets the site footer — no gap of page chrome between them. */
+  padding-bottom: 0 !important;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: calc(100dvh - var(--header-height));
+}
+
+.title {
+  position: relative;
+  z-index: 1;
+  /* Extra air above the night panel + 7rem lead-in. */
+  margin-bottom: clamp(9.5rem, 18vw, 12rem);
+  text-align: center;
+}
+
+.panel {
+  position: relative;
+  flex: 1 1 auto;
+  margin-inline: calc(-1 * clamp(1rem, 4vw, 4rem));
+  /* Overlap the footer by 1px so the night surface reads continuous. */
+  margin-bottom: -1px;
+  padding: clamp(1.25rem, 3.5vw, 2.25rem) clamp(1rem, 4vw, 4rem)
+    clamp(2.5rem, 5vw, 4rem);
+  /* Match home content stack + SiteShell footer (`bg-black/90`). */
+  background: rgb(0 0 0 / 0.9);
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  transform: translate3d(0, 1.75rem, 0);
+  will-change: transform, opacity;
+}
+
+.panelDeep {
+  padding-bottom: clamp(3.25rem, 7vw, 5.5rem);
+}
+
+.panelVisible {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+.panelAnimated {
+  animation: nightPanelRise 0.95s cubic-bezier(0.16, 1, 0.3, 1)
+    var(--panel-reveal-delay, 0ms) both;
+}
+
+/* Same soft night lead-in as the home stack above Quiénes somos. */
+.panelLeadIn {
+  pointer-events: none;
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 7rem;
+  transform: translateY(-100%);
+  background: linear-gradient(to bottom, transparent, rgb(0 0 0 / 0.9));
+  opacity: 0;
+}
+
+.panelAnimated .panelLeadIn,
+.panelVisible .panelLeadIn {
+  animation: nightPanelLeadIn 0.85s ease var(--panel-reveal-delay, 0ms) both;
+}
+
+@keyframes nightPanelRise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1.75rem, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes nightPanelLeadIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .panelAnimated,
+  .panelLeadIn {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+}

@@ -1,26 +1,43 @@
 import { ABOUT_BODY } from "../../data/about";
-import { SECTION_DESCRIPTION_CLASS } from "../../styles/sectionClasses";
-import { RevealItem } from "../reveal";
+import { AboutFamilyParagraph } from "./AboutFamilyParagraph";
+import { AboutLeadParagraph } from "./AboutLeadParagraph";
+import { AboutRebrandParagraph } from "./AboutRebrandParagraph";
 
 interface AboutBodyProps {
-  revealStartIndex: number;
+  /** Paragraph ids to render, in display order. Defaults to all. */
+  paragraphIds?: readonly string[];
+  className?: string;
 }
 
-const BODY_CLASS = `${SECTION_DESCRIPTION_CLASS} max-w-3xl lg:max-w-none`;
-
 export const AboutBody = ({
-  revealStartIndex,
-}: AboutBodyProps): JSX.Element => (
-  <div>
-    {ABOUT_BODY.map(({ id, text }, index) => (
-      <RevealItem
-        key={id}
-        as="p"
-        index={revealStartIndex + index}
-        className={`${BODY_CLASS} ${index > 0 ? "mt-5" : ""}`.trim()}
-      >
-        {text}
-      </RevealItem>
-    ))}
-  </div>
-);
+  paragraphIds,
+  className = "",
+}: AboutBodyProps): JSX.Element => {
+  const paragraphs =
+    paragraphIds == null
+      ? [...ABOUT_BODY]
+      : paragraphIds.flatMap((id) => {
+          const paragraph = ABOUT_BODY.find((entry) => entry.id === id);
+          return paragraph ? [paragraph] : [];
+        });
+
+  return (
+    <div className={className}>
+      {paragraphs.map(({ id, text }) => {
+        if (id === "origins") {
+          return <AboutLeadParagraph key={id}>{text}</AboutLeadParagraph>;
+        }
+
+        if (id === "rebrand") {
+          return <AboutRebrandParagraph key={id}>{text}</AboutRebrandParagraph>;
+        }
+
+        if (id === "family") {
+          return <AboutFamilyParagraph key={id}>{text}</AboutFamilyParagraph>;
+        }
+
+        return null;
+      })}
+    </div>
+  );
+};

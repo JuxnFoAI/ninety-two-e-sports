@@ -1,0 +1,55 @@
+.grid {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  align-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  column-gap: 2rem;
+  /* Leftover air once a card fills its reserved details slot. */
+  row-gap: 2rem;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    column-gap: 2.5rem;
+    row-gap: 2.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    column-gap: 3rem;
+    row-gap: 2.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  }
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    column-gap: 2.5rem;
+    row-gap: 4.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    column-gap: 3rem;
+    row-gap: 5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  }
+}

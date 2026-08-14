@@ -1,49 +1,53 @@
 import type { CSSProperties } from "react";
 
-import { usePrefersReducedMotion } from "@/shared/hooks";
+import { useEffectiveReducedMotion } from "@/features/accessibility";
 
 import {
-  getHeroTitleAccentDelayMs,
-  getHeroTitleWordDelayMs,
+  getHeroTitleLetterDelayMs,
   HERO_TITLE_ANIMATION,
   HERO_TITLE_WORDS,
 } from "./heroTitleAnimation";
 import styles from "./HeroTitle.module.css";
 
 const titleStyle = {
-  "--hero-word-duration": `${HERO_TITLE_ANIMATION.wordDurationMs}ms`,
-  "--hero-accent-duration": `${HERO_TITLE_ANIMATION.accentDurationMs}ms`,
+  "--hero-letter-duration": `${HERO_TITLE_ANIMATION.letterDurationMs}ms`,
 } as CSSProperties;
 
-/** Animated “NINETY TWO” hero heading with staggered word reveal. */
+/** Animated “NINETY TWO” hero heading with staged letter reveal. */
 export const HeroTitle = (): JSX.Element => {
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const prefersReducedMotion = useEffectiveReducedMotion();
 
   return (
-    <h1 id="hero-title" className={styles.root} style={titleStyle}>
-      {HERO_TITLE_WORDS.map((word, index) => (
-        <span
-          key={word}
-          className={`${styles.word} ${prefersReducedMotion ? styles.wordVisible : styles.wordAnimated}`}
-          style={
-            prefersReducedMotion
-              ? undefined
-              : { animationDelay: `${getHeroTitleWordDelayMs(index)}ms` }
-          }
-        >
-          {word}
+    <h1
+      id="hero-title"
+      className={styles.root}
+      style={titleStyle}
+      aria-label="Ninety Two"
+    >
+      {HERO_TITLE_WORDS.map((word, wordIndex) => (
+        <span key={word} className={styles.word} aria-hidden>
+          {word.split("").map((letter, letterIndex) => (
+            <span key={`${word}-${letterIndex}`} className={styles.letterMask}>
+              <span
+                className={`${styles.letter} ${
+                  prefersReducedMotion
+                    ? styles.letterVisible
+                    : styles.letterAnimated
+                }`}
+                style={
+                  prefersReducedMotion
+                    ? undefined
+                    : {
+                        animationDelay: `${getHeroTitleLetterDelayMs(wordIndex, letterIndex)}ms`,
+                      }
+                }
+              >
+                {letter}
+              </span>
+            </span>
+          ))}
         </span>
       ))}
-
-      <span
-        aria-hidden
-        className={`${styles.accent} ${prefersReducedMotion ? styles.accentVisible : styles.accentAnimated}`}
-        style={
-          prefersReducedMotion
-            ? undefined
-            : { animationDelay: `${getHeroTitleAccentDelayMs()}ms` }
-        }
-      />
     </h1>
   );
 };

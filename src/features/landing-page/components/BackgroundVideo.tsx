@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
 import mobileBackground from "@assets/videos/fondo-n2-movil.jpg";
-import transitionVideo from "@assets/videos/Transicion-pagina.mp4";
+import backgroundVideo from "@assets/videos/video-fondo.mp4";
 
 import {
   A11Y_COLOR_FILTER_LAYER_CLASS,
@@ -62,7 +62,7 @@ export const BackgroundVideo = (): JSX.Element => {
           preload="metadata"
           tabIndex={-1}
         >
-          <source src={transitionVideo} type="video/mp4" />
+          <source src={backgroundVideo} type="video/mp4" />
         </video>
       ) : (
         <img

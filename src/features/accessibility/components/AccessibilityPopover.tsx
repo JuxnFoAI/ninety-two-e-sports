@@ -9,11 +9,14 @@ const PANEL_CLASS =
 interface AccessibilityPopoverProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  /** Optional inline label revealed on hover/focus. */
+  revealLabel?: string;
 }
 
 export const AccessibilityPopover = ({
   open,
   onOpenChange,
+  revealLabel,
 }: AccessibilityPopoverProps): JSX.Element => {
   const panelId = useId();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -45,10 +48,11 @@ export const AccessibilityPopover = ({
   }, [open, onOpenChange]);
 
   return (
-    <div ref={containerRef} className="relative hidden lg:block">
+    <div ref={containerRef} className="relative hidden min-w-min overflow-visible lg:block">
       <AccessibilityTriggerButton
         expanded={open}
         controls={open ? panelId : undefined}
+        revealLabel={revealLabel}
         onClick={() => onOpenChange(!open)}
       />
 

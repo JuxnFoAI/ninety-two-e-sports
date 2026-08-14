@@ -6,8 +6,8 @@ Guía para quien mantenga o extienda el código de Ninety Two E-Sports.
 
 | Carpeta                        | Responsabilidad                                                              |
 | ------------------------------ | ---------------------------------------------------------------------------- |
-| `src/app/`                     | Composición raíz (`AccessibilityProvider` → `LoadingScreen` → `LandingPage`) |
-| `src/features/landing-page/`   | Página principal y secciones                                                 |
+| `src/app/`                     | Composición raíz (`AccessibilityProvider` → `LoadingScreen` → rutas + `ScrollManager`) |
+| `src/features/landing-page/`   | Inicio (`/`), páginas propias (`/equipos`, `/fotos`, `/noticias`, `/torneos`) vía `SiteShell` / `StandaloneSectionPage` |
 | `src/features/loading-screen/` | Animación de carga (canvas)                                                  |
 | `src/features/accessibility/`  | Panel de accesibilidad, preferencias y anuncios para lectores de pantalla    |
 | `src/shared/`                  | Hooks y utilidades reutilizables entre features                              |
@@ -30,22 +30,17 @@ Evita mezclar `@/` y `../` en el mismo archivo salvo casos justificados (p. ej. 
 
 Es intencional y coherente con el producto:
 
-- **Carpetas y secciones (UI):** español — `equipos`, `noticias`, `PatrocinadoresSection`, IDs `#equipos`.
+- **Carpetas y secciones (UI):** español — `equipos`, `noticias`, `disenos`, `PatrocinadoresSection`.
+- **Inicio (`/`):** hero + `#quienes-somos` + `#disenos` + `#patrocinadores` (bloque continuo, `surface="flush"`).
+- **Rutas independientes:** español en path — `/equipos`, `/fotos`, `/noticias`, `/torneos` (misma pestaña vía React Router). `/fotos` no va en el menú; se abre desde Diseños.
 - **Componentes internos / datos:** inglés — `SponsorCard`, `PilotCard`, `NewsGrid`.
+- **Diseños:** assets en `assets/Designs/` (`@assets/Designs/...`).
 
-Al añadir una sección nueva, mantén el patrón: carpeta en español, componente de sección `*Section.tsx`, subcomponentes en inglés descriptivo.
+Al añadir una sección nueva en el inicio, mantén el patrón: carpeta en español, componente de sección `*Section.tsx`, subcomponentes en inglés descriptivo. Si pasa a página propia, añade ruta en `App.tsx`, página con `StandaloneSectionPage` y enlace en `NAV_LINKS` solo si debe aparecer en el menú.
 
 ## Animaciones reveal
 
-Las secciones usan `RevealSection` + `RevealItem` con índices de stagger (`index`).
-
-| Constante                                           | Valor | Uso                                            |
-| --------------------------------------------------- | ----- | ---------------------------------------------- |
-| `SECTION_HEADER_REVEAL_COUNT`                       | 2     | Cabecera con índice, título y descripción      |
-| `SECTION_COMPACT_HEADER_REVEAL_COUNT`               | 1     | Solo índice y título                           |
-| `SECTION_COMPACT_HEADER_WITH_CONTROLS_REVEAL_START` | 2     | Tras cabecera compacta + una fila de controles |
-
-`SectionHeader` admite `description` opcional. Si no hay descripción, el siguiente bloque usa el índice `1`.
+Las secciones usan `RevealSection` + `RevealItem` con índices de stagger (`index`). Las páginas propias (`/equipos`, `/fotos`, `/noticias`, `/torneos`) comparten `NightPanelSection` (título + panel noche). Los títulos grandes tienen intro propia y no pasan por `SectionDisplayTitle` salvo Patrocinadores y Diseños.
 
 ## Loading screen: dos “geometry”
 
@@ -63,5 +58,6 @@ Los tipos viven en `src/features/landing-page/types/`. Importa el archivo concre
 ## Assets
 
 - Fotos de pilotos: `assets/integrantes/` y `assets/lideres/`
+- Liveries / diseños: `assets/Designs/`
 - Patrocinadores: `assets/patrocinadores/`
 - Preferir nombres en kebab-case ASCII (`espana.jpg`, no `españa.jpg`) para compatibilidad entre sistemas.

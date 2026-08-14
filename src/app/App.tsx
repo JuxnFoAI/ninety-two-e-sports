@@ -1,8 +1,17 @@
 import { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { AccessibilityProvider } from "@/features/accessibility";
-import { LandingPage } from "@/features/landing-page";
+import {
+  EquiposPage,
+  FotosPage,
+  LandingPage,
+  NoticiasPage,
+  TorneosPage,
+} from "@/features/landing-page";
 import { LoadingScreen } from "@/features/loading-screen";
+
+import { ScrollManager } from "./ScrollManager";
 
 export const App = (): JSX.Element => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -12,7 +21,16 @@ export const App = (): JSX.Element => {
       {!isLoaded ? (
         <LoadingScreen onComplete={() => setIsLoaded(true)} />
       ) : (
-        <LandingPage />
+        <BrowserRouter>
+          <ScrollManager />
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/equipos" element={<EquiposPage />} />
+            <Route path="/fotos" element={<FotosPage />} />
+            <Route path="/noticias" element={<NoticiasPage />} />
+            <Route path="/torneos" element={<TorneosPage />} />
+          </Routes>
+        </BrowserRouter>
       )}
     </AccessibilityProvider>
   );

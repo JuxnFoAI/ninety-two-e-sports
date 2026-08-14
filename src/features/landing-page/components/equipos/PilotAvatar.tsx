@@ -21,7 +21,7 @@ export const PilotAvatar = ({ pilot }: PilotAvatarProps): JSX.Element => {
   const showImage = Boolean(pilot.photo) && !imageFailed;
 
   return (
-    <div className="relative aspect-square w-full overflow-hidden bg-[#1a1a1a]">
+    <div className="relative aspect-square w-full overflow-hidden bg-black">
       {showImage ? (
         <img
           src={pilot.photo}

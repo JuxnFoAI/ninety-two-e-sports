@@ -1,0 +1,264 @@
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+  width: 100%;
+  padding-block: 0.75rem 0.25rem;
+}
+
+.deck {
+  position: relative;
+  width: min(9.85rem, 40vw);
+  aspect-ratio: 3 / 4;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  touch-action: none;
+  user-select: none;
+  transform-origin: center center;
+}
+
+.deckLeaving {
+  animation: fotosDeckLeave 0.45s cubic-bezier(0.4, 0, 0.2, 1) both;
+  pointer-events: none;
+}
+
+.card {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 1rem;
+  background: rgb(8 8 8 / 0.92);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.42);
+  transform-origin: center 118%;
+  will-change: transform;
+}
+
+.cardFront {
+  cursor: grab;
+  touch-action: none;
+}
+
+.cardFront:active {
+  cursor: grabbing;
+}
+
+.media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: inherit;
+  background: transparent;
+  pointer-events: none;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: inherit;
+}
+
+.overlay {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  background: linear-gradient(
+    to top right,
+    rgba(0, 0, 0, 0.16),
+    transparent 42%,
+    rgba(255, 255, 255, 0.03)
+  );
+}
+
+.grid {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+  /* Avoid the browser yanking the viewport when the tall grid mounts. */
+  overflow-anchor: none;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  gap: 2rem;
+  min-width: 0;
+  max-width: min(100%, 40rem);
+}
+
+.gridItem {
+  width: 100%;
+  min-width: 0;
+  overflow: visible;
+}
+
+.gridRise {
+  opacity: 0;
+  transform: translate3d(0, 115%, 0);
+  will-change: transform, opacity;
+}
+
+.gridRiseAnimated {
+  animation: fotosGridRise 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.gridRiseVisible {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+.gridOpen {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: inherit;
+}
+
+.gridOpen:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+  border-radius: 1rem;
+}
+
+.gridCard {
+  margin: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 1rem;
+  background: transparent;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.34);
+  pointer-events: none;
+}
+
+.gridMedia {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.gridImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: inherit;
+}
+
+.gridOverlay {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    to top right,
+    rgba(0, 0, 0, 0.12),
+    transparent 42%,
+    rgba(255, 255, 255, 0.03)
+  );
+}
+
+/* Text action — no pill chrome. */
+.expandAction {
+  margin: clamp(4rem, 9vw, 6.5rem) 0 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.72);
+  font-family: var(--font-orbitron);
+  font-size: clamp(0.62rem, 1.3vw, 0.74rem);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 200ms ease;
+}
+
+.expandActionBelowGrid {
+  margin-top: clamp(2rem, 5vw, 3rem);
+}
+
+.expandAction:hover,
+.expandAction:focus-visible {
+  color: #fff;
+  outline: none;
+}
+
+.expandAction:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 0.28em;
+}
+
+.expandActionActive {
+  color: var(--color-section-title);
+}
+
+.expandAction:disabled {
+  cursor: wait;
+  color: rgba(255, 255, 255, 0.42);
+}
+
+@keyframes fotosDeckLeave {
+  from {
+    opacity: 1;
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0.92) translate3d(0, 1.25rem, 0);
+  }
+}
+
+@keyframes fotosGridRise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 115%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (min-width: 768px) {
+  .deck {
+    width: min(22rem, 42vw);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .deckLeaving,
+  .gridRise,
+  .gridRiseAnimated {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+
+  .expandAction {
+    transition: none;
+  }
+}

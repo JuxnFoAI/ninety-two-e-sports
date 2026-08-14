@@ -8,7 +8,8 @@
 }
 
 :root {
-  --header-height: 4.5rem;
+  /* Reserves space for fixed navbar + floating island inset. */
+  --header-height: 5.25rem;
   --font-orbitron: "Orbitron", system-ui, sans-serif;
   --font-rajdhani: "Rajdhani", system-ui, sans-serif;
   --font-lexend: "Lexend", system-ui, sans-serif;
@@ -16,7 +17,7 @@
 
 @media (min-width: 1024px) {
   :root {
-    --header-height: 5.25rem;
+    --header-height: 6rem;
   }
 }
 
@@ -51,21 +52,6 @@
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes scrollPulse {
-  0%,
-  100% {
-    opacity: 0.35;
-    transform: scaleY(0.85);
-    transform-origin: top;
-  }
-
-  50% {
-    opacity: 1;
-    transform: scaleY(1);
-    transform-origin: top;
   }
 }
 

@@ -1,6 +1,6 @@
 # Ninety Two E-Sports
 
-Sitio web de la organización: landing con pantalla de carga, equipos, noticias, torneos y patrocinadores.
+Sitio web de la organización: inicio (quiénes somos, diseños, patrocinadores) y páginas propias para equipos, fotos, noticias y torneos, con pantalla de carga.
 
 ## Vista previa
 

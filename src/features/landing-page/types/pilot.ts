@@ -14,6 +14,10 @@ export interface Pilot {
   alias: string;
   country: string;
   role: string;
+  /** Extra line under the alias on the card (title, specialty, etc.). */
+  caption?: string;
+  /** Public Twitch channel; shown under the role when set. */
+  twitchUrl?: string;
   /** URL del import desde `assets/` (alias `@assets`). Opcional hasta tener la foto. */
   photo?: string;
   /** Ajuste fino del encuadre cuando la foto trae espacio vacío alrededor del piloto. */

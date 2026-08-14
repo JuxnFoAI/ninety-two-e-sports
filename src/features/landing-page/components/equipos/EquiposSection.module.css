@@ -1,0 +1,43 @@
+.divisionControls {
+  position: absolute;
+  top: -3.5rem;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.divisionControlsInner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1.25rem, 3vw, 2rem);
+  max-width: calc(100% - 2rem);
+  pointer-events: auto;
+  /* Let the hover stretch finish without clipping. */
+  overflow: visible;
+}
+
+/* Stable slots so one button's paint/stretch never reflows the other. */
+.divisionSlot {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 15.75rem;
+  max-width: 100%;
+  overflow: visible;
+}
+
+.divisionControlsInner .divisionButton {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.divisionControlsInner .divisionButtonActive {
+  color: #fff;
+}

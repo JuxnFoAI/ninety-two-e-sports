@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { easeOut } from "./easings";
+import { easeInOutCubic, easeOut } from "./easings";
 
 describe("easeOut", () => {
   it("returns 0 at t=0 and 1 at t=1", () => {
@@ -14,5 +14,16 @@ describe("easeOut", () => {
       expect(current).toBeGreaterThanOrEqual(prev);
       prev = current;
     }
+  });
+});
+
+describe("easeInOutCubic", () => {
+  it("returns 0 at t=0 and 1 at t=1", () => {
+    expect(easeInOutCubic(0)).toBe(0);
+    expect(easeInOutCubic(1)).toBe(1);
+  });
+
+  it("is slower than linear near the start", () => {
+    expect(easeInOutCubic(0.25)).toBeLessThan(0.25);
   });
 });

@@ -9,8 +9,8 @@ interface TournamentGalleryNavButtonProps {
 }
 
 const LABELS: Record<TournamentGalleryNavDirection, string> = {
-  prev: "Desplazar miniaturas hacia la izquierda",
-  next: "Desplazar miniaturas hacia la derecha",
+  prev: "Ver rondas anteriores",
+  next: "Ver rondas siguientes",
 };
 
 const ChevronIcon = ({

@@ -1,0 +1,141 @@
+.root {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+  overflow: hidden;
+  margin: 0;
+  padding: calc(0.65rem + 1px) calc(1.2rem + 1px);
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.78);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(0.55rem, 1.1vw, 0.62rem);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  line-height: 1.15;
+  text-transform: uppercase;
+  cursor: pointer;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* Cream in the clipped fringe so no rest-color ring leaks around the ink. */
+.hovered {
+  background: #f7e9ae;
+}
+
+.root:focus-visible {
+  outline: 2px solid rgba(21, 145, 220, 0.65);
+  outline-offset: 3px;
+}
+
+.surface {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+}
+
+.ink {
+  position: absolute;
+  z-index: 1;
+  border-radius: 50%;
+  background: #f7e9ae;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.hovered .ink {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.label {
+  position: relative;
+  z-index: 2;
+  transition:
+    color 420ms ease,
+    letter-spacing 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hovered .label {
+  color: #0b0b0b;
+  letter-spacing: 0.12em;
+}
+
+/* Stretch/ink only — no typography reflow that can nudge neighbors. */
+.isolateLayout.hovered .label {
+  letter-spacing: inherit;
+}
+
+/* Instant fill when motion is reduced — no expanding circle. */
+.reduced:hover,
+.reduced:focus-visible {
+  background: #f7e9ae;
+  color: #0b0b0b;
+}
+
+.reduced:hover .surface,
+.reduced:focus-visible .surface {
+  background: #f7e9ae;
+  box-shadow: inset 0 0 0 1px #f7e9ae;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink,
+  .label {
+    transition: none;
+  }
+
+  .hovered .label {
+    letter-spacing: 0.08em;
+  }
+}
+
+/*
+ * Dark veil: solid white pill, black letters.
+ * As `--scroll-designs-white` rises: solid black pill, white letters.
+ * No extra transition — colors track the veil in the same frame.
+ */
+.followDesignsWhite {
+  background: color-mix(
+    in srgb,
+    #fff,
+    #0b0b0b calc(var(--scroll-designs-white, 0) * 100%)
+  );
+  color: color-mix(
+    in srgb,
+    #0b0b0b,
+    #fff calc(var(--scroll-designs-white, 0) * 100%)
+  );
+}
+
+.followDesignsWhite .surface {
+  background: color-mix(
+    in srgb,
+    #fff,
+    #0b0b0b calc(var(--scroll-designs-white, 0) * 100%)
+  );
+  box-shadow: inset 0 0 0 1px
+    color-mix(
+      in srgb,
+      #fff,
+      #0b0b0b calc(var(--scroll-designs-white, 0) * 100%)
+    );
+}
+
+.followDesignsWhite.hovered {
+  background: #f7e9ae;
+}
+
+.followDesignsWhite .label {
+  transition: letter-spacing 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}

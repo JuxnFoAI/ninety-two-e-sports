@@ -17,13 +17,11 @@ export const MobileAccessibilityPanel = ({
 
   return (
     <div className="border-t border-white/10 pt-3 lg:hidden">
-      <div className="flex items-center justify-between gap-3 px-2 pb-2">
-        <p className="m-0 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-white/75">
-          Accesibilidad
-        </p>
+      <div className="px-2 pb-2">
         <AccessibilityTriggerButton
           expanded={open}
           controls={open ? panelId : undefined}
+          inlineLabel="Accesibilidad"
           onClick={() => onOpenChange(!open)}
         />
       </div>

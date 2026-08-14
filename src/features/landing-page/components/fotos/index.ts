@@ -1,0 +1,1 @@
+export { FotosSection } from "./FotosSection";

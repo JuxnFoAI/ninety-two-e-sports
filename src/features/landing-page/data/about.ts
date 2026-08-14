@@ -1,5 +1,6 @@
 import gts92Photo from "@assets/quienes-somos/gts92.png";
 import equipoGts92Photo from "@assets/quienes-somos/equipo-gts92.jpg";
+import nuevoComienzoPhoto from "@assets/quienes-somos/nuevo-comienzo.png";
 
 interface AboutParagraph {
   id: string;
@@ -22,15 +23,11 @@ export const ABOUT_BODY: readonly AboutParagraph[] = [
   },
   {
     id: "rebrand",
-    text: "Actualmente pasamos a llamarnos Ninety Two, o N2, ya que sentíamos que era hora de dar un salto y evolucionar como equipo. De la mano de nuestro manager Mario Soler seguimos luchando en cada carrera; cada victoria y cada derrota solo nos muestran la perseverancia que tenemos.",
+    text: "Actualmente pasamos a llamarnos Ninety Two, o N2, ya que sentíamos que era hora de dar un salto y evolucionar como equipo. De la mano de nuestro manager Mario Soler seguimos luchando en cada carrera; cada victoria y cada derrota solo nos muestran la perseverancia que tenemos. Este equipo cuenta con grandes figuras en el campo del simracing, siempre abiertos a conocer a los demás jugadores, saber de sus fortalezas y debilidades.",
   },
   {
     id: "family",
-    text: "Más que un equipo, nos consideramos una familia. Este club también ha sido hogar de grandes corredores de Gran Turismo.",
-  },
-  {
-    id: "expansion",
-    text: "Seguimos ampliando nuestras divisiones: estamos presentes en Le Mans Ultimate e iRacing, y seguiremos buscando divisiones en diferentes juegos que representen al género de las carreras.",
+    text: "Más que un equipo, nos consideramos una familia. Este club también ha sido hogar de grandes corredores de Gran Turismo. Este equipo busca que las personas que se unan, puedan disfrutar con el resto de compañeros, compartir buenos momentos y disfrutar de las experiencias que los simuladores de carreras nos han dejado en todos estos años. Seguimos ampliando nuestras divisiones: estamos presentes en Le Mans Ultimate e iRacing, y seguiremos buscando divisiones en diferentes juegos que representen al género de las carreras.",
   },
 ] as const;
 
@@ -45,6 +42,12 @@ export const ABOUT_IMAGES: readonly AboutImage[] = [
     id: "gts92-team",
     src: equipoGts92Photo,
     alt: "Equipo GTSPAIN 92 en competición",
+    showFullImage: true,
+  },
+  {
+    id: "nuevo-comienzo",
+    src: nuevoComienzoPhoto,
+    alt: "Ninety Two E-Sports, nuevo comienzo",
     showFullImage: true,
   },
 ] as const;

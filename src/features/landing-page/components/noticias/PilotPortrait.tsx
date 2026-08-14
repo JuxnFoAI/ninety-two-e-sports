@@ -1,3 +1,5 @@
+import { motion, type MotionStyle } from "motion/react";
+
 import { createPilotFrameStyle } from "./pilotPortraitStyle";
 
 interface PilotPortraitProps {
@@ -5,6 +7,7 @@ interface PilotPortraitProps {
   imageAlt?: string;
   focus?: string;
   scale?: number;
+  revealStyle?: MotionStyle;
 }
 
 export const PilotPortrait = ({
@@ -12,10 +15,11 @@ export const PilotPortrait = ({
   imageAlt,
   focus = "center center",
   scale,
+  revealStyle,
 }: PilotPortraitProps): JSX.Element => (
-  <figure
+  <motion.figure
     className="news-story-pilot"
-    style={createPilotFrameStyle(focus, scale)}
+    style={{ ...createPilotFrameStyle(focus, scale), ...revealStyle }}
     aria-label={imageAlt ? `Retrato de ${imageAlt}` : undefined}
   >
     <div className="news-story-pilot__spotlight" aria-hidden />
@@ -32,5 +36,5 @@ export const PilotPortrait = ({
         <div className="news-story-pilot__placeholder" aria-hidden />
       )}
     </div>
-  </figure>
+  </motion.figure>
 );

@@ -1,0 +1,119 @@
+.root {
+  position: relative;
+  z-index: 10;
+  display: inline-flex;
+  min-width: 0;
+  flex-shrink: 1;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+}
+
+.logo {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  background-color: #fff;
+  opacity: 0.95;
+  mask-image: var(--logo-mask);
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  transition: background-color 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (min-width: 640px) {
+  .logo {
+    width: 3.25rem;
+    height: 3.25rem;
+  }
+}
+
+.labelClip {
+  display: grid;
+  grid-template-columns: 0fr;
+  margin-left: 0;
+  overflow: hidden;
+  transition:
+    grid-template-columns 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    margin-left 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.labelInner {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.label {
+  display: block;
+  padding-left: 0.55rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate3d(-0.65rem, 0, 0);
+  transition:
+    opacity 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (min-width: 640px) {
+  .label {
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+  }
+}
+
+.root:hover .logo,
+.root:focus-visible .logo {
+  background-color: #f7e9ae;
+  opacity: 1;
+}
+
+/* Name reveal is desktop-only: a tap on mobile would otherwise stick :hover. */
+@media (min-width: 1024px) {
+  .root:hover .labelClip,
+  .root:focus-visible .labelClip {
+    grid-template-columns: 1fr;
+    margin-left: 0.15rem;
+  }
+
+  .root:hover .label,
+  .root:focus-visible .label {
+    color: #f7e9ae;
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo,
+  .labelClip,
+  .label {
+    transition: none;
+  }
+
+  .logo {
+    background-color: #f7e9ae;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) and (min-width: 1024px) {
+  .labelClip {
+    grid-template-columns: 1fr;
+    margin-left: 0.15rem;
+  }
+
+  .label {
+    color: #f7e9ae;
+    opacity: 1;
+    transform: none;
+  }
+}

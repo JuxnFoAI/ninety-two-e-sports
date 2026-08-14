@@ -1,0 +1,196 @@
+.bleed {
+  /* Match TournamentBroadcast so the calendar sits under the screen. */
+  margin-inline: calc(
+    -1 * clamp(1rem, 4vw, 4rem) + clamp(0.35rem, 1.2vw, 0.75rem)
+  );
+  margin-top: 1.75rem;
+}
+
+.season {
+  margin: 0 0 1.15rem;
+  font-size: clamp(0.58rem, 1.3vw, 0.68rem);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.48);
+}
+
+.row {
+  display: flex;
+  align-items: stretch;
+  gap: 0.5rem;
+}
+
+.scroll {
+  min-width: 0;
+  flex: 1;
+}
+
+.track {
+  display: flex;
+  align-items: stretch;
+  margin: 0;
+  padding: 0.15rem 0.1rem 0.35rem;
+  list-style: none;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.trackDragging {
+  cursor: grabbing;
+  user-select: none;
+  scroll-behavior: auto;
+}
+
+.trackIdle {
+  cursor: grab;
+}
+
+.stopItem {
+  display: flex;
+  flex: 1 0 5.85rem;
+  min-width: 5.85rem;
+  margin: 0;
+}
+
+.stop {
+  display: grid;
+  grid-template-rows: auto auto auto auto;
+  justify-items: center;
+  gap: 0.42rem;
+  width: 100%;
+  margin: 0;
+  padding: 0.2rem 0.35rem 0.15rem;
+  border: 0;
+  background: transparent;
+  text-align: center;
+  cursor: pointer;
+  color: rgb(255 255 255 / 0.42);
+  transition:
+    color 220ms ease,
+    opacity 220ms ease;
+}
+
+.stop:focus-visible {
+  outline: 2px solid rgb(247 233 174 / 0.7);
+  outline-offset: 4px;
+}
+
+.round {
+  font-family: var(--font-orbitron);
+  font-size: clamp(0.68rem, 1.5vw, 0.82rem);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.nodeRow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 0.9rem;
+}
+
+.nodeRow::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgb(255 255 255 / 0.16);
+}
+
+.stopItem:first-child .nodeRow::before {
+  left: 50%;
+}
+
+.stopItem:last-child .nodeRow::before {
+  right: 50%;
+}
+
+.node {
+  position: relative;
+  z-index: 1;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  border: 1px solid rgb(255 255 255 / 0.32);
+  background: rgb(0 0 0 / 0.55);
+  transition:
+    width 220ms ease,
+    height 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.circuit {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  min-height: 2.1em;
+  font-size: clamp(0.55rem, 1.15vw, 0.64rem);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.status {
+  font-size: 0.52rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.stopIdle:hover,
+.stopIdle:focus-visible {
+  color: rgb(255 255 255 / 0.72);
+}
+
+.stopIdle:hover .node,
+.stopIdle:focus-visible .node {
+  border-color: rgb(255 255 255 / 0.55);
+}
+
+.stopActive {
+  color: #f7e9ae;
+}
+
+.stopActive .circuit {
+  color: rgb(255 255 255 / 0.88);
+}
+
+.stopActive .node {
+  width: 0.72rem;
+  height: 0.72rem;
+  border-color: #f7e9ae;
+  background: #f7e9ae;
+  box-shadow: 0 0 0 4px rgb(247 233 174 / 0.16);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    scroll-behavior: auto;
+  }
+
+  .stop,
+  .node {
+    transition: none;
+  }
+}

@@ -1,61 +1,94 @@
 import { useState } from "react";
-import { DIVISION_ROSTERS } from "../../data/pilots";
-import { SECTION_COMPACT_HEADER_WITH_CONTROLS_REVEAL_START } from "../../lib/revealOffsets";
-import type { DivisionId } from "../../types/pilot";
-import { SectionHeader } from "../SectionHeader";
-import { RevealItem, RevealSection } from "../reveal";
-import { DivisionRoster } from "./DivisionRoster";
 
-export const EquiposSection = (): JSX.Element => {
+import { useEffectiveReducedMotion } from "@/features/accessibility";
+
+import { DIVISION_ROSTERS } from "../../data/pilots";
+import {
+  EQUIPOS_BUTTONS_REVEAL_DELAY_MS,
+  EQUIPOS_ROSTER_REVEAL_DELAY_MS,
+  EQUIPOS_ROSTER_STAGGER_MS,
+} from "../../lib/equiposTitleTiming";
+import type { DivisionId } from "../../types/pilot";
+import { NightPanelSection } from "../NightPanelSection";
+import { StretchInkButton } from "../StretchInkButton";
+import { RevealItem } from "../reveal";
+import { DivisionRoster } from "./DivisionRoster";
+import { EquiposTitle } from "./EquiposTitle";
+import styles from "./EquiposSection.module.css";
+
+const EquiposSectionBody = (): JSX.Element => {
+  const prefersReducedMotion = useEffectiveReducedMotion();
   const [activeDivisionId, setActiveDivisionId] =
-    useState<DivisionId>("america");
+    useState<DivisionId>("europe");
+  const [hasUserSelectedDivision, setHasUserSelectedDivision] = useState(false);
   const activeDivision =
     DIVISION_ROSTERS.find((division) => division.id === activeDivisionId) ??
     DIVISION_ROSTERS[0];
 
+  const buttonsRevealDelayMs = prefersReducedMotion
+    ? 0
+    : EQUIPOS_BUTTONS_REVEAL_DELAY_MS;
+  const rosterRevealDelayMs =
+    prefersReducedMotion || hasUserSelectedDivision
+      ? 0
+      : EQUIPOS_ROSTER_REVEAL_DELAY_MS;
+
   return (
-    <RevealSection
-      id="equipos"
-      aria-labelledby="equipos-title"
-      className="font-[var(--font-rajdhani)]"
-    >
-      <SectionHeader titleId="equipos-title" title="Equipo" />
+    <>
+      <div className={styles.divisionControls}>
+        <RevealItem
+          as="div"
+          delayMs={buttonsRevealDelayMs}
+          className={styles.divisionControlsInner}
+        >
+          {DIVISION_ROSTERS.map((division) => {
+            const isActive = division.id === activeDivision.id;
 
-      <RevealItem
-        as="div"
-        index={1}
-        className="relative mt-7 flex flex-wrap gap-3"
-      >
-        {DIVISION_ROSTERS.map((division) => {
-          const isActive = division.id === activeDivision.id;
-
-          return (
-            <button
-              key={division.id}
-              type="button"
-              onClick={() => setActiveDivisionId(division.id)}
-              className={`rounded-full border px-4 py-2 font-[var(--font-orbitron)] text-[0.74rem] font-semibold uppercase tracking-[0.16em] transition ${
-                isActive
-                  ? "border-transparent text-white shadow-[0_0_1.2rem_rgba(255,255,255,0.18)]"
-                  : "border-white/20 bg-black/35 text-white/80 hover:border-white/40"
-              }`}
-              style={
-                isActive ? { backgroundImage: division.gradient } : undefined
-              }
-              aria-pressed={isActive}
-            >
-              {division.buttonLabel}
-            </button>
-          );
-        })}
-      </RevealItem>
+            return (
+              <span key={division.id} className={styles.divisionSlot}>
+                <StretchInkButton
+                  isolateLayout
+                  className={`${styles.divisionButton} ${
+                    isActive ? styles.divisionButtonActive : ""
+                  }`}
+                  style={
+                    isActive
+                      ? { backgroundImage: division.gradient }
+                      : undefined
+                  }
+                  aria-pressed={isActive}
+                  onClick={() => {
+                    setHasUserSelectedDivision(true);
+                    setActiveDivisionId(division.id);
+                  }}
+                >
+                  {division.buttonLabel}
+                </StretchInkButton>
+              </span>
+            );
+          })}
+        </RevealItem>
+      </div>
 
       <DivisionRoster
         key={activeDivision.id}
         animatedKey={activeDivision.id}
         division={activeDivision}
-        revealStartIndex={SECTION_COMPACT_HEADER_WITH_CONTROLS_REVEAL_START}
+        revealDelayMs={rosterRevealDelayMs}
+        revealStaggerMs={EQUIPOS_ROSTER_STAGGER_MS}
       />
-    </RevealSection>
+    </>
   );
 };
+
+export const EquiposSection = (): JSX.Element => (
+  <NightPanelSection
+    id="equipos"
+    titleId="equipos-title"
+    title={<EquiposTitle id="equipos-title" />}
+    panelDelayMs={EQUIPOS_BUTTONS_REVEAL_DELAY_MS}
+    className="font-[var(--font-rajdhani)]"
+  >
+    <EquiposSectionBody />
+  </NightPanelSection>
+);

@@ -1,0 +1,47 @@
+.root {
+  margin: 0;
+  width: max-content;
+  max-width: min(28rem, 94vw);
+  padding-block: 0.35rem;
+  padding-inline: 0.5rem;
+  text-align: center;
+  font-family: var(--font-orbitron);
+  font-size: clamp(1.45rem, 4vw, 2.45rem);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #f7e9ae;
+  opacity: 0;
+}
+
+.visible {
+  opacity: 1;
+}
+
+.scrollRoot {
+  margin: 0;
+  width: max-content;
+  max-width: min(28rem, 94vw);
+  padding-block: 0.35rem;
+  padding-inline: 0.5rem;
+  text-align: center;
+  font-family: var(--font-orbitron);
+  font-size: clamp(1.45rem, 4vw, 2.45rem);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #f7e9ae;
+  will-change: opacity, transform, filter, letter-spacing;
+}
+
+.settled {
+  will-change: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollRoot {
+    will-change: auto;
+  }
+}

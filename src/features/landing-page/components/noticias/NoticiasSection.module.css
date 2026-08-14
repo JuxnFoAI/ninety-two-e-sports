@@ -1,0 +1,17 @@
+.updatesNote {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: clamp(5.5rem, 12vw, 8.5rem);
+  text-align: center;
+}
+
+.updatesNote :global(p) {
+  margin-top: 0;
+  margin-inline: auto;
+}
+
+.updatesNote .hashtag {
+  margin-top: 1.15rem;
+}

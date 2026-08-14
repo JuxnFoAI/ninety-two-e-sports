@@ -1,0 +1,67 @@
+.grid {
+  margin: 2.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 520px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    margin-top: 3rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+.item {
+  overflow: hidden;
+  min-width: 0;
+}
+
+.rise {
+  height: 100%;
+  opacity: 0;
+  transform: translate3d(0, 115%, 0);
+  will-change: transform, opacity;
+}
+
+.riseVisible {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+.riseAnimated {
+  animation: sponsorCardRise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes sponsorCardRise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 115%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .riseAnimated {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+}

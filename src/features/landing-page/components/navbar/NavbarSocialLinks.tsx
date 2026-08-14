@@ -1,28 +1,102 @@
-import { SOCIAL_LINKS, SOCIAL_LINK_STYLES } from "../../constants";
-import { SocialIcon } from "../SocialIcon";
+import { useRef } from "react";
 
-export const NavbarSocialLinks = (): JSX.Element => (
+import { useEffectiveReducedMotion } from "@/features/accessibility";
+import type { AnimatedIconHandle } from "@/shared/icons";
+
+import { SOCIAL_LINKS } from "../../constants";
+import type { SocialIconName } from "../../types/social";
+import { InstagramIcon } from "../icons/InstagramIcon";
+import { TwitterXIcon } from "../icons/TwitterXIcon";
+import { YoutubeIcon } from "../icons/YoutubeIcon";
+
+import styles from "./NavbarSocialLinks.module.css";
+
+type NavbarSocialLinksProps = {
+  className?: string;
+  revealLabels?: boolean;
+};
+
+const LINK_TONE: Record<SocialIconName, string> = {
+  instagram: styles.linkInstagram,
+  youtube: styles.linkYoutube,
+  x: styles.linkX,
+};
+
+type SocialLinkProps = {
+  href: string;
+  label: string;
+  icon: SocialIconName;
+  revealLabels: boolean;
+};
+
+const SocialLink = ({
+  href,
+  label,
+  icon,
+  revealLabels,
+}: SocialLinkProps): JSX.Element => {
+  const prefersReducedMotion = useEffectiveReducedMotion();
+  const animatedRef = useRef<AnimatedIconHandle>(null);
+
+  const startIcon = (): void => {
+    if (prefersReducedMotion) {
+      return;
+    }
+    animatedRef.current?.startAnimation();
+  };
+
+  const stopIcon = (): void => {
+    animatedRef.current?.stopAnimation();
+  };
+
+  return (
+    <a
+      className={`${styles.link} ${LINK_TONE[icon]}`}
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={label}
+      onMouseEnter={startIcon}
+      onMouseLeave={stopIcon}
+      onFocus={startIcon}
+      onBlur={stopIcon}
+    >
+      <span className={styles.icon}>
+        {icon === "instagram" ? (
+          <InstagramIcon ref={animatedRef} animateOnHover={false} />
+        ) : icon === "youtube" ? (
+          <YoutubeIcon ref={animatedRef} animateOnHover={false} />
+        ) : (
+          <TwitterXIcon ref={animatedRef} animateOnHover={false} />
+        )}
+      </span>
+      {revealLabels ? (
+        <span className={styles.labelClip} aria-hidden="true">
+          <span className={styles.labelInner}>
+            <span className={styles.label}>{label}</span>
+          </span>
+        </span>
+      ) : null}
+    </a>
+  );
+};
+
+export const NavbarSocialLinks = ({
+  className = "",
+  revealLabels = true,
+}: NavbarSocialLinksProps): JSX.Element => (
   <ul
-    className="m-0 flex list-none items-center gap-2 p-0 sm:gap-3"
+    className={`${styles.list} ${className}`.trim()}
     aria-label="Redes sociales"
   >
     {SOCIAL_LINKS.map(({ href, label, icon }) => (
       <li key={icon}>
-        <a
-          className={`group relative inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/[0.07] transition-all duration-200 hover:scale-[1.06] focus-visible:scale-[1.06] motion-reduce:hover:scale-100 motion-reduce:focus-visible:scale-100 sm:h-9 sm:w-9 ${SOCIAL_LINK_STYLES[icon]}`}
+        <SocialLink
           href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={label}
-        >
-          <SocialIcon name={icon} />
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-[calc(100%+0.55rem)] z-30 hidden -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-full border border-white/15 bg-black/75 px-3 py-1.5 text-[0.58rem] font-medium uppercase tracking-[0.2em] text-white/90 opacity-0 shadow-[0_8px_24px_rgba(0,0,0,0.35)] backdrop-blur-md transition-[opacity,transform] duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100 motion-reduce:transition-none lg:block"
-          >
-            {label}
-          </span>
-        </a>
+          label={label}
+          icon={icon}
+          revealLabels={revealLabels}
+        />
       </li>
     ))}
   </ul>

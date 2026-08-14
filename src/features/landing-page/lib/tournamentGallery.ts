@@ -3,15 +3,18 @@ import type { TournamentVideo } from "../types/tournamentVideo";
 export const getTournamentVideoKey = (video: TournamentVideo): string =>
   `${video.youtubeId}-${video.startSeconds ?? 0}`;
 
-/**
- * Gallery strip order (R8 → R1 in DOM): newest on the left, oldest on the right.
- * Uses natural horizontal scroll — swipe/scroll right reveals older rounds.
- */
-export const orderTournamentVideosForGalleryStrip = (
-  videos: readonly TournamentVideo[],
-): TournamentVideo[] => [...videos].sort((a, b) => b.round - a.round);
+/** On-air round label (`R8`). */
+export const formatTournamentRoundLabel = (round: number): string =>
+  `R${round}`;
 
-/** Returns the highest-round video (leftmost / default player selection). */
+/**
+ * Season calendar order (R1 → latest in DOM): the championship reads left to right.
+ */
+export const orderTournamentVideosForSeasonCalendar = (
+  videos: readonly TournamentVideo[],
+): TournamentVideo[] => [...videos].sort((a, b) => a.round - b.round);
+
+/** Returns the highest-round video (season current / default player selection). */
 export const getLatestTournamentVideo = (
   videos: readonly TournamentVideo[],
 ): TournamentVideo | undefined =>
@@ -20,76 +23,76 @@ export const getLatestTournamentVideo = (
     undefined,
   );
 
-const TOURNAMENT_THUMB_STRIP_SELECTOR = "[data-tournament-thumb-strip]";
+const TOURNAMENT_CALENDAR_SELECTOR = "[data-tournament-season-calendar]";
 
-const THUMB_STRIP_SCROLL_TOLERANCE_PX = 1;
+const CALENDAR_SCROLL_TOLERANCE_PX = 1;
 
-/** Whether the horizontal thumbnail strip can scroll further in either direction. */
-export const getTournamentThumbStripScrollState = (
-  strip: HTMLElement | null,
+/** Whether the season calendar can scroll further in either direction. */
+export const getTournamentCalendarScrollState = (
+  calendar: HTMLElement | null,
 ): { canScrollPrev: boolean; canScrollNext: boolean } => {
-  if (!strip) {
+  if (!calendar) {
     return { canScrollPrev: false, canScrollNext: false };
   }
 
-  const maxScrollLeft = strip.scrollWidth - strip.clientWidth;
+  const maxScrollLeft = calendar.scrollWidth - calendar.clientWidth;
 
-  if (maxScrollLeft <= THUMB_STRIP_SCROLL_TOLERANCE_PX) {
+  if (maxScrollLeft <= CALENDAR_SCROLL_TOLERANCE_PX) {
     return { canScrollPrev: false, canScrollNext: false };
   }
 
   return {
-    canScrollPrev: strip.scrollLeft > THUMB_STRIP_SCROLL_TOLERANCE_PX,
+    canScrollPrev: calendar.scrollLeft > CALENDAR_SCROLL_TOLERANCE_PX,
     canScrollNext:
-      strip.scrollLeft < maxScrollLeft - THUMB_STRIP_SCROLL_TOLERANCE_PX,
+      calendar.scrollLeft < maxScrollLeft - CALENDAR_SCROLL_TOLERANCE_PX,
   };
 };
 
-/** Scrolls the thumbnail strip horizontally without changing the active video. */
-export const scrollTournamentThumbStrip = (
-  strip: HTMLElement | null,
+/** Scrolls the season calendar horizontally without changing the active round. */
+export const scrollTournamentCalendar = (
+  calendar: HTMLElement | null,
   direction: -1 | 1,
 ): void => {
-  if (!strip) {
+  if (!calendar) {
     return;
   }
 
-  const step = Math.max(strip.clientWidth * 0.75, 160);
+  const step = Math.max(calendar.clientWidth * 0.75, 160);
 
-  strip.scrollBy({
+  calendar.scrollBy({
     left: direction * step,
     behavior: "smooth",
   });
 };
 
-/** Scrolls a thumbnail into view within the horizontal strip only (never the page). */
-export const scrollTournamentThumbIntoStrip = (
+/** Scrolls a round into view within the calendar only (never the page). */
+export const scrollTournamentRoundIntoCalendar = (
   button: HTMLButtonElement | null,
 ): void => {
   if (!button) {
     return;
   }
 
-  const strip = button.closest(TOURNAMENT_THUMB_STRIP_SELECTOR);
-  if (!(strip instanceof HTMLElement)) {
+  const calendar = button.closest(TOURNAMENT_CALENDAR_SELECTOR);
+  if (!(calendar instanceof HTMLElement)) {
     return;
   }
 
-  const stripRect = strip.getBoundingClientRect();
+  const calendarRect = calendar.getBoundingClientRect();
   const buttonRect = button.getBoundingClientRect();
   const padding = 8;
 
-  if (buttonRect.left < stripRect.left + padding) {
-    strip.scrollBy({
-      left: buttonRect.left - stripRect.left - padding,
+  if (buttonRect.left < calendarRect.left + padding) {
+    calendar.scrollBy({
+      left: buttonRect.left - calendarRect.left - padding,
       behavior: "smooth",
     });
     return;
   }
 
-  if (buttonRect.right > stripRect.right - padding) {
-    strip.scrollBy({
-      left: buttonRect.right - stripRect.right + padding,
+  if (buttonRect.right > calendarRect.right - padding) {
+    calendar.scrollBy({
+      left: buttonRect.right - calendarRect.right + padding,
       behavior: "smooth",
     });
   }

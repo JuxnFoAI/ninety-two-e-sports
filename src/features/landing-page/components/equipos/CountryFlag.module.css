@@ -1,0 +1,9 @@
+.flag {
+  display: block;
+  flex-shrink: 0;
+  width: 1rem;
+  height: 0.72rem;
+  border-radius: 1px;
+  object-fit: cover;
+  box-shadow: 0 0 0 1px rgb(247 233 174 / 0.28);
+}

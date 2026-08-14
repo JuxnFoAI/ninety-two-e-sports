@@ -1,0 +1,65 @@
+.viewport {
+  display: block;
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.track {
+  display: inline-block;
+  white-space: nowrap;
+  clip-path: inset(0 0 0 0);
+}
+
+.overflow {
+  mask-image: linear-gradient(
+    90deg,
+    #000 0%,
+    #000 calc(100% - 1.15rem),
+    transparent
+  );
+}
+
+:global(article:has([data-pilot-photo]:hover)) .overflow .track,
+:global(article:has([data-pilot-panel]:hover)) .overflow .track,
+:global(article:focus-within) .overflow .track {
+  animation: marqueeCycle var(--marquee-duration, 5s) linear infinite;
+}
+
+@keyframes marqueeCycle {
+  0%,
+  16% {
+    transform: translate3d(0, 0, 0);
+    clip-path: inset(0 0 0 0);
+  }
+
+  58%,
+  72% {
+    transform: translate3d(var(--marquee-shift, 0px), 0, 0);
+    clip-path: inset(0 0 0 0);
+  }
+
+  /* Wipe out in the scroll direction, then wipe the start back in. */
+  84% {
+    transform: translate3d(var(--marquee-shift, 0px), 0, 0);
+    clip-path: inset(0 100% 0 0);
+  }
+
+  85% {
+    transform: translate3d(0, 0, 0);
+    clip-path: inset(0 0 0 100%);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global(article:has([data-pilot-photo]:hover)) .overflow .track,
+  :global(article:has([data-pilot-panel]:hover)) .overflow .track,
+  :global(article:focus-within) .overflow .track {
+    animation: none;
+  }
+}

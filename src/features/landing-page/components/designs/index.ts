@@ -1,1 +1,1 @@
-export { DesignsPushNav } from "./DesignsPushNav";
+export { DesignsSection } from "./DesignsSection";

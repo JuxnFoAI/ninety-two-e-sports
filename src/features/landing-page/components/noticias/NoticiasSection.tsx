@@ -1,27 +1,26 @@
 import { NEWS_ARTICLES } from "../../data/news";
-import { SECTION_HEADER_REVEAL_COUNT } from "../../lib/revealOffsets";
+import { NOTICIAS_PANEL_REVEAL_DELAY_MS } from "../../lib/noticiasTitleTiming";
+import { NightPanelSection } from "../NightPanelSection";
 import { SectionFooterReveal } from "../SectionFooterReveal";
-import { SectionHeader } from "../SectionHeader";
-import { RevealSection } from "../reveal";
+import { SectionHashtag } from "../SectionHashtag";
 import { NewsGrid } from "./NewsGrid";
+import { NoticiasTitle } from "./NoticiasTitle";
+import styles from "./NoticiasSection.module.css";
 
-export const NoticiasSection = (): JSX.Element => {
-  const footerRevealIndex = SECTION_HEADER_REVEAL_COUNT + NEWS_ARTICLES.length;
-
-  return (
-    <RevealSection id="noticias" aria-labelledby="noticias-title">
-      <SectionHeader
-        titleId="noticias-title"
-        title="Noticias"
-        description="Cobertura de fichajes, representación de marca y calendario competitivo del club."
-        descriptionClassName="max-w-xl"
-      />
-
-      <NewsGrid revealStartIndex={SECTION_HEADER_REVEAL_COUNT} />
-
-      <SectionFooterReveal index={footerRevealIndex}>
+export const NoticiasSection = (): JSX.Element => (
+  <NightPanelSection
+    id="noticias"
+    titleId="noticias-title"
+    title={<NoticiasTitle id="noticias-title" />}
+    panelDelayMs={NOTICIAS_PANEL_REVEAL_DELAY_MS}
+    panelPadding="deep"
+  >
+    <NewsGrid />
+    <div className={styles.updatesNote}>
+      <SectionFooterReveal index={NEWS_ARTICLES.length}>
         Más actualizaciones en nuestras redes sociales.
       </SectionFooterReveal>
-    </RevealSection>
-  );
-};
+      <SectionHashtag className={styles.hashtag} />
+    </div>
+  </NightPanelSection>
+);

@@ -1,0 +1,127 @@
+@property --fotos-title-sweep {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+
+.root {
+  margin: 0;
+  font-family: var(--font-orbitron);
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.wipe {
+  display: block;
+  overflow: hidden;
+  clip-path: inset(0 100% 0 0);
+}
+
+.wipeAnimated {
+  animation: fotosTitleMaskWipe 1.2s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+.wipeVisible {
+  clip-path: inset(0 0 0 0);
+}
+
+.row {
+  display: inline-flex;
+  justify-content: center;
+}
+
+.letterMask {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.letter {
+  display: inline-block;
+  --fotos-title-sweep: 0%;
+  background-image: linear-gradient(
+    90deg,
+    var(--color-section-title) 0%,
+    var(--color-section-title) var(--fotos-title-sweep),
+    rgba(255, 255, 255, 0.78) calc(var(--fotos-title-sweep) + 22%),
+    rgba(255, 255, 255, 0.78) 100%
+  );
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  opacity: 0;
+  transform: translate3d(0, 115%, 0);
+  will-change: transform, opacity;
+}
+
+.letterVisible {
+  --fotos-title-sweep: 100%;
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+.letterAnimated {
+  animation:
+    fotosTitleLetterRise 0.75s cubic-bezier(0.16, 1, 0.3, 1)
+      var(--letter-delay, 0ms) both,
+    fotosTitleColorSweep 1.2s cubic-bezier(0.4, 0, 0.2, 1)
+      var(--sweep-delay, 1000ms) both;
+}
+
+@keyframes fotosTitleMaskWipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes fotosTitleLetterRise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 115%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fotosTitleColorSweep {
+  from {
+    --fotos-title-sweep: 0%;
+  }
+
+  to {
+    --fotos-title-sweep: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wipe,
+  .wipeAnimated,
+  .letter,
+  .letterAnimated {
+    animation: none !important;
+    clip-path: none;
+    --fotos-title-sweep: 100%;
+    opacity: 1;
+    transform: none;
+    background-image: none;
+    background-clip: border-box;
+    -webkit-background-clip: border-box;
+    color: var(--color-section-title);
+    will-change: auto;
+  }
+}
