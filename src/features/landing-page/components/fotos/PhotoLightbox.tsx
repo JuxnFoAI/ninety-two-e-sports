@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useRef, type MouseEvent } from "react";
+import { useCallback, useRef, type MouseEvent } from "react";
 import { createPortal } from "react-dom";
 
 import { useEffectiveReducedMotion } from "@/features/accessibility";
+import { useOverlayDialog } from "@/shared/hooks";
 import type { AnimatedIconHandle } from "@/shared/icons";
-import { useScrollLock } from "@/shared/hooks";
 
 import type { TeamDesign } from "../../types/design";
 import { CloseIcon } from "../icons/CloseIcon";
@@ -20,31 +20,9 @@ export const PhotoLightbox = ({
   onClose,
 }: PhotoLightboxProps): JSX.Element => {
   const prefersReducedMotion = useEffectiveReducedMotion();
-  const closeRef = useRef<HTMLButtonElement>(null);
+  const closeRef = useOverlayDialog(onClose);
   const closeIconRef = useRef<AnimatedIconHandle>(null);
   const downloadIconRef = useRef<AnimatedIconHandle>(null);
-  const previousFocusRef = useRef<HTMLElement | null>(null);
-
-  useScrollLock(true);
-
-  useEffect(() => {
-    previousFocusRef.current = document.activeElement as HTMLElement | null;
-    closeRef.current?.focus();
-
-    const handleKeyDown = (event: KeyboardEvent): void => {
-      if (event.key === "Escape") {
-        event.preventDefault();
-        onClose();
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-      previousFocusRef.current?.focus();
-    };
-  }, [onClose]);
 
   const handleDownload = useCallback(
     async (event: MouseEvent<HTMLButtonElement>): Promise<void> => {

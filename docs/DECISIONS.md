@@ -103,7 +103,7 @@ Motivo: dos componentes idénticos solo por el JSDoc; un solo marco evita copiar
 
 No hay un solo motor: cada gesto usa la herramienta más barata.
 CSS (`@keyframes` / modules): intros de título, panel noche, isla del navbar — one-shots, sin JS por frame.
-`motion`: hover de iconos, scrub de scroll (Quiénes somos, noticias) y el botón de tinta — gestos y progreso ligado al scroll.
+`motion`: hover de iconos, scrub de scroll (Quiénes somos, hélice de noticias) y el botón de tinta — gestos y progreso ligado al scroll.
 `morphicons` + `lucide`: solo el morph menú ↔ cierre, un trazo que cambia de estado.
 Canvas propio: la loading screen, control frame a frame. Descartado: Framer/GSAP para todo.
 
@@ -114,6 +114,14 @@ Motivo: utilidades rápidas para cromo; animaciones complejas no caben en class 
 `@tailwindcss/vite` (v4) inyecta el CSS sin PostCSS extra.
 
 _(2026-08-14)_
+
+### Noticias como hélice de fotos
+
+Las piezas se recorren en espiral 3D; el clic abre un overlay con foto + texto.
+Motivo: la foto es la entrada, no un grid de retrato + copy. Con reduced motion, rejilla estática.
+Descartado: mantener `NewsGrid` en paralelo.
+
+_(2026-08-16)_
 
 ---
 

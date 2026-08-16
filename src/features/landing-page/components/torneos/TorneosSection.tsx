@@ -3,6 +3,7 @@ import { NightPanelSection } from "../NightPanelSection";
 import { SectionHashtag } from "../SectionHashtag";
 import { TournamentVideoGallery } from "./TournamentVideoGallery";
 import { TorneosTitle } from "./TorneosTitle";
+import styles from "./TorneosSection.module.css";
 
 export const TorneosSection = (): JSX.Element => (
   <NightPanelSection
@@ -13,6 +14,8 @@ export const TorneosSection = (): JSX.Element => (
     panelPadding="deep"
   >
     <TournamentVideoGallery />
-    <SectionHashtag className="mt-[clamp(5.5rem,12vw,8.5rem)]" />
+    <div className={styles.closing}>
+      <SectionHashtag />
+    </div>
   </NightPanelSection>
 );

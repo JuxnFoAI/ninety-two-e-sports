@@ -1,0 +1,153 @@
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: max(4.5rem, calc(env(safe-area-inset-top) + 3.5rem))
+    max(1.25rem, env(safe-area-inset-right))
+    max(1.25rem, env(safe-area-inset-bottom))
+    max(1.25rem, env(safe-area-inset-left));
+  overflow: auto;
+  background: rgb(0 0 0 / 0.42);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  cursor: pointer;
+}
+
+.scrimAnimated {
+  animation: overlayFade 0.32s ease both;
+}
+
+.scrimStatic {
+  opacity: 1;
+}
+
+.close {
+  position: fixed;
+  top: max(0.85rem, env(safe-area-inset-top));
+  right: max(0.85rem, env(safe-area-inset-right));
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgb(0 0 0 / 0.45);
+  color: rgb(255 255 255 / 0.88);
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus-visible {
+  color: #fff;
+  background: rgb(0 0 0 / 0.7);
+  outline: none;
+}
+
+.close:focus-visible {
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.layout {
+  display: grid;
+  align-items: center;
+  gap: 1.35rem;
+  width: min(72rem, 100%);
+  margin: auto;
+  cursor: default;
+}
+
+.photo {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+
+.image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: min(42vh, 22rem);
+  object-fit: contain;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 0.7rem;
+  background: rgb(8 12 22 / 0.92);
+  box-shadow:
+    0 1.15rem 2.6rem rgb(0 0 0 / 0.48),
+    0 0 2.4rem rgb(21 145 220 / 0.16);
+}
+
+.copy {
+  min-width: 0;
+  text-align: left;
+}
+
+.scrimAnimated .image {
+  animation: photoRise 0.48s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.scrimAnimated .copy {
+  animation: copySlide 0.52s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
+}
+
+@keyframes overlayFade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes photoRise {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translate3d(0, 0.6rem, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes copySlide {
+  from {
+    opacity: 0;
+    transform: translate3d(1.15rem, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .layout {
+    grid-template-columns: minmax(16rem, 42%) minmax(0, 1fr);
+    gap: 2rem 2.75rem;
+  }
+
+  .photo {
+    justify-content: flex-end;
+  }
+
+  .image {
+    max-height: min(72vh, 38rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrimAnimated,
+  .scrimAnimated .image,
+  .scrimAnimated .copy {
+    animation: none;
+  }
+}

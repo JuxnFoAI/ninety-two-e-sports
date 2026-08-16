@@ -1,0 +1,244 @@
+.track {
+  --spiral-progress: 0;
+  --helix-angle-step: 64;
+  --helix-radius: clamp(12rem, 30vw, 22rem);
+  --helix-y-step: clamp(8.5rem, 18vh, 13rem);
+  --helix-tilt: 14deg;
+  --helix-pull: -6rem;
+  --card-max-width: min(16rem, 38vw);
+  --card-max-height: min(22rem, 52vh);
+  --card-width: var(--card-max-width);
+  --card-height: var(--card-max-height);
+  --spiral-gutter: clamp(0.85rem, 2.4vh, 1.5rem);
+  position: relative;
+  min-height: 220vh;
+}
+
+.sticky {
+  position: sticky;
+  top: var(--header-height);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: calc(100dvh - var(--header-height));
+  background: #000;
+}
+
+/* Backdrop is a sibling of the 3D scene so filter/opacity do not flatten it. */
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: #000;
+  opacity: 0;
+  transform: translate3d(0, 1.75rem, 0);
+}
+
+.stickyVisible {
+  opacity: 1;
+  transform: none;
+}
+
+.stickyAnimated {
+  animation: spiralPanelRise 0.95s cubic-bezier(0.16, 1, 0.3, 1)
+    var(--panel-reveal-delay, 0ms) both;
+}
+
+.leadIn {
+  pointer-events: none;
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  z-index: 1;
+  height: 7rem;
+  transform: translateY(-100%);
+  background: linear-gradient(to bottom, transparent, #000);
+}
+
+.stage {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  padding-block: var(--spiral-gutter);
+  perspective: min(68rem, 140vw);
+  perspective-origin: 50% 42%;
+}
+
+.scene {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.helix {
+  position: relative;
+  width: var(--card-width);
+  height: var(--card-height);
+  transform-style: preserve-3d;
+  transform: translateZ(var(--helix-pull)) rotateX(var(--helix-tilt))
+    rotateY(
+      calc(
+        var(--spiral-progress) * (1 - var(--photo-count)) *
+          var(--helix-angle-step) * 1deg
+      )
+    )
+    translateY(
+      calc(
+        var(--spiral-progress) * (1 - var(--photo-count)) * var(--helix-y-step)
+      )
+    );
+  will-change: transform;
+}
+
+.list {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transform-style: preserve-3d;
+}
+
+.card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max-content;
+  height: max-content;
+  margin: 0;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  transform: translate(-50%, -50%)
+    rotateY(calc(var(--card-index) * var(--helix-angle-step) * 1deg))
+    translateZ(var(--helix-radius))
+    translateY(calc(var(--card-index) * var(--helix-y-step)));
+  backface-visibility: visible;
+}
+
+.frame {
+  display: block;
+  width: fit-content;
+  height: fit-content;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 0.7rem;
+  background: rgb(8 12 22 / 0.92);
+  box-shadow:
+    0 1.15rem 2.6rem rgb(0 0 0 / 0.48),
+    0 0 2.4rem rgb(21 145 220 / 0.16);
+  opacity: 0;
+  transform: translate3d(0, 1.4rem, 0) scale(0.86);
+}
+
+.cardRevealed .frame {
+  animation: spiralCardEnter 0.78s cubic-bezier(0.16, 1, 0.3, 1)
+    calc(var(--card-reveal-delay) + var(--card-index) * var(--card-stagger)) both;
+}
+
+.cardVisible .frame {
+  opacity: 1;
+  transform: none;
+}
+
+.select {
+  appearance: none;
+  display: block;
+  width: fit-content;
+  height: fit-content;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.select:focus {
+  outline: none;
+}
+
+.select:focus-visible .frame {
+  box-shadow:
+    0 0 0 2px #fff,
+    0 1.15rem 2.6rem rgb(0 0 0 / 0.48),
+    0 0 2.4rem rgb(21 145 220 / 0.16);
+}
+
+.select:hover .frame {
+  border-color: rgb(255 255 255 / 0.32);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .select {
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .select:hover {
+    transform: scale(1.035);
+  }
+}
+
+.image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: var(--card-max-width);
+  max-height: var(--card-max-height);
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+  backface-visibility: hidden;
+}
+
+@keyframes spiralPanelRise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1.75rem, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes spiralCardEnter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1.4rem, 0) scale(0.86);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .track {
+    --helix-radius: clamp(14rem, 28vw, 24rem);
+    --helix-y-step: clamp(9.5rem, 17vh, 14rem);
+    --card-max-width: min(18rem, 32vw);
+    --card-max-height: min(24rem, 56vh);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .stickyAnimated,
+  .frame,
+  .cardRevealed .frame {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+
+  .helix {
+    will-change: auto;
+  }
+}

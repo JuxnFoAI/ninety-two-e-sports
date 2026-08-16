@@ -20,6 +20,8 @@ type SiteShellProps = {
   footerEntranceDelayMs?: number;
   /** Merge main + footer into one night surface (e.g. `/fotos`). */
   connectFooterToContent?: boolean;
+  /** Opaque black night + footer so background media does not show through. */
+  opaqueNight?: boolean;
 };
 
 export const SiteShell = ({
@@ -30,6 +32,7 @@ export const SiteShell = ({
   navbarInteractive = true,
   footerEntranceDelayMs,
   connectFooterToContent = false,
+  opaqueNight = false,
 }: SiteShellProps): JSX.Element => {
   const prefersReducedMotion = useEffectiveReducedMotion();
 
@@ -80,7 +83,7 @@ export const SiteShell = ({
 
         <footer
           role="contentinfo"
-          className={`bg-black/90 px-[clamp(1rem,4vw,4rem)] py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:py-7 ${
+          className={`${opaqueNight ? "bg-black" : "bg-black/90"} px-[clamp(1rem,4vw,4rem)] py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:py-7 ${
             connectFooterToContent ? "relative z-[1]" : ""
           } ${footerEntranceClass}`.trim()}
         >

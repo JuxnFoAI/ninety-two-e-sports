@@ -1,3 +1,37 @@
+.section {
+  padding-top: clamp(3.5rem, 9vw, 6rem) !important;
+  padding-bottom: 0 !important;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: calc(100dvh - var(--header-height));
+}
+
+.title {
+  position: relative;
+  z-index: 1;
+  margin-bottom: clamp(9.5rem, 18vw, 12rem);
+  text-align: center;
+}
+
+.nightSurface {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  margin-inline: calc(-1 * clamp(1rem, 4vw, 4rem));
+  margin-bottom: -1px;
+  background: #000;
+}
+
+.afterSpiral {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  padding: 0 clamp(1rem, 4vw, 4rem) clamp(3.25rem, 7vw, 5.5rem);
+}
+
 .updatesNote {
   display: flex;
   flex-direction: column;

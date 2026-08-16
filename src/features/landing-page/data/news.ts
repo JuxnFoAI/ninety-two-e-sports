@@ -1,6 +1,6 @@
-import arieFichajePhoto from "@assets/noticias/Arie-fichaje.jpg";
+import arieFichajePhoto from "@assets/noticias/arie-fichaje.jpg";
 import campeonesPhoto from "@assets/noticias/campeones.jpg";
-import ignasiLligadasFichajePhoto from "@assets/noticias/Ignasi Lligadas-fichaje.jpg";
+import ignasiLligadasFichajePhoto from "@assets/noticias/ignasi-lligadas-fichaje.jpg";
 import resultsNationsRd2Photo from "@assets/noticias/results-nations-rd-2.jpg";
 import samuMorenoNationsPhoto from "@assets/noticias/samu-moreno-nations.jpg";
 
@@ -14,7 +14,6 @@ export const NEWS_ARTICLES: readonly NewsArticle[] = [
       "Tras una sprint donde lejos de ser perfecta cometió muchos errores que le lastraron, un carrerón súper sólido en la final y aprovechando la polémica sanción a Josete, Samu consigue su primer trofeo de la GTWS",
     image: resultsNationsRd2Photo,
     imageAlt: "Samuel Moreno, P3 en la Nations Cup ronda 2",
-    portraitFocus: "center 40%",
   },
   {
     id: "samu-moreno-nations-es-hoy",
@@ -23,7 +22,6 @@ export const NEWS_ARTICLES: readonly NewsArticle[] = [
       "Hoy Samuel Moreno pondrá todo de sí mismo para posicionarse en lo más alto de esta ronda 2 en TOKYO",
     image: samuMorenoNationsPhoto,
     imageAlt: "Samuel Moreno en la Nations Cup",
-    portraitFocus: "center 42%",
   },
   {
     id: "arie-haydar-fichaje",
@@ -32,8 +30,6 @@ export const NEWS_ARTICLES: readonly NewsArticle[] = [
       "Con múltiples récords mundiales de Gran Turismo, entra al equipo un talento internacional que busca elevar al equipo al siguiente nivel, siempre arriba en las tablas de tiempos.",
     image: arieFichajePhoto,
     imageAlt: "Arie Haydar",
-    portraitFocus: "center 38%",
-    portraitScale: 1.08,
   },
   {
     id: "ignasi-lligadas-fichaje",
@@ -42,8 +38,6 @@ export const NEWS_ARTICLES: readonly NewsArticle[] = [
       "Tenemos el honor de anunciar la entrada al equipo de uno de los pilotos españoles con mayor proyección y velocidad de la actualidad, gran piloto de karting y sin duda un contendiente a futuro en la GT World Series",
     image: ignasiLligadasFichajePhoto,
     imageAlt: "Ignasi Lligadas",
-    portraitFocus: "center 38%",
-    portraitScale: 1.08,
   },
   {
     id: "campeones-infinity-g-series",

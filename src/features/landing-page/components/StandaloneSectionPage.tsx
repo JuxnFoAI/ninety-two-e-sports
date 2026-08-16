@@ -6,14 +6,20 @@ type StandaloneSectionPageProps = {
   children: ReactNode;
   /** Stretch main content so a night panel can meet the footer seamlessly. */
   connectToFooter?: boolean;
+  /** Hide background media under the night panel and footer. */
+  opaqueNight?: boolean;
 };
 
 /** Shared chrome for routed section pages (`/equipos`, `/fotos`, `/noticias`, `/torneos`). */
 export const StandaloneSectionPage = ({
   children,
   connectToFooter = false,
+  opaqueNight = false,
 }: StandaloneSectionPageProps): JSX.Element => (
-  <SiteShell connectFooterToContent={connectToFooter}>
+  <SiteShell
+    connectFooterToContent={connectToFooter}
+    opaqueNight={opaqueNight}
+  >
     <div
       className={
         connectToFooter

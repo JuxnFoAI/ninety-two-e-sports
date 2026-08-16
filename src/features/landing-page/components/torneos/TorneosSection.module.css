@@ -1,0 +1,6 @@
+.closing {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(6.5rem, 14vw, 10rem);
+  padding-bottom: clamp(3.75rem, 8vw, 6.25rem);
+}

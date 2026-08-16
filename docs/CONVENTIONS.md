@@ -33,14 +33,14 @@ Es intencional y coherente con el producto:
 - **Carpetas y secciones (UI):** español — `equipos`, `noticias`, `disenos`, `PatrocinadoresSection`.
 - **Inicio (`/`):** hero + `#quienes-somos` + `#disenos` + `#patrocinadores` (bloque continuo, `surface="flush"`).
 - **Rutas independientes:** español en path — `/equipos`, `/fotos`, `/noticias`, `/torneos` (misma pestaña vía React Router). `/fotos` no va en el menú; se abre desde Diseños.
-- **Componentes internos / datos:** inglés — `SponsorCard`, `PilotCard`, `NewsGrid`.
+- **Componentes internos / datos:** inglés — `SponsorCard`, `PilotCard`, `NewsPhotoSpiral`.
 - **Diseños:** assets en `assets/Designs/` (`@assets/Designs/...`).
 
 Al añadir una sección nueva en el inicio, mantén el patrón: carpeta en español, componente de sección `*Section.tsx`, subcomponentes en inglés descriptivo. Si pasa a página propia, añade ruta en `App.tsx`, página con `StandaloneSectionPage` y enlace en `NAV_LINKS` solo si debe aparecer en el menú.
 
 ## Animaciones reveal
 
-Las secciones usan `RevealSection` + `RevealItem` con índices de stagger (`index`). Las páginas propias (`/equipos`, `/fotos`, `/noticias`, `/torneos`) comparten `NightPanelSection` (título + panel noche). Los títulos grandes tienen intro propia y no pasan por `SectionDisplayTitle` salvo Patrocinadores y Diseños.
+Las secciones usan `RevealSection` + `RevealItem` con índices de stagger (`index`). Las páginas propias (`/equipos`, `/fotos`, `/noticias`, `/torneos`) comparten `NightPanelSection` (título + panel noche). Equipos, Fotos y Torneos tienen intro de título propia; Patrocinadores, Diseños y Noticias usan `SectionDisplayTitle`.
 
 ## Loading screen: dos “geometry”
 
@@ -59,5 +59,6 @@ Los tipos viven en `src/features/landing-page/types/`. Importa el archivo concre
 
 - Fotos de pilotos: `assets/integrantes/` y `assets/lideres/`
 - Liveries / diseños: `assets/Designs/`
+- Noticias: `assets/noticias/`
 - Patrocinadores: `assets/patrocinadores/`
 - Preferir nombres en kebab-case ASCII (`espana.jpg`, no `españa.jpg`) para compatibilidad entre sistemas.

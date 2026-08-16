@@ -1,0 +1,66 @@
+.list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.select {
+  appearance: none;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.select:focus {
+  outline: none;
+}
+
+.select:focus-visible .frame {
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.select:hover .frame {
+  border-color: rgb(255 255 255 / 0.32);
+}
+
+.frame {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 0.7rem;
+  background: rgb(8 12 22 / 0.92);
+  transition: border-color 0.25s ease;
+}
+
+.image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: min(40rem, 78vh);
+  object-fit: contain;
+}
+
+@media (min-width: 640px) {
+  .list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.75rem;
+  }
+}
