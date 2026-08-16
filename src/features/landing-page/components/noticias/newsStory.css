@@ -54,7 +54,7 @@
 
   .news-story-pilot__frame {
     aspect-ratio: 3 / 4;
-    max-height: min(28rem, 58vh);
+    max-height: min(40rem, 74vh);
   }
 }
 
@@ -75,7 +75,7 @@
   }
 
   .news-story-pilot__frame {
-    max-height: min(32rem, 62vh);
+    max-height: min(48rem, 80vh);
   }
 }
 
