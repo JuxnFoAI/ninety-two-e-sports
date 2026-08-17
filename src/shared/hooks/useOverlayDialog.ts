@@ -14,7 +14,7 @@ export const useOverlayDialog = (onClose: () => void) => {
 
   useEffect(() => {
     previousFocusRef.current = document.activeElement as HTMLElement | null;
-    closeRef.current?.focus();
+    closeRef.current?.focus({ preventScroll: true });
 
     const handleKeyDown = (event: KeyboardEvent): void => {
       if (event.key === "Escape") {
@@ -27,7 +27,7 @@ export const useOverlayDialog = (onClose: () => void) => {
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
-      previousFocusRef.current?.focus();
+      previousFocusRef.current?.focus({ preventScroll: true });
     };
   }, [onClose]);
 

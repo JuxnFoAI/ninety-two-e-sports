@@ -4,5 +4,5 @@ export { useIntersectionReveal } from "./useIntersectionReveal";
 export { useMediaQuery } from "./useMediaQuery";
 export { useOverlayDialog } from "./useOverlayDialog";
 export { usePrefersReducedMotion } from "./usePrefersReducedMotion";
-export { useScrollLock } from "./useScrollLock";
+export { isDocumentScrollLocked, useScrollLock } from "./useScrollLock";
 export { useScrolledPast } from "./useScrolledPast";

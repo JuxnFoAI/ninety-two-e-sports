@@ -1,6 +1,8 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { useScroll } from "motion/react";
 
+import { isDocumentScrollLocked } from "@/shared/hooks";
+
 const FALLBACK_HEADER_PX = 96;
 
 const readHeaderOffsetPx = (): number => {
@@ -52,11 +54,28 @@ export const useNewsSpiralScroll = () => {
     }
 
     const apply = (value: number): void => {
+      if (isDocumentScrollLocked()) {
+        return;
+      }
+
       track.style.setProperty("--spiral-progress", value.toFixed(4));
     };
 
     apply(scrollYProgress.get());
-    return scrollYProgress.on("change", apply);
+    const unsubscribe = scrollYProgress.on("change", apply);
+    const observer = new MutationObserver(() => {
+      apply(scrollYProgress.get());
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => {
+      unsubscribe();
+      observer.disconnect();
+    };
   }, [scrollYProgress]);
 
   return trackRef;

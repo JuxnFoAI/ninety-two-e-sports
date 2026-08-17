@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 
-const SCROLL_LOCK_CLASS = "scroll-locked";
+export const SCROLL_LOCK_CLASS = "scroll-locked";
+
+export const isDocumentScrollLocked = (): boolean =>
+  document.documentElement.classList.contains(SCROLL_LOCK_CLASS);
 
 interface BodyStyleSnapshot {
   position: string;
@@ -69,7 +72,6 @@ const unlockScroll = (): void => {
   const snapshot = bodySnapshot;
   const scrollY = savedScrollY;
 
-  document.documentElement.classList.remove(SCROLL_LOCK_CLASS);
   htmlStyle.overflow = htmlOverflowSnapshot;
 
   if (snapshot) {
@@ -82,6 +84,7 @@ const unlockScroll = (): void => {
 
   bodySnapshot = null;
   restoreScrollPosition(scrollY);
+  document.documentElement.classList.remove(SCROLL_LOCK_CLASS);
 };
 
 /** Locks document scroll (iOS-safe) while `locked` is true. Restores position on release. */
