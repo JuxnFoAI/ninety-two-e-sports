@@ -1,3 +1,11 @@
+/** Tight filter region so the default -10%/120% box cannot inflate hit-testing. */
+const FILTER_REGION = {
+  x: "0%",
+  y: "0%",
+  width: "100%",
+  height: "100%",
+} as const;
+
 /** SVG color matrices for color-blind accessibility filters. */
 export const ColorBlindnessFilters = (): JSX.Element => (
   <svg
@@ -6,7 +14,7 @@ export const ColorBlindnessFilters = (): JSX.Element => (
     focusable="false"
   >
     <defs>
-      <filter id="a11y-protanopia">
+      <filter id="a11y-protanopia" {...FILTER_REGION}>
         <feColorMatrix
           type="matrix"
           values="0.567 0.433 0 0 0
@@ -15,7 +23,7 @@ export const ColorBlindnessFilters = (): JSX.Element => (
                   0 0 0 1 0"
         />
       </filter>
-      <filter id="a11y-deuteranopia">
+      <filter id="a11y-deuteranopia" {...FILTER_REGION}>
         <feColorMatrix
           type="matrix"
           values="0.625 0.375 0 0 0
@@ -24,7 +32,7 @@ export const ColorBlindnessFilters = (): JSX.Element => (
                   0 0 0 1 0"
         />
       </filter>
-      <filter id="a11y-tritanopia">
+      <filter id="a11y-tritanopia" {...FILTER_REGION}>
         <feColorMatrix
           type="matrix"
           values="0.95 0.05 0 0 0

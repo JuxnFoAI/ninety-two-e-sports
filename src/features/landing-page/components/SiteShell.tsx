@@ -56,41 +56,48 @@ export const SiteShell = ({
 
       {/*
         Navbar stays outside overflow-x-clip so backdrop-filter can sample
-        page content scrolling underneath the floating pill.
+        page content scrolling underneath the floating pill. Color-blind
+        filters live on the island itself — wrapping this fixed header in a
+        zero-height filter layer traps its z-index and steals clicks.
       */}
-      <div className={A11Y_COLOR_FILTER_LAYER_CLASS}>
-        <Navbar
-          entranceDelayMs={
-            prefersReducedMotion && sequencedHomeEntrance
-              ? 0
-              : navbarEntranceDelayMs
-          }
-          interactive={navbarInteractive}
-          blendWithScrollNight={behindContent != null}
-        />
-      </div>
+      <Navbar
+        entranceDelayMs={
+          prefersReducedMotion && sequencedHomeEntrance
+            ? 0
+            : navbarEntranceDelayMs
+        }
+        interactive={navbarInteractive}
+        blendWithScrollNight={behindContent != null}
+      />
 
-      <div
-        className={`${A11Y_COLOR_FILTER_LAYER_CLASS} relative z-10 flex min-h-dvh flex-col overflow-x-clip ${shellEntranceClass}`.trim()}
-      >
-        <main
-          id="contenido-principal"
-          className={`flex-1 ${connectFooterToContent ? "flex flex-col" : ""}`.trim()}
-          tabIndex={-1}
+      {/*
+        Keep `filter` and `overflow-x-clip` on different nodes. Combined on
+        the same box, SVG color filters break hit-testing on transformed
+        descendants (galleries, CTAs, cards).
+      */}
+      <div className={`${A11Y_COLOR_FILTER_LAYER_CLASS} relative z-10`}>
+        <div
+          className={`flex min-h-dvh flex-col overflow-x-clip ${shellEntranceClass}`.trim()}
         >
-          {children}
-        </main>
+          <main
+            id="contenido-principal"
+            className={`flex-1 ${connectFooterToContent ? "flex flex-col" : ""}`.trim()}
+            tabIndex={-1}
+          >
+            {children}
+          </main>
 
-        <footer
-          role="contentinfo"
-          className={`${opaqueNight ? "bg-black" : "bg-black/90"} px-[clamp(1rem,4vw,4rem)] py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:py-7 ${
-            connectFooterToContent ? "relative z-[1]" : ""
-          } ${footerEntranceClass}`.trim()}
-        >
-          <p className="m-0 text-[0.68rem] font-medium uppercase tracking-[0.14em] text-white/40">
-            © {new Date().getFullYear()} Ninety Two E-Sports
-          </p>
-        </footer>
+          <footer
+            role="contentinfo"
+            className={`${opaqueNight ? "bg-black" : "bg-black/90"} px-[clamp(1rem,4vw,4rem)] py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:py-7 ${
+              connectFooterToContent ? "relative z-[1]" : ""
+            } ${footerEntranceClass}`.trim()}
+          >
+            <p className="m-0 text-[0.68rem] font-medium uppercase tracking-[0.14em] text-white/40">
+              © {new Date().getFullYear()} Ninety Two E-Sports
+            </p>
+          </footer>
+        </div>
       </div>
     </div>
   );

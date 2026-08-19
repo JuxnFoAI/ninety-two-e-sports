@@ -42,6 +42,11 @@ html[data-a11y-large-targets="true"] button {
   min-width: 2.75rem;
 }
 
+html[data-a11y-large-targets="true"] .a11y-skip-link:not(:focus-visible) {
+  min-height: 0;
+  min-width: 0;
+}
+
 html[data-a11y-large-targets="true"] nav a {
   padding-block: 0.75rem;
 }
@@ -76,8 +81,10 @@ html[data-a11y-reduce-motion="true"] *,
 html[data-a11y-reduce-motion="true"] *::before,
 html[data-a11y-reduce-motion="true"] *::after {
   animation-duration: 0.01ms !important;
+  animation-delay: 0s !important;
   animation-iteration-count: 1 !important;
   transition-duration: 0.01ms !important;
+  transition-delay: 0s !important;
   scroll-behavior: auto !important;
 }
 
@@ -86,8 +93,10 @@ html[data-a11y-reduce-motion="true"] *::after {
   html[data-a11y-reduce-motion="true"] *::before,
   html[data-a11y-reduce-motion="true"] *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
   }
 }
 

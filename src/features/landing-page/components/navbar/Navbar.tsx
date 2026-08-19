@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 
-import { useEffectiveReducedMotion } from "@/features/accessibility";
+import {
+  A11Y_COLOR_FILTER_LAYER_CLASS,
+  useEffectiveReducedMotion,
+} from "@/features/accessibility";
 import { useScrolledPast, useScrollLock } from "@/shared/hooks";
 
 import { getNavbarEntranceClass } from "../../styles/navbarAnimation";
@@ -100,32 +103,34 @@ export const Navbar = ({
 
       <div className={islandClassName}>
         <div className={styles.frost} aria-hidden="true" />
-        <div className={styles.row}>
-          <div className={styles.start}>
-            <NavbarBrand onNavigate={closeMenu} />
+        <div className={A11Y_COLOR_FILTER_LAYER_CLASS}>
+          <div className={styles.row}>
+            <div className={styles.start}>
+              <NavbarBrand onNavigate={closeMenu} />
+            </div>
+            <NavbarDesktopNav className={styles.middle} />
+            <div className={styles.end}>
+              <NavbarHeaderActions
+                desktopAccessibilityOpen={desktopAccessibilityOpen}
+                onDesktopAccessibilityOpenChange={setDesktopAccessibilityOpen}
+                revealLabels={!isIsland}
+                socialsClassName={styles.socials}
+              />
+              <NavbarMenuToggle
+                menuOpen={menuOpen}
+                onToggle={() => setMenuOpen((open) => !open)}
+              />
+            </div>
           </div>
-          <NavbarDesktopNav className={styles.middle} />
-          <div className={styles.end}>
-            <NavbarHeaderActions
-              desktopAccessibilityOpen={desktopAccessibilityOpen}
-              onDesktopAccessibilityOpenChange={setDesktopAccessibilityOpen}
-              revealLabels={!isIsland}
-              socialsClassName={styles.socials}
-            />
-            <NavbarMenuToggle
-              menuOpen={menuOpen}
-              onToggle={() => setMenuOpen((open) => !open)}
-            />
-          </div>
-        </div>
 
-        <div className={styles.panel}>
-          <NavbarMobileNav
-            menuOpen={menuOpen}
-            mobileAccessibilityOpen={mobileAccessibilityOpen}
-            onNavigate={closeMenu}
-            onMobileAccessibilityOpenChange={setMobileAccessibilityOpen}
-          />
+          <div className={styles.panel}>
+            <NavbarMobileNav
+              menuOpen={menuOpen}
+              mobileAccessibilityOpen={mobileAccessibilityOpen}
+              onNavigate={closeMenu}
+              onMobileAccessibilityOpenChange={setMobileAccessibilityOpen}
+            />
+          </div>
         </div>
       </div>
     </header>

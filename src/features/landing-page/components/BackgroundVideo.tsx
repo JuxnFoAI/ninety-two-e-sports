@@ -48,33 +48,35 @@ export const BackgroundVideo = (): JSX.Element => {
 
   return (
     <div
-      className={`pointer-events-none fixed inset-0 z-0 overflow-hidden bg-black ${A11Y_COLOR_FILTER_LAYER_CLASS}`}
+      className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-black"
       aria-hidden="true"
     >
-      {showVideo ? (
-        <video
-          ref={videoRef}
-          className={BACKGROUND_MEDIA_CLASS}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          tabIndex={-1}
-        >
-          <source src={backgroundVideo} type="video/mp4" />
-        </video>
-      ) : (
-        <img
-          src={mobileBackground}
-          alt=""
-          className={BACKGROUND_MEDIA_CLASS}
-          decoding="async"
-          fetchPriority="high"
-        />
-      )}
+      <div className={`relative h-full w-full ${A11Y_COLOR_FILTER_LAYER_CLASS}`}>
+        {showVideo ? (
+          <video
+            ref={videoRef}
+            className={BACKGROUND_MEDIA_CLASS}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            tabIndex={-1}
+          >
+            <source src={backgroundVideo} type="video/mp4" />
+          </video>
+        ) : (
+          <img
+            src={mobileBackground}
+            alt=""
+            className={BACKGROUND_MEDIA_CLASS}
+            decoding="async"
+            fetchPriority="high"
+          />
+        )}
 
-      <BackgroundOverlays />
+        <BackgroundOverlays />
+      </div>
     </div>
   );
 };
