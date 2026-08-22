@@ -1,5 +1,11 @@
-/** Default animation duration in milliseconds. */
+/** Default desktop animation duration in milliseconds. */
 export const DEFAULT_LOADING_DURATION_MS = 4000;
+
+/** Shorter mobile animation duration in milliseconds. */
+export const MOBILE_LOADING_DURATION_MS = 2200;
+
+/** Viewport treated as mobile for the loading timeline. */
+export const MOBILE_LOADING_MEDIA_QUERY = "(max-width: 47.9375rem)";
 
 /** Delay before fade-out begins after timeline completes (ms). */
 export const FADE_OUT_DELAY_MS = 200;

@@ -5,22 +5,32 @@ import {
   useRef,
   useState,
 } from "react";
-import { useAnimationLoop, usePrefersReducedMotion } from "@/shared/hooks";
+import {
+  useAnimationLoop,
+  useMediaQuery,
+  usePrefersReducedMotion,
+} from "@/shared/hooks";
 import { easeOut } from "@/shared/lib/easings";
 import { applyLogoAnimation } from "../animation/logoAnimation";
 import { paintStage } from "../canvas/paintStage";
 import { setupCanvas } from "../canvas/setupCanvas";
 import {
   DEFAULT_LOADING_DURATION_MS,
+  MOBILE_LOADING_DURATION_MS,
+  MOBILE_LOADING_MEDIA_QUERY,
   REDUCED_MOTION_TIMEOUT_MS,
 } from "../constants";
 import type { LoadingScreenProps } from "../LoadingScreen.types";
 import { useFadeOutSequence } from "./useFadeOutSequence";
 
 export const useLoadingScreen = ({
-  duration = DEFAULT_LOADING_DURATION_MS,
+  duration,
   onComplete,
 }: LoadingScreenProps) => {
+  const isMobile = useMediaQuery(MOBILE_LOADING_MEDIA_QUERY);
+  const resolvedDuration =
+    duration ??
+    (isMobile ? MOBILE_LOADING_DURATION_MS : DEFAULT_LOADING_DURATION_MS);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useLayoutEffect(() => {
@@ -52,7 +62,7 @@ export const useLoadingScreen = ({
     const canvas = canvasRef.current;
     const ctx = canvas ? setupCanvas(canvas) : null;
     if (ctx) {
-      paintStage({ ctx, elapsed: duration, t: 1 });
+      paintStage({ ctx, elapsed: resolvedDuration, t: 1 });
     }
 
     const logo = logoRef.current;
@@ -67,7 +77,7 @@ export const useLoadingScreen = ({
     return () => {
       clearTimeout(timer);
     };
-  }, [complete, duration, prefersReducedMotion]);
+  }, [complete, prefersReducedMotion, resolvedDuration]);
 
   useLayoutEffect(() => {
     if (prefersReducedMotion) {
@@ -103,7 +113,7 @@ export const useLoadingScreen = ({
   }, []);
 
   useAnimationLoop({
-    duration,
+    duration: resolvedDuration,
     enabled: animationEnabled && !prefersReducedMotion,
     onFrame: paintFrame,
     onTimelineEnd: () => {
