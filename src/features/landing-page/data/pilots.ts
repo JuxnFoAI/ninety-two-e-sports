@@ -6,7 +6,9 @@ import franciscoJavierPhoto from "@assets/integrantes/americanos/francisco-javie
 import joaoPessoaPhoto from "@assets/integrantes/americanos/Joao-pessoa.jpg";
 import joshuaRodriguezPhoto from "@assets/integrantes/americanos/joshua-rodriguez.jpg";
 import juanJosePhoto from "@assets/integrantes/americanos/juan-jose.jpg";
+import martinMarzaPhoto from "@assets/integrantes/americanos/martin-marza.jpg";
 import mateoEstevezPhoto from "@assets/integrantes/americanos/Mateo-estevez.jpg";
+import misterioRacerPhoto from "@assets/integrantes/americanos/misterio-racer.jpg";
 import nicolasSaavedraPhoto from "@assets/integrantes/americanos/nicolas-saavedra.jpg";
 import orestesFilomenoPhoto from "@assets/integrantes/americanos/Orestes-filomeno.jpg";
 import arieHaydarPhoto from "@assets/integrantes/europeos/Arie-Haydar.jpg";
@@ -290,6 +292,26 @@ export const DIVISION_ROSTERS: readonly DivisionRoster[] = [
         photoFit: {
           position: "center 33%",
           scale: 1.3,
+        },
+      },
+      {
+        id: "am-12",
+        alias: "MISTERIO RACER",
+        country: "GUATEMALA",
+        role: "CORREDOR DE EVENTOS LATAM | CREADOR DE CONTENIDO",
+        caption: "CORREDOR DE EVENTOS LATAM | CREADOR DE CONTENIDO",
+        photo: misterioRacerPhoto,
+      },
+      {
+        id: "am-13",
+        alias: "MARTÍN MARZA",
+        country: "ARGENTINA",
+        role: "PILOTO WORLD TOUR | CORREDOR DE EVENTOS LATAM",
+        caption: "PILOTO WORLD TOUR | CORREDOR DE EVENTOS LATAM",
+        photo: martinMarzaPhoto,
+        photoFit: {
+          position: "center 18%",
+          scale: 1.05,
         },
       },
     ],

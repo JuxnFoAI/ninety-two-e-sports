@@ -32,8 +32,11 @@ export const PhotoLightbox = ({
       const blob = await response.blob();
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
+      const pathname = design.src.split("?")[0] ?? "";
+      const ext = pathname.match(/\.([a-z0-9]+)$/i)?.[1] ?? "png";
+
       link.href = url;
-      link.download = `${design.id}.png`;
+      link.download = `${design.id}.${ext}`;
       document.body.append(link);
       link.click();
       link.remove();

@@ -1,8 +1,15 @@
+import astonMartinDetalleFrontal from "@assets/Designs/aston-martin-detalle-frontal.jpeg";
+import astonMartinPerfil from "@assets/Designs/aston-martin-perfil.jpeg";
+import astonMartinTrasera from "@assets/Designs/aston-martin-trasera.jpeg";
+import astonMartinVelocidad from "@assets/Designs/aston-martin-velocidad.jpeg";
 import audiR8CuartoTrasero from "@assets/Designs/audi-r8-cuarto-trasero.png";
 import audiR8Frontal from "@assets/Designs/audi-r8-frontal.png";
 import audiR8Perfil from "@assets/Designs/audi-r8-perfil.png";
 import audiR8Pista from "@assets/Designs/audi-r8-pista.png";
 import audiR8Techo from "@assets/Designs/audi-r8-techo.png";
+import hondaFrontal from "@assets/Designs/honda-frontal.jpeg";
+import hondaTrasera from "@assets/Designs/honda-trasera.jpeg";
+import hondaVelocidad from "@assets/Designs/honda-velocidad.jpeg";
 import jaguarDetalleFrontal from "@assets/Designs/jaguar-detalle-frontal.png";
 import jaguarDetalleTrasero from "@assets/Designs/jaguar-detalle-trasero.png";
 import jaguarEstudio from "@assets/Designs/jaguar-estudio.png";
@@ -151,5 +158,40 @@ export const TEAM_DESIGNS: readonly TeamDesign[] = [
     id: "mazda-perfil",
     src: mazdaPerfil,
     alt: "Perfil del Mazda del equipo Ninety Two en el circuito",
+  },
+  {
+    id: "aston-martin-velocidad",
+    src: astonMartinVelocidad,
+    alt: "Aston Martin Vantage GT3 del equipo Ninety Two en plena velocidad, de noche",
+  },
+  {
+    id: "aston-martin-trasera",
+    src: astonMartinTrasera,
+    alt: "Vista trasera del Aston Martin Vantage GT3 del equipo Ninety Two en curva nocturna",
+  },
+  {
+    id: "aston-martin-detalle-frontal",
+    src: astonMartinDetalleFrontal,
+    alt: "Detalle frontal del Aston Martin Vantage GT3 del equipo Ninety Two",
+  },
+  {
+    id: "aston-martin-perfil",
+    src: astonMartinPerfil,
+    alt: "Perfil del Aston Martin Vantage GT3 del equipo Ninety Two, con disco de freno al rojo",
+  },
+  {
+    id: "honda-frontal",
+    src: hondaFrontal,
+    alt: "Honda NSX GT3 del equipo Ninety Two adelantando en pista, de noche",
+  },
+  {
+    id: "honda-velocidad",
+    src: hondaVelocidad,
+    alt: "Honda NSX GT3 del equipo Ninety Two en plena velocidad",
+  },
+  {
+    id: "honda-trasera",
+    src: hondaTrasera,
+    alt: "Vista trasera del Honda NSX GT3 del equipo Ninety Two de noche",
   },
 ];
