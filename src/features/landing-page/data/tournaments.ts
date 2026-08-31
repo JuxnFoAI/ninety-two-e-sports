@@ -1,16 +1,56 @@
 import { orderTournamentVideosForSeasonCalendar } from "../lib/tournamentGallery";
-import type { TournamentVideo } from "../types/tournamentVideo";
-
-/** Championship shown above the season calendar. */
-export const TOURNAMENT_SEASON_LABEL = "Infinity G Series · 2026";
+import type {
+  TournamentChampionship,
+  TournamentVideo,
+} from "../types/tournamentVideo";
 
 /**
- * Tournament gallery entries. `title` must match the YouTube video title verbatim (attribution).
+ * Tournament gallery. First championship is on-air by default.
+ * `title` must match the YouTube video title verbatim (attribution).
  * `headline` is the on-air title written by the team. `circuit` is the overlay / calendar name.
- * `round` sets calendar order: R1 on the left, latest on the right.
+ * `round` sets calendar order within a championship. Pass `"desc"` to list newest first.
  * After adding a `youtubeId`, run `npm run tournaments:sync-titles` to refresh titles.
  */
-const TOURNAMENT_VIDEOS_RAW: readonly TournamentVideo[] = [
+const GT_WORLD_SERIES_2026_VIDEOS: readonly TournamentVideo[] = [
+  {
+    round: 3,
+    roundLabel: "R2",
+    youtubeId: "UJFo4dhswus",
+    circuit: "Nations · Tokio",
+    headline: "El mundial llega a Tokio",
+    title: "[Español] GT World Series 2026 | Ronda 2 - Tokio | Nations Cup",
+  },
+  {
+    round: 2,
+    roundLabel: "R1",
+    youtubeId: "1uoO2zIIMo8",
+    circuit: "Nations · Milán",
+    headline: "Las naciones en Milán",
+    title: "[Español] GT World Series 2026 | Ronda 1 - Milán | Nations Cup",
+  },
+  {
+    round: 1,
+    roundLabel: "R1",
+    youtubeId: "KAVyeGDsPKc",
+    circuit: "Manufacturers · Milán",
+    headline: "Milán abre el mundial",
+    title:
+      "[Español] GT World Series 2026 | Ronda 1 - Milán | Manufacturers Cup",
+  },
+];
+
+const SUMMER_MADNESS_2026_VIDEOS: readonly TournamentVideo[] = [
+  {
+    round: 1,
+    youtubeId: "rmNqcwFymfs",
+    circuit: "Nürburgring",
+    headline: "El Top 15 se clasifica",
+    title:
+      "🔴 [ES] SUMMER MADNESS | FASE CLASIFICATORIA - EL TOP15 SE CLASIFICA",
+  },
+];
+
+const INFINITY_G_SERIES_2026_VIDEOS: readonly TournamentVideo[] = [
   {
     round: 1,
     youtubeId: "FMzayYMdIMc",
@@ -83,8 +123,36 @@ const TOURNAMENT_VIDEOS_RAW: readonly TournamentVideo[] = [
       "🔴 [ES] R9 INFINITY GSERIES - FINALES POR EL TÍTULO (2/3) _ SPA FRANCORCHAMPS",
     startSeconds: 10888,
   },
+  {
+    round: 10,
+    youtubeId: "340niyELv7Q",
+    circuit: "Grand Valley",
+    headline: "Última carrera de la temporada",
+    title:
+      "🔴 [ES] R10 INFINITY GSERIES - ÚLTIMA CARRERA DE LA TEMPORADA _ GRAND VALLEY",
+  },
 ];
 
-export const TOURNAMENT_VIDEOS = orderTournamentVideosForSeasonCalendar(
-  TOURNAMENT_VIDEOS_RAW,
-);
+export const TOURNAMENT_CHAMPIONSHIPS: readonly TournamentChampionship[] = [
+  {
+    id: "gt-world-series-2026",
+    label: "GT World Series · 2026",
+    videos: orderTournamentVideosForSeasonCalendar(
+      GT_WORLD_SERIES_2026_VIDEOS,
+      "desc",
+    ),
+  },
+  {
+    id: "summer-madness-2026",
+    label: "Summer Madness · 2026",
+    videos: orderTournamentVideosForSeasonCalendar(SUMMER_MADNESS_2026_VIDEOS),
+  },
+  {
+    id: "infinity-g-series-2026",
+    label: "Infinity G Series · 2026",
+    videos: orderTournamentVideosForSeasonCalendar(
+      INFINITY_G_SERIES_2026_VIDEOS,
+      "desc",
+    ),
+  },
+];

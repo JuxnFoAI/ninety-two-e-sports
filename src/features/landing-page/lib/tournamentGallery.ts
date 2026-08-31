@@ -4,15 +4,21 @@ export const getTournamentVideoKey = (video: TournamentVideo): string =>
   `${video.youtubeId}-${video.startSeconds ?? 0}`;
 
 /** On-air round label (`R8`). */
-export const formatTournamentRoundLabel = (round: number): string =>
-  `R${round}`;
+export const formatTournamentRoundLabel = (
+  video: Pick<TournamentVideo, "round" | "roundLabel">,
+): string => video.roundLabel ?? `R${video.round}`;
 
 /**
- * Season calendar order (R1 → latest in DOM): the championship reads left to right.
+ * Season calendar order. `asc` reads R1 → latest (left to right).
+ * `desc` reads latest → oldest, for championships listed newest-first.
  */
 export const orderTournamentVideosForSeasonCalendar = (
   videos: readonly TournamentVideo[],
-): TournamentVideo[] => [...videos].sort((a, b) => a.round - b.round);
+  direction: "asc" | "desc" = "asc",
+): TournamentVideo[] =>
+  [...videos].sort((a, b) =>
+    direction === "asc" ? a.round - b.round : b.round - a.round,
+  );
 
 /** Returns the highest-round video (season current / default player selection). */
 export const getLatestTournamentVideo = (

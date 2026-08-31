@@ -16,6 +16,45 @@
   color: rgb(255 255 255 / 0.48);
 }
 
+.seasons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 1.35rem;
+  margin: 0 0 1.15rem;
+}
+
+.seasonTab {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-size: clamp(0.58rem, 1.3vw, 0.68rem);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  transition: color 220ms ease;
+}
+
+.seasonTabIdle {
+  color: rgb(255 255 255 / 0.32);
+}
+
+.seasonTabIdle:hover,
+.seasonTabIdle:focus-visible {
+  color: rgb(255 255 255 / 0.72);
+}
+
+.seasonTabActive {
+  color: #f7e9ae;
+}
+
+.seasonTab:focus-visible {
+  outline: 2px solid rgb(247 233 174 / 0.7);
+  outline-offset: 4px;
+}
+
 .row {
   display: flex;
   align-items: stretch;
@@ -190,7 +229,8 @@
   }
 
   .stop,
-  .node {
+  .node,
+  .seasonTab {
     transition: none;
   }
 }

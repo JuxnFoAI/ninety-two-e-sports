@@ -28,7 +28,7 @@ export const TournamentBroadcast = ({
   const [posterSrc, setPosterSrc] = useState(() =>
     getYoutubeHeroThumbnailUrl(video.youtubeId),
   );
-  const roundLabel = formatTournamentRoundLabel(video.round);
+  const roundLabel = formatTournamentRoundLabel(video);
   const playLabel = `Reproducir ${roundLabel} · ${video.circuit}: ${video.headline}`;
 
   useEffect(() => {

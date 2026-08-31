@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef, useState, type Ref } from "react";
 
 import { useHorizontalDragScroll, useMediaQuery } from "@/shared/hooks";
 
-import { TOURNAMENT_SEASON_LABEL } from "../../data/tournaments";
 import {
   formatTournamentRoundLabel,
   getTournamentCalendarScrollState,
@@ -10,7 +9,10 @@ import {
   scrollTournamentCalendar,
   scrollTournamentRoundIntoCalendar,
 } from "../../lib/tournamentGallery";
-import type { TournamentVideo } from "../../types/tournamentVideo";
+import type {
+  TournamentChampionship,
+  TournamentVideo,
+} from "../../types/tournamentVideo";
 import { TournamentGalleryNavButton } from "./TournamentGalleryNavButton";
 import styles from "./TournamentSeasonCalendar.module.css";
 
@@ -18,6 +20,9 @@ const CALENDAR_ID = "tournament-season-calendar";
 const TOUCH_PRIMARY_MEDIA_QUERY = "(hover: none) and (pointer: coarse)";
 
 interface TournamentSeasonCalendarProps {
+  championships: readonly TournamentChampionship[];
+  selectedChampionshipId: string;
+  onSelectChampionship: (championshipId: string) => void;
   videos: readonly TournamentVideo[];
   selectedKey: string;
   onSelect: (videoKey: string) => void;
@@ -36,7 +41,7 @@ const TournamentRoundStop = ({
   onSelect,
   buttonRef,
 }: TournamentRoundStopProps): JSX.Element => {
-  const roundLabel = formatTournamentRoundLabel(video.round);
+  const roundLabel = formatTournamentRoundLabel(video);
   const statusLabel = isActive ? "En juego" : "Disputada";
 
   return (
@@ -61,7 +66,50 @@ const TournamentRoundStop = ({
   );
 };
 
+const ChampionshipSwitcher = ({
+  championships,
+  selectedChampionshipId,
+  onSelectChampionship,
+}: Pick<
+  TournamentSeasonCalendarProps,
+  "championships" | "selectedChampionshipId" | "onSelectChampionship"
+>): JSX.Element => {
+  const selectedChampionship =
+    championships.find(
+      (championship) => championship.id === selectedChampionshipId,
+    ) ?? championships[0];
+
+  if (championships.length <= 1) {
+    return <p className={styles.season}>{selectedChampionship?.label ?? ""}</p>;
+  }
+
+  return (
+    <div className={styles.seasons} role="group" aria-label="Campeonatos">
+      {championships.map((championship) => {
+        const isActive = championship.id === selectedChampionshipId;
+
+        return (
+          <button
+            key={championship.id}
+            type="button"
+            aria-pressed={isActive}
+            className={`${styles.seasonTab} ${
+              isActive ? styles.seasonTabActive : styles.seasonTabIdle
+            }`}
+            onClick={() => onSelectChampionship(championship.id)}
+          >
+            {championship.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+};
+
 export const TournamentSeasonCalendar = ({
+  championships,
+  selectedChampionshipId,
+  onSelectChampionship,
   videos,
   selectedKey,
   onSelect,
@@ -93,8 +141,12 @@ export const TournamentSeasonCalendar = ({
   }, []);
 
   useEffect(() => {
+    const calendar = calendarElementRef.current;
+    if (calendar) {
+      calendar.scrollLeft = 0;
+    }
     scrollTournamentRoundIntoCalendar(activeStopRef.current);
-  }, [selectedKey]);
+  }, [selectedChampionshipId, selectedKey]);
 
   useEffect(() => {
     const calendar = calendarElementRef.current;
@@ -117,17 +169,32 @@ export const TournamentSeasonCalendar = ({
     };
   }, [syncCalendarScrollState, videos.length]);
 
+  const selectedChampionship =
+    championships.find(
+      (championship) => championship.id === selectedChampionshipId,
+    ) ?? championships[0];
+  const showRoundNav = videos.length > 1;
+  const calendarLabel = selectedChampionship
+    ? `Calendario de ${selectedChampionship.label}, de la ronda más reciente a la más antigua`
+    : "Calendario de la temporada, de la ronda más reciente a la más antigua";
+
   return (
     <div className={styles.bleed}>
-      <p className={styles.season}>{TOURNAMENT_SEASON_LABEL}</p>
+      <ChampionshipSwitcher
+        championships={championships}
+        selectedChampionshipId={selectedChampionshipId}
+        onSelectChampionship={onSelectChampionship}
+      />
       <div className={styles.row}>
-        <TournamentGalleryNavButton
-          direction="prev"
-          disabled={!canScrollPrev}
-          onClick={() =>
-            scrollTournamentCalendar(calendarElementRef.current, -1)
-          }
-        />
+        {showRoundNav ? (
+          <TournamentGalleryNavButton
+            direction="prev"
+            disabled={!canScrollPrev}
+            onClick={() =>
+              scrollTournamentCalendar(calendarElementRef.current, -1)
+            }
+          />
+        ) : null}
 
         <div className={styles.scroll}>
           <ol
@@ -137,7 +204,7 @@ export const TournamentSeasonCalendar = ({
               isCalendarDragging ? styles.trackDragging : styles.trackIdle
             }`}
             data-tournament-season-calendar=""
-            aria-label="Calendario de la temporada, de la primera ronda a la última"
+            aria-label={calendarLabel}
             {...dragScrollProps}
           >
             {videos.map((video) => {
@@ -157,13 +224,15 @@ export const TournamentSeasonCalendar = ({
           </ol>
         </div>
 
-        <TournamentGalleryNavButton
-          direction="next"
-          disabled={!canScrollNext}
-          onClick={() =>
-            scrollTournamentCalendar(calendarElementRef.current, 1)
-          }
-        />
+        {showRoundNav ? (
+          <TournamentGalleryNavButton
+            direction="next"
+            disabled={!canScrollNext}
+            onClick={() =>
+              scrollTournamentCalendar(calendarElementRef.current, 1)
+            }
+          />
+        ) : null}
       </div>
     </div>
   );

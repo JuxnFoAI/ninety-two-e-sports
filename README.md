@@ -12,7 +12,7 @@ Sitio web de la organización: inicio (quiénes somos, diseños, patrocinadores)
 
 ![Landing page con hero, navegación y secciones](docs/preview/landing-page.png)
 
-Sitio en producción: [ninety-two-e-sports.vercel.app](https://ninety-two-e-sports.vercel.app)
+Sitio en producción: [ninetytwoesports.vercel.app](https://ninetytwoesports.vercel.app)
 
 ## Requisitos
 
