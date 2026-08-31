@@ -230,8 +230,8 @@ export const DIVISION_ROSTERS: readonly DivisionRoster[] = [
         id: "am-6",
         alias: "ARNOLDO DAETZ",
         country: "GUATEMALA",
-        role: "CORREDOR DE EVENTOS LATAM",
-        caption: "CORREDOR DE EVENTOS LATAM",
+        role: "CORREDOR DE EVENTOS LATAM | PILOTO WORLD TOUR",
+        caption: "CORREDOR DE EVENTOS LATAM | PILOTO WORLD TOUR",
         photo: ardaetzPhoto,
         photoFit: {
           position: "center 10%",
