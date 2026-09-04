@@ -41,12 +41,59 @@ const GT_WORLD_SERIES_2026_VIDEOS: readonly TournamentVideo[] = [
 
 const SUMMER_MADNESS_2026_VIDEOS: readonly TournamentVideo[] = [
   {
+    round: 2,
+    roundLabel: "R1",
+    youtubeId: "iXaoVUG1q9k",
+    circuit: "Nürburgring Sprint",
+    headline: "La ruleta decide el clima",
+    title: "🔴 [ES] R1 SUMMER MADNESS | SORTEO DE CLIMA + 40 MINS DE CARRERA",
+  },
+  {
     round: 1,
+    roundLabel: "Clasif.",
     youtubeId: "rmNqcwFymfs",
     circuit: "Nürburgring",
     headline: "El Top 15 se clasifica",
     title:
       "🔴 [ES] SUMMER MADNESS | FASE CLASIFICATORIA - EL TOP15 SE CLASIFICA",
+  },
+];
+
+const TOURNAMENT_CIE_2026_VIDEOS: readonly TournamentVideo[] = [
+  {
+    round: 2,
+    roundLabel: "R1 · P2",
+    youtubeId: "1vtr7-jMKx8",
+    circuit: "Clausura",
+    headline: "Sigue la primera ronda",
+    title: "CIE 2026 Clausura- Ronda 1 (PARTE2)",
+  },
+  {
+    round: 1,
+    roundLabel: "R1 · P1",
+    youtubeId: "fN4Tgq2QvV8",
+    circuit: "Clausura",
+    headline: "Arranca la primera ronda",
+    title: "CIE 2026 Clausura - Ronda 1 (PARTE 1)",
+  },
+];
+
+const SEC_SERIES_2026_VIDEOS: readonly TournamentVideo[] = [
+  {
+    round: 2,
+    roundLabel: "R1",
+    youtubeId: "Dm6VAblG6JE",
+    circuit: "Monza",
+    headline: "3 horas de Monza",
+    title: "【SEC SERIES 2026】3 HORAS DE MONZA - GT3 - CARRERA",
+  },
+  {
+    round: 1,
+    roundLabel: "Clasif.",
+    youtubeId: "YWsgWM1RCXY",
+    circuit: "Monza",
+    headline: "Se decide la parrilla",
+    title: "【SEC SERIES 2026】3 HORAS DE MONZA - GT3 - CLASIFICACION",
   },
 ];
 
@@ -145,7 +192,26 @@ export const TOURNAMENT_CHAMPIONSHIPS: readonly TournamentChampionship[] = [
   {
     id: "summer-madness-2026",
     label: "Summer Madness · 2026",
-    videos: orderTournamentVideosForSeasonCalendar(SUMMER_MADNESS_2026_VIDEOS),
+    videos: orderTournamentVideosForSeasonCalendar(
+      SUMMER_MADNESS_2026_VIDEOS,
+      "desc",
+    ),
+  },
+  {
+    id: "tournament-cie-2026",
+    label: "Tournament CIE · 2026",
+    videos: orderTournamentVideosForSeasonCalendar(
+      TOURNAMENT_CIE_2026_VIDEOS,
+      "desc",
+    ),
+  },
+  {
+    id: "sec-series-2026",
+    label: "SEC Series · 2026",
+    videos: orderTournamentVideosForSeasonCalendar(
+      SEC_SERIES_2026_VIDEOS,
+      "desc",
+    ),
   },
   {
     id: "infinity-g-series-2026",

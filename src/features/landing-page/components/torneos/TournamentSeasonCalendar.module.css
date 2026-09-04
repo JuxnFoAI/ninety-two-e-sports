@@ -23,6 +23,14 @@
   margin: 0 0 1.15rem;
 }
 
+@media (min-width: 1024px) {
+  .seasons {
+    justify-content: space-between;
+    column-gap: clamp(2rem, 3vw, 3.5rem);
+    row-gap: 0.75rem;
+  }
+}
+
 .seasonTab {
   margin: 0;
   padding: 0;
