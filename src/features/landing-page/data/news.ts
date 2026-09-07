@@ -1,5 +1,6 @@
 import arieFichajePhoto from "@assets/noticias/arie-fichaje.jpg";
 import campeonesPhoto from "@assets/noticias/campeones.jpg";
+import eframFichajePhoto from "@assets/noticias/efram-fichaje.jpg";
 import ignasiLligadasFichajePhoto from "@assets/noticias/ignasi-lligadas-fichaje.jpg";
 import resultsNationsRd2Photo from "@assets/noticias/results-nations-rd-2.jpg";
 import samuMorenoNationsPhoto from "@assets/noticias/samu-moreno-nations.jpg";
@@ -22,6 +23,14 @@ export const NEWS_ARTICLES: readonly NewsArticle[] = [
       "Hoy Samuel Moreno pondrá todo de sí mismo para posicionarse en lo más alto de esta ronda 2 en TOKYO",
     image: samuMorenoNationsPhoto,
     imageAlt: "Samuel Moreno en la Nations Cup",
+  },
+  {
+    id: "efram-alvarez-fichaje",
+    title: "Bienvenido Efram",
+    excerpt:
+      'A este equipo llega un jugador reconocido por sus participaciones como el MACH25GAMING, un jugador lleno de velocidad y excelente rendimiento, bienvenido "CUERDO".',
+    image: eframFichajePhoto,
+    imageAlt: "Efram Álvarez",
   },
   {
     id: "arie-haydar-fichaje",
