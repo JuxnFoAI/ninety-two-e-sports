@@ -21,6 +21,7 @@ import miroslawKravchenkoPhoto from "@assets/integrantes/europeos/miroslaw.jpg";
 import nicholasFontanaPhoto from "@assets/integrantes/europeos/nicholas-fontana.jpg";
 import kevinFernandezPhoto from "@assets/integrantes/europeos/kevin-fernandez.jpg";
 import samuelMorenoPhoto from "@assets/integrantes/europeos/samuel-moreno.jpg";
+import eframAlvarezPhoto from "@assets/integrantes/europeos/efram-alvarez.png";
 import marioSolerPhoto from "@assets/lideres/mario-soler.jpg";
 import niltonGrajalesPhoto from "@assets/lideres/nilton-grajales.jpg";
 import type { DivisionRoster } from "../types/pilot";
@@ -158,6 +159,18 @@ export const DIVISION_ROSTERS: readonly DivisionRoster[] = [
         photoFit: {
           position: "center 34%",
           scale: 1,
+        },
+      },
+      {
+        id: "eu-11",
+        alias: "EFRAM ALVAREZ",
+        country: "ESPAÑA",
+        role: "CORREDOR DE EVENTOS PROFESIONALES",
+        caption: "CORREDOR DE EVENTOS PROFESIONALES",
+        photo: eframAlvarezPhoto,
+        photoFit: {
+          position: "center 10%",
+          scale: 1.2,
         },
       },
     ],
