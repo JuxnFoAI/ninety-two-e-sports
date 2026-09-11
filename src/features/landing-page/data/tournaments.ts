@@ -41,6 +41,30 @@ const GT_WORLD_SERIES_2026_VIDEOS: readonly TournamentVideo[] = [
 
 const SUMMER_MADNESS_2026_VIDEOS: readonly TournamentVideo[] = [
   {
+    round: 5,
+    roundLabel: "R4",
+    youtubeId: "hhr_rhi9SAE",
+    circuit: "Fuji Speedway",
+    headline: "Fuji decide el título",
+    title: "🔴 [ES] R4 SUMMER MADNESS | MIRA LA CARRERA DEFINITIVA DE LA SM",
+  },
+  {
+    round: 4,
+    roundLabel: "R3",
+    youtubeId: "ZusTaGvrBfE",
+    circuit: "High Speed Ring Inverso",
+    headline: "Otra vez la misma historia",
+    title: "🔴 [ES] R3 SUMMER MADNESS | OTRA VEZ LA MISMA HISTORIA",
+  },
+  {
+    round: 3,
+    roundLabel: "R2",
+    youtubeId: "VIyDxcZL1ds",
+    circuit: "Nürburgring Resistencia",
+    headline: "La mayor locura competitiva",
+    title: "🔴 [ES] R2 SUMMER MADNESS | La MAYOR LOCURA COMPETITIVA de GT7",
+  },
+  {
     round: 2,
     roundLabel: "R1",
     youtubeId: "iXaoVUG1q9k",
