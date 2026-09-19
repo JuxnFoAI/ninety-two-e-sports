@@ -85,6 +85,38 @@ const SUMMER_MADNESS_2026_VIDEOS: readonly TournamentVideo[] = [
 
 const TOURNAMENT_CIE_2026_VIDEOS: readonly TournamentVideo[] = [
   {
+    round: 6,
+    roundLabel: "R3 · P3",
+    youtubeId: "ouaWE4TK61c",
+    circuit: "Clausura",
+    headline: "Cierra la tercera ronda",
+    title: "CIE 2026 Clausura - Ronda 3 PARTE 3",
+  },
+  {
+    round: 5,
+    roundLabel: "R3 · P2",
+    youtubeId: "NyBJfNEvgsE",
+    circuit: "Clausura",
+    headline: "Sigue la tercera ronda",
+    title: "CIE 2026 Clausura - Ronda 3 PARTE 2",
+  },
+  {
+    round: 4,
+    roundLabel: "R3 · P1",
+    youtubeId: "81Y2Fik75Nk",
+    circuit: "Clausura",
+    headline: "Arranca la tercera ronda",
+    title: "CIE 2026 Clausura - Ronda 3 PARTE 1",
+  },
+  {
+    round: 3,
+    roundLabel: "R2",
+    youtubeId: "cWriixeDmOs",
+    circuit: "Clausura",
+    headline: "Arranca la segunda ronda",
+    title: "CIE 2026 Clausura- Ronda 2",
+  },
+  {
     round: 2,
     roundLabel: "R1 · P2",
     youtubeId: "1vtr7-jMKx8",
