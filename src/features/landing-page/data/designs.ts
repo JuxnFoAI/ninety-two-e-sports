@@ -7,6 +7,12 @@ import audiR8Frontal from "@assets/Designs/audi-r8-frontal.png";
 import audiR8Perfil from "@assets/Designs/audi-r8-perfil.png";
 import audiR8Pista from "@assets/Designs/audi-r8-pista.png";
 import audiR8Techo from "@assets/Designs/audi-r8-techo.png";
+import bmwCiudad from "@assets/Designs/bmw-ciudad.jpeg";
+import bmwTecho from "@assets/Designs/bmw-techo.jpeg";
+import bmwFrontal from "@assets/Designs/bmw-frontal.jpeg";
+import bmwV8Costa from "@assets/Designs/bmw-v8-costa.jpeg";
+import bmwV8Curva from "@assets/Designs/bmw-v8-curva.jpeg";
+import bmwV8Velocidad from "@assets/Designs/bmw-v8-velocidad.jpeg";
 import hondaFrontal from "@assets/Designs/honda-frontal.jpeg";
 import hondaTrasera from "@assets/Designs/honda-trasera.jpeg";
 import hondaVelocidad from "@assets/Designs/honda-velocidad.jpeg";
@@ -30,6 +36,12 @@ import porscheAleron from "@assets/Designs/porsche-aleron.png";
 import porschePerfil from "@assets/Designs/porsche-perfil.png";
 import porscheTecho from "@assets/Designs/porsche-techo.png";
 import porscheVelocidad from "@assets/Designs/porsche-velocidad.png";
+import superFormulaAleron from "@assets/Designs/super-formula-aleron.jpeg";
+import superFormulaCurva from "@assets/Designs/super-formula-curva.jpeg";
+import superFormulaNoche from "@assets/Designs/super-formula-noche.jpeg";
+import superFormulaPista from "@assets/Designs/super-formula-pista.jpeg";
+import toyotaBmwLago from "@assets/Designs/toyota-bmw-lago.jpeg";
+import toyotaBmwMuelle from "@assets/Designs/toyota-bmw-muelle.jpeg";
 import type { TeamDesign } from "../types/design";
 
 /** Galería de liveries / diseños del equipo. */
@@ -193,5 +205,65 @@ export const TEAM_DESIGNS: readonly TeamDesign[] = [
     id: "honda-trasera",
     src: hondaTrasera,
     alt: "Vista trasera del Honda NSX GT3 del equipo Ninety Two de noche",
+  },
+  {
+    id: "bmw-ciudad",
+    src: bmwCiudad,
+    alt: "BMW M6 GT3 del equipo Ninety Two en ciudad, al atardecer",
+  },
+  {
+    id: "bmw-techo",
+    src: bmwTecho,
+    alt: "Vista aérea del BMW M6 GT3 del equipo Ninety Two",
+  },
+  {
+    id: "bmw-frontal",
+    src: bmwFrontal,
+    alt: "BMW M6 GT3 del equipo Ninety Two en pista, vista frontal",
+  },
+  {
+    id: "bmw-v8-velocidad",
+    src: bmwV8Velocidad,
+    alt: "BMW Hypercar del equipo Ninety Two en plena velocidad, al atardecer",
+  },
+  {
+    id: "bmw-v8-costa",
+    src: bmwV8Costa,
+    alt: "Vista trasera del BMW Hypercar del equipo Ninety Two junto al mar",
+  },
+  {
+    id: "bmw-v8-curva",
+    src: bmwV8Curva,
+    alt: "BMW Hypercar del equipo Ninety Two trazando una curva, de noche",
+  },
+  {
+    id: "super-formula-noche",
+    src: superFormulaNoche,
+    alt: "Super Formula del equipo Ninety Two de noche, entre luces urbanas",
+  },
+  {
+    id: "super-formula-pista",
+    src: superFormulaPista,
+    alt: "Super Formula del equipo Ninety Two en pista mojada, vista aérea",
+  },
+  {
+    id: "super-formula-curva",
+    src: superFormulaCurva,
+    alt: "Super Formula del equipo Ninety Two trazando una curva",
+  },
+  {
+    id: "super-formula-aleron",
+    src: superFormulaAleron,
+    alt: "Alerón trasero de la Super Formula del equipo Ninety Two",
+  },
+  {
+    id: "toyota-bmw-lago",
+    src: toyotaBmwLago,
+    alt: "Toyota GR010 y BMW Hypercar del equipo Ninety Two junto al lago, al atardecer",
+  },
+  {
+    id: "toyota-bmw-muelle",
+    src: toyotaBmwMuelle,
+    alt: "Toyota GR010 y BMW Hypercar del equipo Ninety Two en el muelle, vista aérea",
   },
 ];
