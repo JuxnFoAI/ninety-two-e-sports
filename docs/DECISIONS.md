@@ -123,6 +123,22 @@ Descartado: mantener `NewsGrid` en paralelo.
 
 _(2026-08-16)_
 
+### Diseños desde originales de GT7, no desde el chat
+
+Las liveries se copian a `assets/Designs/` desde las capturas 4K (3840×2160) de Gran Turismo 7.
+Motivo: Cursor comprime lo pegado en el chat a 1024×576; al descargar o abrir la foto se notaría.
+La galería lee solo `TEAM_DESIGNS` en `designs.ts`; no hay que tocar los componentes.
+
+_(2026-09-21)_
+
+### Aprender el mantenimiento a mano
+
+Quien lleva el sitio pidió que el agente actúe como profesor: explicar el paso a paso y dejar al menos un cambio de cada lote para hacerlo a mano (archivo, `import`, lista, git).
+Motivo: aprender el flujo de verdad, no solo ver el resultado hecho.
+Descartado: completar cada tarea entero “por ir más rápido”.
+
+_(2026-09-21)_
+
 ---
 
 ## Backend / infraestructura

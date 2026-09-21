@@ -58,7 +58,8 @@ Los tipos viven en `src/features/landing-page/types/`. Importa el archivo concre
 ## Assets
 
 - Fotos de pilotos: `assets/integrantes/` y `assets/lideres/`
-- Liveries / diseños: `assets/Designs/`
+- Liveries / diseños: `assets/Designs/` + lista `TEAM_DESIGNS` en `src/features/landing-page/data/designs.ts`
 - Noticias: `assets/noticias/`
 - Patrocinadores: `assets/patrocinadores/`
 - Preferir nombres en kebab-case ASCII (`espana.jpg`, no `españa.jpg`) para compatibilidad entre sistemas.
+- Diseños: copiar el original 4K desde las capturas de GT7 (`D:\PS5\CREATE\Screenshots\…`). No usar el preview del chat.

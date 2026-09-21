@@ -1,8 +1,8 @@
 # Ninety Two E-Sports
 
-Sitio web de la organización: inicio (quiénes somos, diseños, patrocinadores) y páginas propias para equipos, fotos, noticias y torneos, con pantalla de carga.
+Web del equipo. En producción: [ninetytwoesports.com](https://www.ninetytwoesports.com)
 
-## Vista previa
+Inicio (quiénes somos, diseños, patrocinadores) y páginas propias: equipos, fotos, noticias y torneos. No hay backend: es un sitio estático.
 
 **Pantalla de carga**
 
@@ -12,118 +12,47 @@ Sitio web de la organización: inicio (quiénes somos, diseños, patrocinadores)
 
 ![Landing page con hero, navegación y secciones](docs/preview/landing-page.png)
 
-Sitio en producción: [ninetytwoesports.com](https://www.ninetytwoesports.com)
+## Arrancar en local
 
-## Requisitos
-
-- [Node.js](https://nodejs.org/) 20 o superior
-- npm (incluido con Node)
-
-## Inicio rápido
+Hace falta [Node.js 20](https://nodejs.org/) o más (npm viene con Node).
 
 ```bash
 npm install
 npm run dev
 ```
 
-Abre [http://localhost:5173](http://localhost:5173).
+Abre [http://localhost:5173](http://localhost:5173). Es Vite: no uses Live Server ni abras `index.html` a mano.
 
-## Scripts disponibles
+Si no ves el cambio: para el servidor (`Ctrl+C`), `npm run dev:clean` y recarga forzada (`Ctrl+Shift+R`). `dist/` solo se genera con `npm run build`; no edites ahí.
 
-| Comando                           | Descripción                                                     |
-| --------------------------------- | --------------------------------------------------------------- |
-| `npm run dev`                     | Servidor de desarrollo con recarga en caliente                  |
-| `npm run dev:clean`               | Igual que `dev`, pero limpia la caché de Vite antes de arrancar |
-| `npm run build`                   | Compila TypeScript y genera la versión de producción en `dist/` |
-| `npm run build:clean`             | Build de producción forzando reoptimización de dependencias     |
-| `npm run preview`                 | Sirve localmente el contenido de `dist/` (probar el build)      |
-| `npm run lint`                    | Revisa el código con ESLint                                     |
-| `npm run format`                  | Formatea el código con Prettier                                 |
-| `npm run format:check`            | Comprueba el formato sin modificar archivos                     |
-| `npm run test`                    | Ejecuta los tests con Vitest                                    |
-| `npm run typecheck`               | Comprueba tipos sin generar archivos                            |
-| `npm run tournaments:sync-titles` | Sincroniza títulos de videos de torneos desde YouTube           |
+## Dónde va cada cosa
 
-## Estructura del proyecto
+| Qué | Dónde |
+| --- | --- |
+| Fotos de pilotos, noticias, sponsors | `assets/…` y un `import` en el TypeScript que las usa |
+| Diseños / liveries | `assets/Designs/` + una entrada en `TEAM_DESIGNS` (`src/features/landing-page/data/designs.ts`) |
+| Favicon u URL fija | `public/` |
 
-```
-├── assets/          # Imágenes, videos y marca (importados en el código con @assets)
-├── public/          # Favicon y archivos con URL fija (/favicon.png)
-├── src/
-│   ├── app/         # Componente raíz de la aplicación
-│   ├── features/    # Módulos por pantalla (landing, loading-screen, accessibility)
-│   ├── shared/      # Hooks y utilidades reutilizables
-│   └── styles/      # Estilos globales
-├── docs/            # Guías para desarrolladores (convenciones, capturas)
-├── index.html       # Punto de entrada HTML
-└── dist/            # Salida de `npm run build` (no editar; se regenera)
+Nombres en minúsculas con guiones (`bmw-frontal.jpeg`). El original de Gran Turismo 7 va a 3840×2160; lo que se pega en el chat baja a 1024 y no vale para publicar.
+
+El código está por pantallas en `src/features/`. `/fotos` no está en el menú: se abre desde Diseños.
+
+- Cómo se escribe el código: [`docs/CONVENTIONS.md`](docs/CONVENTIONS.md)
+- Por qué se eligió algo: [`docs/DECISIONS.md`](docs/DECISIONS.md)
+
+Quien mantiene el sitio está aprendiendo el flujo a mano. El agente explica y deja al menos un cambio de cada lote para hacerlo uno mismo.
+
+## Subir un cambio
+
+```bash
+git status
+git add assets/Designs/ src/features/landing-page/data/designs.ts
+git commit -m "Se agregan nuevos diseños"
+git push
 ```
 
-### Dónde poner archivos nuevos
+Ajusta las rutas al archivo que hayas tocado. No subas `node_modules/`, `dist/` ni `.env`. En cada push, GitHub Actions corre formato, lint, tipos, tests y build. Vercel publica desde `main`.
 
-- **Fotos, logos de sponsors, videos** → carpeta `assets/` e importar en TypeScript:
+## Otros comandos
 
-  ```ts
-  import foto from "@assets/integrantes/americanos/nombre.jpg";
-  ```
-
-- **Favicon u otros estáticos con URL fija** → carpeta `public/` (por ejemplo `public/favicon.png`).
-
-No uses una segunda carpeta `assets` dentro de `src/`: todo el material visual vive en `assets/` en la raíz del proyecto.
-
-### Código fuente (`src/`)
-
-El código sigue una organización por **features**:
-
-- `features/landing-page/` — página principal y secciones
-- `features/loading-screen/` — animación de carga inicial (canvas)
-- `features/accessibility/` — panel de accesibilidad y preferencias del usuario
-- `shared/` — lógica compartida (hooks, animaciones, utilidades)
-
-Cada feature puede tener sus propias subcarpetas `components/`, `hooks/`, `data/`, etc. Eso es intencional, no son duplicados.
-
-Convenciones detalladas (imports, nombres ES/EN, animaciones reveal, assets): ver [`docs/CONVENTIONS.md`](docs/CONVENTIONS.md).
-
-## Alias de importación
-
-| Alias     | Carpeta   |
-| --------- | --------- |
-| `@/`      | `src/`    |
-| `@assets` | `assets/` |
-
-## Tecnologías
-
-- Cursor AI
-- React 18 + TypeScript
-- Vite 6
-- Tailwind CSS 4
-- Vitest + ESLint + Prettier
-
-## Despliegue
-
-### Vercel (recomendado)
-
-1. Importa el repositorio en [Vercel](https://vercel.com).
-2. Framework: **Vite** (detección automática).
-3. Build command: `npm run build`
-4. Output directory: `dist`
-5. Install command: `npm install`
-
-El archivo `vercel.json` incluye rewrites para SPA (rutas client-side).
-
-### GitHub
-
-1. No incluyas `node_modules/`, `dist/` ni `.env` (ya están en `.gitignore`).
-2. El workflow `.github/workflows/ci.yml` ejecuta formato, lint, typecheck, tests y build en cada push/PR.
-3. Quien clone el repo debe ejecutar `npm install` y luego `npm run dev`.
-
-## No veo los cambios al recargar
-
-Este proyecto es **React + Vite**. No uses **Live Server** ni abras `index.html` directamente en el navegador.
-
-1. En la terminal del proyecto: `npm run dev`
-2. Abre solo **http://localhost:5173** (no el puerto 5500 ni archivos de `dist/`)
-3. Si sigue igual: para el servidor (Ctrl+C), ejecuta `npm run dev:clean` y recarga con **Ctrl+Shift+R** (recarga forzada sin caché)
-4. `dist/` es la build de producción: solo se actualiza con `npm run build`. Editar ahí no sirve para desarrollo.
-
-En VS Code/Cursor: **Terminal → Run Task → dev: Vite (ver cambios en vivo)**.
+`npm run build` deja la web lista en `dist/`. `npm run preview` la sirve para probar esa build. `npm run lint`, `format` y `test` son lo que usa el CI. Los títulos de YouTube de torneos se actualizan con `npm run tournaments:sync-titles`.
