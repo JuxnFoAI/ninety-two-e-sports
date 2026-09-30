@@ -13,6 +13,23 @@ import type {
  */
 const GT_WORLD_SERIES_2026_VIDEOS: readonly TournamentVideo[] = [
   {
+    round: 5,
+    roundLabel: "R3",
+    youtubeId: "dMm_K7PlL6g",
+    circuit: "Nations · Singapur",
+    headline: "Las naciones bajo las luces",
+    title: "[Español] GT World Series 2026 | Ronda 3 - Singapur | Nations Cup",
+  },
+  {
+    round: 4,
+    roundLabel: "R3",
+    youtubeId: "niei_LBUPts",
+    circuit: "Manufacturers · Singapur",
+    headline: "Los fabricantes llegan a Singapur",
+    title:
+      "[Español] GT World Series 2026 | Ronda 3 - Singapur | Manufacturers Cup",
+  },
+  {
     round: 3,
     roundLabel: "R2",
     youtubeId: "UJFo4dhswus",
