@@ -113,6 +113,12 @@
   }
 }
 
+@media (max-width: 1023px) {
+  .card {
+    width: min(82vw, 22rem);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .rise,
   .riseAnimated {

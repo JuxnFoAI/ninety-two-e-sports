@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from "react";
+import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
 
 import { useEffectiveReducedMotion } from "@/features/accessibility";
 
@@ -29,6 +29,30 @@ const NightPanelBody = ({
   const isVisible = useRevealSection();
   const prefersReducedMotion = useEffectiveReducedMotion();
   const delayMs = prefersReducedMotion ? 0 : panelDelayMs;
+  const [panelSettled, setPanelSettled] = useState(false);
+
+  useEffect(() => {
+    if (!isVisible || prefersReducedMotion) {
+      return undefined;
+    }
+
+    const timer = window.setTimeout(
+      () => {
+        setPanelSettled(true);
+      },
+      delayMs + 1000 + 80,
+    );
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [delayMs, isVisible, prefersReducedMotion]);
+
+  const panelStateClass = !isVisible
+    ? ""
+    : prefersReducedMotion || panelSettled
+      ? styles.panelVisible
+      : styles.panelAnimated;
 
   return (
     <>
@@ -36,13 +60,7 @@ const NightPanelBody = ({
       <div
         className={`${styles.panel} ${
           panelPadding === "deep" ? styles.panelDeep : ""
-        } ${
-          isVisible
-            ? prefersReducedMotion
-              ? styles.panelVisible
-              : styles.panelAnimated
-            : ""
-        }`.trim()}
+        } ${panelStateClass}`.trim()}
         style={
           {
             "--panel-reveal-delay": `${delayMs}ms`,

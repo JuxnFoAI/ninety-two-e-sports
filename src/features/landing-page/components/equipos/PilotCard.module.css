@@ -36,9 +36,17 @@
 }
 
 .media {
+  display: block;
   width: 100%;
   min-width: 0;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  cursor: pointer;
+  appearance: none;
   border: 1px solid rgb(33 45 70 / 0.55);
   border-radius: 12px;
   background: #000;

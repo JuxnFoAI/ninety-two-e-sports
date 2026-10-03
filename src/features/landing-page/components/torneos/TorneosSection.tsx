@@ -13,9 +13,11 @@ export const TorneosSection = (): JSX.Element => (
     panelDelayMs={TORNEOS_PANEL_REVEAL_DELAY_MS}
     panelPadding="deep"
   >
-    <TournamentVideoGallery />
-    <div className={styles.closing}>
-      <SectionHashtag />
+    <div className={styles.stack}>
+      <TournamentVideoGallery />
+      <div className={styles.closing}>
+        <SectionHashtag />
+      </div>
     </div>
   </NightPanelSection>
 );

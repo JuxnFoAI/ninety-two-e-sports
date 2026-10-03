@@ -3,11 +3,22 @@ import campeonesPhoto from "@assets/noticias/campeones.jpg";
 import eframFichajePhoto from "@assets/noticias/efram-fichaje.jpg";
 import ignasiLligadasFichajePhoto from "@assets/noticias/ignasi-lligadas-fichaje.jpg";
 import resultsNationsRd2Photo from "@assets/noticias/results-nations-rd-2.jpg";
+import rondaSingapurPhoto from "@assets/noticias/ronda-singapur.jpg";
 import samuMorenoNationsPhoto from "@assets/noticias/samu-moreno-nations.jpg";
 
 import type { NewsArticle } from "../types/news";
 
 export const NEWS_ARTICLES: readonly NewsArticle[] = [
+  {
+    id: "ronda-singapur-triplete",
+    title:
+      "Nuestro triplete mostrará todo su potencial en el máximo competitivo de GRAN TURISMO",
+    excerpt:
+      'Samuel Moreno, "El astro malagueño", se prepara para lucirse una vez más con el Red Bull X2019. Mateo Estevez mostrará precisión y habilidad con el LEXUS GR3 y Joao Pessoa se encargará de meter a Volkswagen en la tabla de puntuación. Vamos EQUIPO.',
+    image: rondaSingapurPhoto,
+    imageAlt:
+      "Samuel Moreno, Mateo Estevez y Joao Pessoa en la ronda de Singapur",
+  },
   {
     id: "samu-moreno-nations-podio",
     title: "Samu se sube al podio junto a Kylian y Valerio.",

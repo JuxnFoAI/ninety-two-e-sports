@@ -27,13 +27,13 @@ Si no ves el cambio: para el servidor (`Ctrl+C`), `npm run dev:clean` y recarga 
 
 ## Dónde va cada cosa
 
-| Qué | Dónde |
-| --- | --- |
-| Fotos de pilotos, noticias, sponsors | `assets/…` y un `import` en el TypeScript que las usa |
-| Diseños / liveries | `assets/Designs/` + una entrada en `TEAM_DESIGNS` (`src/features/landing-page/data/designs.ts`) |
-| Favicon u URL fija | `public/` |
+| Qué                                  | Dónde                                                                                           |
+| ------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| Fotos de pilotos, noticias, sponsors | `assets/…` y un `import` en el TypeScript que las usa                                           |
+| Diseños / liveries                   | `assets/Designs/` + una entrada en `TEAM_DESIGNS` (`src/features/landing-page/data/designs.ts`) |
+| Favicon u URL fija                   | `public/`                                                                                       |
 
-Nombres en minúsculas con guiones (`bmw-frontal.jpeg`). El original de Gran Turismo 7 va a 3840×2160; lo que se pega en el chat baja a 1024 y no vale para publicar.
+Nombres en minúsculas con guiones (`bmw-frontal.jpg`). El original de Gran Turismo 7 va a 3840×2160; lo que se pega en el chat baja a 1024 y no vale para publicar. Antes de dejar una foto en el repo, `node scripts/optimize-web-images.mjs`.
 
 El código está por pantallas en `src/features/`. `/fotos` no está en el menú: se abre desde Diseños.
 

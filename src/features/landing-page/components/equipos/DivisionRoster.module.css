@@ -1,42 +1,50 @@
+.roster {
+  margin-top: clamp(3.75rem, 9vw, 5.5rem);
+  animation: teamFadeUp 360ms ease-out;
+}
+
+@media (max-width: 1023px), (hover: none) and (pointer: coarse) {
+  .roster {
+    animation: rosterRise 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roster {
+    animation: none;
+  }
+}
+
+@keyframes rosterRise {
+  from {
+    transform: translateY(0.75rem);
+  }
+
+  to {
+    transform: none;
+  }
+}
+
 .grid {
   display: grid;
   margin: 0;
   padding: 0;
   list-style: none;
   align-items: start;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  column-gap: 2rem;
-  /* Leftover air once a card fills its reserved details slot. */
-  row-gap: 2rem;
+  /* Phones and narrow windows: two smaller cards per row. */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 0.85rem;
+  row-gap: 1.35rem;
+}
+
+.grid > * {
+  min-width: 0;
 }
 
 @media (min-width: 640px) {
   .grid {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    column-gap: 2.5rem;
-    row-gap: 2.25rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    column-gap: 3rem;
-    row-gap: 2.5rem;
-  }
-}
-
-@media (min-width: 1280px) {
-  .grid {
-    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-  }
-}
-
-@media (min-width: 640px) {
-  .grid {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    column-gap: 2.5rem;
-    row-gap: 4.5rem;
+    column-gap: 1.25rem;
+    row-gap: 1.75rem;
   }
 }
 

@@ -9,6 +9,8 @@ import styles from "./PilotCard.module.css";
 
 interface PilotCardProps {
   pilot: Pilot;
+  /** First cards on screen should not wait on lazy-load. */
+  imagePriority?: boolean;
 }
 
 const twitchHandleFromUrl = (url: string): string => {
@@ -24,7 +26,10 @@ const twitchHandleFromUrl = (url: string): string => {
  * Photo-first card: alias sits under the photo at rest; the info panel
  * wipes open on hover / focus and keeps the alias inside.
  */
-export const PilotCard = ({ pilot }: PilotCardProps): JSX.Element => {
+export const PilotCard = ({
+  pilot,
+  imagePriority = false,
+}: PilotCardProps): JSX.Element => {
   const prefersReducedMotion = useEffectiveReducedMotion();
   const { caption, twitchUrl } = pilot;
   const twitchHandle = twitchUrl ? twitchHandleFromUrl(twitchUrl) : null;
@@ -39,9 +44,14 @@ export const PilotCard = ({ pilot }: PilotCardProps): JSX.Element => {
       } font-[var(--font-rajdhani)]`}
       aria-label={ariaBits.join(", ")}
     >
-      <div className={styles.media} tabIndex={0} data-pilot-photo="">
-        <PilotAvatar pilot={pilot} />
-      </div>
+      <button
+        type="button"
+        className={styles.media}
+        data-pilot-photo=""
+        aria-label={`Ficha de ${pilot.alias}`}
+      >
+        <PilotAvatar pilot={pilot} priority={imagePriority} />
+      </button>
 
       <p className={styles.namePlate} aria-hidden="true">
         <span className={`${styles.namePlateText} font-[var(--font-orbitron)]`}>

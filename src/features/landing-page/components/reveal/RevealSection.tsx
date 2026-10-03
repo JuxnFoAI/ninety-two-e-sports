@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 
+import { useEffectiveReducedMotion } from "@/features/accessibility";
 import { useIntersectionReveal } from "@/shared/hooks";
 
 import { RevealSectionContext } from "./revealSectionContext";
@@ -26,7 +27,10 @@ export const RevealSection = ({
   id,
   surface = "panel",
 }: RevealSectionProps): JSX.Element => {
-  const { isVisible, ref } = useIntersectionReveal<HTMLElement>();
+  const prefersReducedMotion = useEffectiveReducedMotion();
+  const { isVisible, ref } = useIntersectionReveal<HTMLElement>({
+    disabled: prefersReducedMotion,
+  });
 
   return (
     <RevealSectionContext.Provider value={isVisible}>

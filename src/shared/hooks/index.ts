@@ -1,8 +1,9 @@
 export { useAnimationLoop } from "./useAnimationLoop";
 export { useHorizontalDragScroll } from "./useHorizontalDragScroll";
 export { useIntersectionReveal } from "./useIntersectionReveal";
-export { useMediaQuery } from "./useMediaQuery";
+export { COARSE_LAYOUT_QUERY, useMediaQuery } from "./useMediaQuery";
 export { useOverlayDialog } from "./useOverlayDialog";
+export { usePageTitle } from "./usePageTitle";
 export { usePrefersReducedMotion } from "./usePrefersReducedMotion";
 export { isDocumentScrollLocked, useScrollLock } from "./useScrollLock";
 export { useScrolledPast } from "./useScrolledPast";

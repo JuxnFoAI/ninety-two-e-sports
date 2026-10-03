@@ -102,6 +102,14 @@ const SUMMER_MADNESS_2026_VIDEOS: readonly TournamentVideo[] = [
 
 const TOURNAMENT_CIE_2026_VIDEOS: readonly TournamentVideo[] = [
   {
+    round: 7,
+    roundLabel: "R4",
+    youtubeId: "L0WzhI-MTHA",
+    circuit: "Clausura",
+    headline: "Arranca la cuarta ronda",
+    title: "CIE 2026 Clausura - Ronda 4",
+  },
+  {
     round: 6,
     roundLabel: "R3 · P3",
     youtubeId: "ouaWE4TK61c",
@@ -167,6 +175,23 @@ const SEC_SERIES_2026_VIDEOS: readonly TournamentVideo[] = [
     circuit: "Monza",
     headline: "Se decide la parrilla",
     title: "【SEC SERIES 2026】3 HORAS DE MONZA - GT3 - CLASIFICACION",
+  },
+];
+
+const MASTER_ROAD_2026_VIDEOS: readonly TournamentVideo[] = [
+  {
+    round: 1,
+    youtubeId: "e_zserVQ7Ao",
+    circuit: "Rudskogen",
+    headline: "MACH25 llega a iRacing",
+    title: "🔵 MASTERS ROAD · R1 RUDSKOGEN ||  ¡MACH25 LLEGA A iRACING!",
+  },
+  {
+    round: 2,
+    youtubeId: "vjP9yj0T-Is",
+    circuit: "Navarra",
+    headline: "Máxima tensión en la EMS",
+    title: "🔵 MASTERS ROAD · R2 NAVARRA || ¡MÁXIMA TENSIÓN EN LA EMS!",
   },
 ];
 
@@ -291,6 +316,14 @@ export const TOURNAMENT_CHAMPIONSHIPS: readonly TournamentChampionship[] = [
     label: "Infinity G Series · 2026",
     videos: orderTournamentVideosForSeasonCalendar(
       INFINITY_G_SERIES_2026_VIDEOS,
+      "desc",
+    ),
+  },
+  {
+    id: "master-road-2026",
+    label: "Master Road · 2026",
+    videos: orderTournamentVideosForSeasonCalendar(
+      MASTER_ROAD_2026_VIDEOS,
       "desc",
     ),
   },

@@ -136,6 +136,42 @@
   }
 }
 
+@media (max-width: 1023px), (hover: none) and (pointer: coarse) {
+  .half,
+  .assemble {
+    will-change: auto;
+  }
+
+  /* Solid fill. background-clip: text stays invisible on some phones. */
+  .letter,
+  .letterAnimated,
+  .letterVisible {
+    color: rgba(255, 255, 255, 0.78);
+    -webkit-text-fill-color: currentColor;
+    background-image: none;
+    background-clip: border-box;
+    -webkit-background-clip: border-box;
+  }
+
+  .letterVisible {
+    color: var(--color-section-title);
+  }
+
+  .letterAnimated {
+    animation-name: equiposTitleColorMobile;
+  }
+}
+
+@keyframes equiposTitleColorMobile {
+  from {
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  to {
+    color: var(--color-section-title);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .assemble,
   .assembleAnimated,

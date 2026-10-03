@@ -1,11 +1,16 @@
 import { useEffect, useRef, useState, type RefObject } from "react";
 
+import { isRevealTargetVisible } from "@/shared/lib/revealVisibility";
+import { subscribeViewportActivity } from "@/shared/lib/viewportActivity";
+
 import { usePrefersReducedMotion } from "./usePrefersReducedMotion";
 
 interface UseIntersectionRevealOptions {
   rootMargin?: string;
   threshold?: number;
   triggerOnce?: boolean;
+  /** Skip observation and show immediately (accessibility reduced motion). */
+  disabled?: boolean;
 }
 
 interface IntersectionRevealResult<T extends HTMLElement> {
@@ -16,43 +21,25 @@ interface IntersectionRevealResult<T extends HTMLElement> {
 const DEFAULT_THRESHOLD = 0.12;
 const DEFAULT_ROOT_MARGIN = "0px 0px -5% 0px";
 
-const meetsVisibilityThreshold = (
-  element: HTMLElement,
-  threshold: number,
-): boolean => {
-  const rect = element.getBoundingClientRect();
-  const viewportHeight = window.innerHeight;
-  const viewportWidth = window.innerWidth;
-  const visibleHeight =
-    Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
-  const visibleWidth =
-    Math.min(rect.right, viewportWidth) - Math.max(rect.left, 0);
-
-  if (visibleHeight <= 0 || visibleWidth <= 0) {
-    return false;
-  }
-
-  const visibleArea = visibleHeight * visibleWidth;
-  const totalArea = rect.height * rect.width;
-
-  return totalArea > 0 && visibleArea / totalArea >= threshold;
-};
-
 /**
  * Observes an element and flips `isVisible` when it enters the viewport.
  * Respects `prefers-reduced-motion` by revealing immediately.
+ * Tall targets (mobile rosters) reveal from a slice of the screen, because a
+ * ratio of their own height can be larger than the viewport.
  */
 export const useIntersectionReveal = <T extends HTMLElement = HTMLElement>({
   rootMargin = DEFAULT_ROOT_MARGIN,
   threshold = DEFAULT_THRESHOLD,
   triggerOnce = true,
+  disabled = false,
 }: UseIntersectionRevealOptions = {}): IntersectionRevealResult<T> => {
   const ref = useRef<T>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
-  const [isVisible, setIsVisible] = useState(prefersReducedMotion);
+  const revealImmediately = disabled || prefersReducedMotion;
+  const [isVisible, setIsVisible] = useState(revealImmediately);
 
   useEffect(() => {
-    if (prefersReducedMotion) {
+    if (revealImmediately) {
       setIsVisible(true);
       return undefined;
     }
@@ -62,61 +49,78 @@ export const useIntersectionReveal = <T extends HTMLElement = HTMLElement>({
       return undefined;
     }
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          reveal();
-          return;
-        }
+    let revealed = false;
 
-        if (!triggerOnce) {
-          setIsVisible(false);
-        }
-      },
-      { rootMargin, threshold },
-    );
+    const meetsThreshold = (): boolean =>
+      isRevealTargetVisible(
+        element.getBoundingClientRect(),
+        window.innerWidth,
+        window.innerHeight,
+        threshold,
+      );
+
+    const stop = (): void => {
+      observer.disconnect();
+      resizeObserver.disconnect();
+      window.removeEventListener("hashchange", scheduleSync);
+      unsubscribeViewport();
+    };
 
     const reveal = (): void => {
+      if (revealed) {
+        return;
+      }
+
+      revealed = true;
       setIsVisible(true);
 
       if (triggerOnce) {
-        observer.disconnect();
+        stop();
       }
     };
 
     const syncIfAlreadyVisible = (): void => {
-      if (meetsVisibilityThreshold(element, threshold)) {
+      if (meetsThreshold()) {
         reveal();
       }
     };
 
-    observer.observe(element);
+    const observer = new IntersectionObserver(
+      () => {
+        if (meetsThreshold()) {
+          reveal();
+          return;
+        }
 
-    // Hash links / restored scroll: section may already be in view before IO fires.
-    requestAnimationFrame(syncIfAlreadyVisible);
-    const syncAfterScroll = (): void => {
+        if (!triggerOnce && !meetsThreshold()) {
+          setIsVisible(false);
+        }
+      },
+      // Any pixel schedules a check. The ratio test above decides visibility,
+      // so a roster taller than the screen can still reveal.
+      { rootMargin, threshold: 0 },
+    );
+
+    const resizeObserver = new ResizeObserver(() => {
+      syncIfAlreadyVisible();
+    });
+
+    const scheduleSync = (): void => {
       requestAnimationFrame(syncIfAlreadyVisible);
     };
 
-    window.addEventListener("hashchange", syncAfterScroll);
-    window.addEventListener("load", syncAfterScroll, { once: true });
+    const unsubscribeViewport = subscribeViewportActivity(syncIfAlreadyVisible);
 
-    let scrollTimer = 0;
-    const onScroll = (): void => {
-      window.clearTimeout(scrollTimer);
-      scrollTimer = window.setTimeout(syncIfAlreadyVisible, 120);
-    };
+    observer.observe(element);
+    resizeObserver.observe(element);
+    requestAnimationFrame(syncIfAlreadyVisible);
 
-    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("hashchange", scheduleSync);
 
     return () => {
-      observer.disconnect();
-      window.removeEventListener("hashchange", syncAfterScroll);
-      window.removeEventListener("load", syncAfterScroll);
-      window.removeEventListener("scroll", onScroll);
-      window.clearTimeout(scrollTimer);
+      stop();
     };
-  }, [prefersReducedMotion, rootMargin, threshold, triggerOnce]);
+  }, [revealImmediately, rootMargin, threshold, triggerOnce]);
 
   return { isVisible, ref };
 };

@@ -1,6 +1,22 @@
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
 .closing {
   display: flex;
   justify-content: center;
   margin-top: clamp(6.5rem, 14vw, 10rem);
   padding-bottom: clamp(3.75rem, 8vw, 6.25rem);
+}
+
+/* One shared gap between the championship names, the broadcast, and #EN2EAVOUR. */
+@media (min-width: 1024px) {
+  .stack {
+    --torneos-band-gap: clamp(3.25rem, 5.5vw, 4.75rem);
+  }
+
+  .closing {
+    margin-top: var(--torneos-band-gap);
+  }
 }

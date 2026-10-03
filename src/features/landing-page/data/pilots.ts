@@ -16,12 +16,11 @@ import davidCeladaPhoto from "@assets/integrantes/europeos/David-Celada.jpg";
 import ericFructuosoPhoto from "@assets/integrantes/europeos/eric-fructuoso.jpg";
 import federicoCerviPhoto from "@assets/integrantes/europeos/federico-cervi.jpg";
 import giorgioCorolloPhoto from "@assets/integrantes/europeos/giorgio-corollo.jpg";
-import ignasiLligadasPhoto from "@assets/integrantes/europeos/Ignasi Lligadas.jpg";
-import miroslawKravchenkoPhoto from "@assets/integrantes/europeos/miroslaw.jpg";
+import ignasiLligadasPhoto from "@assets/integrantes/europeos/ignasi-lligadas.jpg";
 import nicholasFontanaPhoto from "@assets/integrantes/europeos/nicholas-fontana.jpg";
 import kevinFernandezPhoto from "@assets/integrantes/europeos/kevin-fernandez.jpg";
 import samuelMorenoPhoto from "@assets/integrantes/europeos/samuel-moreno.jpg";
-import eframAlvarezPhoto from "@assets/integrantes/europeos/efram-alvarez.png";
+import eframAlvarezPhoto from "@assets/integrantes/europeos/efram-alvarez.jpg";
 import marioSolerPhoto from "@assets/lideres/mario-soler.jpg";
 import niltonGrajalesPhoto from "@assets/lideres/nilton-grajales.jpg";
 import type { DivisionRoster } from "../types/pilot";
@@ -70,18 +69,6 @@ export const DIVISION_ROSTERS: readonly DivisionRoster[] = [
         photo: giorgioCorolloPhoto,
         photoFit: {
           position: "center 50%",
-          scale: 1,
-        },
-      },
-      {
-        id: "eu-3",
-        alias: "MIROSLAW KRAVCHENKO",
-        country: "ALEMANIA",
-        role: "CORREDOR DE EVENTOS PROFESIONALES | PILOTO WORLD TOUR",
-        caption: "CORREDOR DE EVENTOS PROFESIONALES | PILOTO WORLD TOUR",
-        photo: miroslawKravchenkoPhoto,
-        photoFit: {
-          position: "center 25%",
           scale: 1,
         },
       },

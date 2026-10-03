@@ -1,10 +1,11 @@
-import type { CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 
 import { useEffectiveReducedMotion } from "@/features/accessibility";
 
 import {
   EQUIPOS_IMPACT_DELAY_MS,
   EQUIPOS_TITLE_SWEEP_DELAY_MS,
+  EQUIPOS_TITLE_SWEEP_DURATION_MS,
 } from "../../lib/equiposTitleTiming";
 import { useRevealSection } from "../reveal/useRevealSection";
 import styles from "./EquiposTitle.module.css";
@@ -35,17 +36,33 @@ export const EquiposTitle = ({
 }: EquiposTitleProps): JSX.Element => {
   const isVisible = useRevealSection();
   const prefersReducedMotion = useEffectiveReducedMotion();
+  const [introSettled, setIntroSettled] = useState(false);
   const { left, right } = splitLabelHalves(label);
+  const playIntro = isVisible && !prefersReducedMotion && !introSettled;
+  const showSettled = isVisible && (prefersReducedMotion || introSettled);
+
+  useEffect(() => {
+    if (!isVisible || prefersReducedMotion) {
+      return undefined;
+    }
+
+    const timer = window.setTimeout(
+      () => setIntroSettled(true),
+      EQUIPOS_TITLE_SWEEP_DELAY_MS + EQUIPOS_TITLE_SWEEP_DURATION_MS + 50,
+    );
+
+    return () => window.clearTimeout(timer);
+  }, [isVisible, prefersReducedMotion]);
 
   const renderLetter = (letter: string, index: number): JSX.Element => (
     <span
       key={`${letter}-${index}`}
       className={`${styles.letter} ${
-        isVisible
-          ? prefersReducedMotion
+        playIntro
+          ? styles.letterAnimated
+          : showSettled
             ? styles.letterVisible
-            : styles.letterAnimated
-          : ""
+            : ""
       }`}
       style={
         {
@@ -61,11 +78,11 @@ export const EquiposTitle = ({
     <h2 id={id} className={styles.root} aria-label={label}>
       <span
         className={`${styles.assemble} ${
-          isVisible
-            ? prefersReducedMotion
+          playIntro
+            ? styles.assembleAnimated
+            : showSettled
               ? styles.assembleVisible
-              : styles.assembleAnimated
-            : ""
+              : ""
         }`}
         style={
           {
@@ -76,22 +93,22 @@ export const EquiposTitle = ({
       >
         <span
           className={`${styles.half} ${styles.halfLeft} ${
-            isVisible
-              ? prefersReducedMotion
+            playIntro
+              ? styles.halfLeftAnimated
+              : showSettled
                 ? styles.halfVisible
-                : styles.halfLeftAnimated
-              : ""
+                : ""
           }`}
         >
           {left.map((letter, index) => renderLetter(letter, index))}
         </span>
         <span
           className={`${styles.half} ${styles.halfRight} ${
-            isVisible
-              ? prefersReducedMotion
+            playIntro
+              ? styles.halfRightAnimated
+              : showSettled
                 ? styles.halfVisible
-                : styles.halfRightAnimated
-              : ""
+                : ""
           }`}
         >
           {right.map((letter, index) =>

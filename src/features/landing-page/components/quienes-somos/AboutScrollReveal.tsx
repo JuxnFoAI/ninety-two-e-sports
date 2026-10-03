@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useCallback, type ReactNode } from "react";
 import { motion } from "motion/react";
 
 import { useOneWayScrollReveal } from "../../lib/useOneWayScrollReveal";
@@ -29,18 +29,27 @@ export const AboutScrollReveal = ({
   "aria-label": ariaLabel,
 }: AboutScrollRevealProps): JSX.Element => {
   const { ref, style } = useOneWayScrollReveal({ yFrom, xFrom, scaleFrom });
-  const Component =
-    as === "p" ? motion.p : as === "h2" ? motion.h2 : motion.div;
-
-  return (
-    <Component
-      ref={ref as never}
-      id={id}
-      className={className}
-      aria-label={ariaLabel}
-      style={style}
-    >
-      {children}
-    </Component>
+  const setRef = useCallback(
+    (node: HTMLElement | null) => {
+      ref.current = node;
+    },
+    [ref],
   );
+  const shared = {
+    ref: setRef,
+    id,
+    className,
+    "aria-label": ariaLabel,
+    style,
+  };
+
+  if (as === "p") {
+    return <motion.p {...shared}>{children}</motion.p>;
+  }
+
+  if (as === "h2") {
+    return <motion.h2 {...shared}>{children}</motion.h2>;
+  }
+
+  return <motion.div {...shared}>{children}</motion.div>;
 };

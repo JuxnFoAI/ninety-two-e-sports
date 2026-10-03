@@ -18,7 +18,8 @@ export const useOneWayScrollReveal = ({
   xFrom,
   scaleFrom,
 }: OneWayScrollRevealOptions = {}) => {
-  const ref = useRef<HTMLElement>(null);
+  // `| null` in the generic keeps `.current` writable. `useRef<HTMLElement>(null)` is read-only.
+  const ref = useRef<HTMLElement | null>(null);
   const prefersReducedMotion = useEffectiveReducedMotion();
   const [settled, setSettled] = useState(false);
   const progress = useMotionValue(0);

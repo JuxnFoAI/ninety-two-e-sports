@@ -103,7 +103,7 @@ Motivo: dos componentes idénticos solo por el JSDoc; un solo marco evita copiar
 
 No hay un solo motor: cada gesto usa la herramienta más barata.
 CSS (`@keyframes` / modules): intros de título, panel noche, isla del navbar — one-shots, sin JS por frame.
-`motion`: hover de iconos, scrub de scroll (Quiénes somos, hélice de noticias) y el botón de tinta — gestos y progreso ligado al scroll.
+`motion`: hover de iconos, scrub de scroll (Quiénes somos) y el botón de tinta — gestos y progreso ligado al scroll.
 `morphicons` + `lucide`: solo el morph menú ↔ cierre, un trazo que cambia de estado.
 Canvas propio: la loading screen, control frame a frame. Descartado: Framer/GSAP para todo.
 
@@ -115,13 +115,13 @@ Motivo: utilidades rápidas para cromo; animaciones complejas no caben en class 
 
 _(2026-08-14)_
 
-### Noticias como hélice de fotos
+### Noticias como slider infinito de cartas
 
-Las piezas se recorren en espiral 3D; el clic abre un overlay con foto + texto.
-Motivo: la foto es la entrada, no un grid de retrato + copy. Con reduced motion, rejilla estática.
-Descartado: mantener `NewsGrid` en paralelo.
+Las fotos quedan quietas en una fila: la del centro es la más grande y el clic abre el overlay. Solo se desplazan al arrastrar o con las flechas. Con reduced motion, rejilla estática.
+Motivo: el gesto del infinite card slider, sin añadir GSAP ni volver a fijar el scroll.
+Descartado: la librería GSAP y el pin de scroll del demo oficial.
 
-_(2026-08-16)_
+_(2026-10-01)_
 
 ### Diseños desde originales de GT7, no desde el chat
 
@@ -130,6 +130,39 @@ Motivo: Cursor comprime lo pegado en el chat a 1024×576; al descargar o abrir l
 La galería lee solo `TEAM_DESIGNS` en `designs.ts`; no hay que tocar los componentes.
 
 _(2026-09-21)_
+
+### Imágenes al tamaño en que se ven
+
+Las fotos se guardan ya limitadas: diseños a 1920 px, noticias a 1600, pilotos a 960 (`scripts/optimize-web-images.mjs`).
+Motivo: un fotograma 4K ocupa unos 33 MB al descodificarse; en el móvil el scroll se paraba al pintar carrusel y fichas.
+Logos de marca y patrocinadores quedan fuera. Al añadir una captura, se lanza el script.
+Descartado: conservar el 4K y una segunda copia pequeña; duplicaba peso y la descarga de la foto.
+
+_(2026-10-01)_
+
+### Cada ruta carga solo sus fotos
+
+Las páginas (`/`, `/equipos`, `/fotos`, `/noticias`, `/torneos`) entran con `lazy()` en `App`.
+Motivo: un import estático de todas hacía que el primer pantallazo pidiera también pilotos y noticias.
+Así el móvil descarga la ruta en la que estás.
+
+_(2026-10-01)_
+
+### Diseños deslizables en móvil
+
+En táctil o ventana estrecha la marquesina infinita pasa a una fila que se mueve con el dedo, sin duplicar fotos ni animarlas siempre.
+Motivo: el bucle movía decenas de imágenes a la vez y el teléfono perdía frames.
+En escritorio con ratón sigue el desplazamiento continuo.
+
+_(2026-10-01)_
+
+### Título de pestaña por ruta y 404
+
+Cada página escribe su sección en `document.title` (`Equipos — Ninety Two E-Sports`). Una ruta desconocida muestra una 404 dentro del mismo shell.
+Motivo: la pestaña y el historial decían siempre lo mismo, y un enlace roto dejaba la página en negro.
+Descartado: un título único para todo el sitio.
+
+_(2026-10-02)_
 
 ### Aprender el mantenimiento a mano
 

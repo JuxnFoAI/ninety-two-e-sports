@@ -32,8 +32,8 @@ Es intencional y coherente con el producto:
 
 - **Carpetas y secciones (UI):** español — `equipos`, `noticias`, `disenos`, `PatrocinadoresSection`.
 - **Inicio (`/`):** hero + `#quienes-somos` + `#disenos` + `#patrocinadores` (bloque continuo, `surface="flush"`).
-- **Rutas independientes:** español en path — `/equipos`, `/fotos`, `/noticias`, `/torneos` (misma pestaña vía React Router). `/fotos` no va en el menú; se abre desde Diseños.
-- **Componentes internos / datos:** inglés — `SponsorCard`, `PilotCard`, `NewsPhotoSpiral`.
+- **Rutas independientes:** español en path — `/equipos`, `/fotos`, `/noticias`, `/torneos` (misma pestaña vía React Router). `/fotos` no va en el menú; se abre desde Diseños. Cualquier otra ruta muestra la página 404. Cada ruta pone su sección en `document.title`.
+- **Componentes internos / datos:** inglés — `SponsorCard`, `PilotCard`, `NewsPhotoSlider`.
 - **Diseños:** assets en `assets/Designs/` (`@assets/Designs/...`).
 
 Al añadir una sección nueva en el inicio, mantén el patrón: carpeta en español, componente de sección `*Section.tsx`, subcomponentes en inglés descriptivo. Si pasa a página propia, añade ruta en `App.tsx`, página con `StandaloneSectionPage` y enlace en `NAV_LINKS` solo si debe aparecer en el menú.
@@ -62,4 +62,5 @@ Los tipos viven en `src/features/landing-page/types/`. Importa el archivo concre
 - Noticias: `assets/noticias/`
 - Patrocinadores: `assets/patrocinadores/`
 - Preferir nombres en kebab-case ASCII (`espana.jpg`, no `españa.jpg`) para compatibilidad entre sistemas.
-- Diseños: copiar el original 4K desde las capturas de GT7 (`D:\PS5\CREATE\Screenshots\…`). No usar el preview del chat.
+- Diseños: copiar el original desde las capturas de GT7 (`D:\PS5\CREATE\Screenshots\…`). No usar el preview del chat.
+- Antes de dejar una foto en el repo, pasar `node scripts/optimize-web-images.mjs`. Deja diseños en 1920 px, noticias en 1600 y pilotos en 960. Logos de marca y patrocinadores no se tocan.

@@ -1,8 +1,14 @@
+import { usePageTitle } from "@/shared/hooks";
+
 import { StandaloneSectionPage } from "./components";
 import { NoticiasSection } from "./components/noticias";
 
-export const NoticiasPage = (): JSX.Element => (
-  <StandaloneSectionPage connectToFooter opaqueNight>
-    <NoticiasSection />
-  </StandaloneSectionPage>
-);
+export const NoticiasPage = (): JSX.Element => {
+  usePageTitle("Noticias");
+
+  return (
+    <StandaloneSectionPage connectToFooter opaqueNight>
+      <NoticiasSection />
+    </StandaloneSectionPage>
+  );
+};

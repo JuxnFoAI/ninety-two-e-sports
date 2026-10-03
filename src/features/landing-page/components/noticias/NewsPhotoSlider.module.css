@@ -1,0 +1,221 @@
+.slider {
+  /* Same ceiling as before. Each card then shrinks to its own photo. */
+  --card-max-width: min(16.5rem, 64vw);
+  --card-max-height: min(23rem, 58vh);
+  --loop-duration: 26s;
+}
+
+.viewport {
+  position: relative;
+  height: calc(var(--card-max-height) + 2.75rem);
+  margin-inline: calc(-1 * clamp(1rem, 4vw, 4rem));
+  overflow: clip;
+  cursor: grab;
+  touch-action: pan-y;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+}
+
+.dragging .viewport {
+  cursor: grabbing;
+}
+
+.list {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max-content;
+  height: max-content;
+  max-width: var(--card-max-width);
+  margin: 0;
+  animation: cardPass var(--loop-duration) linear infinite;
+  animation-play-state: paused;
+}
+
+.select {
+  appearance: none;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: inherit;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.dragging .select {
+  cursor: grabbing;
+}
+
+.select:focus {
+  outline: none;
+}
+
+.select:focus-visible .frame {
+  box-shadow:
+    0 0 0 2px #fff,
+    0 1.15rem 2.4rem rgb(0 0 0 / 0.42);
+}
+
+.select:hover .frame {
+  border-color: rgb(255 255 255 / 0.32);
+}
+
+.frame {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: inherit;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 0.7rem;
+  background: rgb(8 12 22 / 0.92);
+  box-shadow: 0 1.15rem 2.4rem rgb(0 0 0 / 0.42);
+  transition: border-color 0.25s ease;
+}
+
+.image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: var(--card-max-width);
+  max-height: var(--card-max-height);
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0.35rem;
+}
+
+.control {
+  appearance: none;
+  display: grid;
+  place-items: center;
+  min-width: 2.75rem;
+  height: 2.75rem;
+  margin: 0;
+  padding: 0 0.85rem;
+  border: 1px solid rgb(255 255 255 / 0.18);
+  border-radius: 999px;
+  background: transparent;
+  color: rgb(255 255 255 / 0.82);
+  cursor: pointer;
+}
+
+.control:hover,
+.control:focus-visible {
+  border-color: rgb(255 255 255 / 0.4);
+  color: #fff;
+  outline: none;
+}
+
+.control:focus-visible {
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.chevron {
+  display: block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-top: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+}
+
+.chevronPrev {
+  transform: translateX(1px) rotate(-135deg);
+}
+
+.chevronNext {
+  transform: translateX(-1px) rotate(45deg);
+}
+
+@keyframes cardPass {
+  0%,
+  8% {
+    opacity: 0;
+    z-index: 1;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  0% {
+    transform: translate(-50%, -50%) translateX(420%) scale(0.78);
+  }
+
+  14% {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  50% {
+    opacity: 1;
+    z-index: 4;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) translateX(0) scale(1);
+  }
+
+  86% {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  92%,
+  100% {
+    opacity: 0;
+    z-index: 1;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) translateX(-420%) scale(0.78);
+  }
+}
+
+@media (max-width: 1023px), (hover: none) and (pointer: coarse) {
+  .viewport {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: none;
+  }
+}

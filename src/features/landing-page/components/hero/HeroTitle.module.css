@@ -74,6 +74,31 @@
   }
 }
 
+@media (max-width: 1023px), (hover: none) and (pointer: coarse) {
+  .letter {
+    filter: none;
+    will-change: transform, opacity;
+  }
+
+  .letterAnimated {
+    animation-name: heroLetterRevealMobile;
+  }
+}
+
+@keyframes heroLetterRevealMobile {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 115%, 0) scale(0.96);
+  }
+
+  100% {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    will-change: auto;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .letter,
   .letterAnimated {

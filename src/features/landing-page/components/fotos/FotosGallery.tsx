@@ -438,7 +438,7 @@ export const FotosGallery = (): JSX.Element => {
                             src={design.src}
                             alt=""
                             className={styles.gridImage}
-                            loading={index < 6 ? "eager" : "lazy"}
+                            loading={index < 2 ? "eager" : "lazy"}
                             decoding="async"
                           />
                           <div className={styles.gridOverlay} aria-hidden />

@@ -22,14 +22,11 @@ export const DivisionRoster = ({
   const roster = [leader, ...pilots];
 
   return (
-    <div
-      key={animatedKey}
-      className="mt-[clamp(3.75rem,9vw,5.5rem)] [animation:teamFadeUp_360ms_ease-out]"
-    >
+    <div key={animatedKey} className={styles.roster}>
       <div className="px-0 py-2 sm:px-0">
         <ul className={styles.grid} role="list">
           <RevealItem as="li" delayMs={revealDelayMs}>
-            <PilotCard pilot={leader} />
+            <PilotCard pilot={leader} imagePriority />
           </RevealItem>
 
           {roster.slice(1).map((pilot, pilotIndex) => (
@@ -38,7 +35,7 @@ export const DivisionRoster = ({
               key={pilot.id}
               delayMs={revealDelayMs + (pilotIndex + 1) * revealStaggerMs}
             >
-              <PilotCard pilot={pilot} />
+              <PilotCard pilot={pilot} imagePriority={pilotIndex < 2} />
             </RevealItem>
           ))}
         </ul>

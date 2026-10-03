@@ -29,12 +29,21 @@ export const ScrollDesignsWhite = (): null => {
     }
 
     let frame = 0;
+    let painted = "";
 
     const update = (): void => {
       const gallery = document.getElementById(TARGET_ID);
+      const write = (value: string): void => {
+        if (value === painted) {
+          return;
+        }
+
+        painted = value;
+        root.style.setProperty(SCROLL_DESIGNS_WHITE_VAR, value);
+      };
 
       if (!gallery) {
-        root.style.setProperty(SCROLL_DESIGNS_WHITE_VAR, "0");
+        write("0");
         return;
       }
 
@@ -52,10 +61,8 @@ export const ScrollDesignsWhite = (): null => {
         raw = Math.min(1, Math.max(0, 1 - distance / fadeRange));
       }
 
-      root.style.setProperty(
-        SCROLL_DESIGNS_WHITE_VAR,
-        String(easeInOutCubic(raw) * MAX_STRENGTH),
-      );
+      const stepped = Math.round(easeInOutCubic(raw) * MAX_STRENGTH * 16) / 16;
+      write(stepped.toFixed(3));
     };
 
     const scheduleUpdate = (): void => {

@@ -7,6 +7,7 @@ import type { Pilot } from "../../types/pilot";
 
 interface PilotAvatarProps {
   pilot: Pilot;
+  priority?: boolean;
 }
 
 function getInitials(name: string): string {
@@ -16,7 +17,10 @@ function getInitials(name: string): string {
   return `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase();
 }
 
-export const PilotAvatar = ({ pilot }: PilotAvatarProps): JSX.Element => {
+export const PilotAvatar = ({
+  pilot,
+  priority = false,
+}: PilotAvatarProps): JSX.Element => {
   const [imageFailed, setImageFailed] = useState(false);
   const showImage = Boolean(pilot.photo) && !imageFailed;
 
@@ -28,8 +32,9 @@ export const PilotAvatar = ({ pilot }: PilotAvatarProps): JSX.Element => {
           alt=""
           className={`h-full w-full object-cover transition-transform duration-500 ${getPilotPhotoObjectClass(pilot.photoFit)}`}
           style={getPilotPhotoStyles(pilot.photoFit)}
-          loading="lazy"
+          loading={priority ? "eager" : "lazy"}
           decoding="async"
+          fetchPriority={priority ? "high" : "low"}
           onError={() => setImageFailed(true)}
         />
       ) : (

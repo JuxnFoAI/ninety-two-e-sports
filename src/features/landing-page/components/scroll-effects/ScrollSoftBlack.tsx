@@ -34,12 +34,16 @@ export const ScrollSoftBlack = (): JSX.Element | null => {
     }
 
     let frame = 0;
+    let painted = "";
 
     const update = (): void => {
       const section = document.getElementById(TARGET_SECTION_ID);
       if (!section) {
-        root.style.setProperty(SCROLL_SOFT_BLACK_VAR, "0");
-        veil.style.opacity = "0";
+        if (painted !== "0") {
+          painted = "0";
+          root.style.setProperty(SCROLL_SOFT_BLACK_VAR, "0");
+          veil.style.opacity = "0";
+        }
         return;
       }
 
@@ -50,8 +54,16 @@ export const ScrollSoftBlack = (): JSX.Element | null => {
       const range = Math.max(1, start - end);
       const raw = Math.min(1, Math.max(0, (start - sectionTop) / range));
       const progress = easeInOutCubic(raw);
-      root.style.setProperty(SCROLL_SOFT_BLACK_VAR, String(progress));
-      veil.style.opacity = String(progress * MAX_OPACITY);
+      // Steps avoid rewriting styles on every scroll pixel. A full-screen
+      // opacity change is a composite of the whole page.
+      const next = (Math.round(progress * 16) / 16).toFixed(3);
+      if (next === painted) {
+        return;
+      }
+
+      painted = next;
+      root.style.setProperty(SCROLL_SOFT_BLACK_VAR, next);
+      veil.style.opacity = String(Number(next) * MAX_OPACITY);
     };
 
     const scheduleUpdate = (): void => {
@@ -78,7 +90,7 @@ export const ScrollSoftBlack = (): JSX.Element | null => {
   return (
     <div
       ref={veilRef}
-      className="pointer-events-none fixed inset-0 z-[1] bg-black opacity-0 will-change-[opacity]"
+      className="pointer-events-none fixed inset-0 z-[1] bg-black opacity-0"
       aria-hidden="true"
     />
   );

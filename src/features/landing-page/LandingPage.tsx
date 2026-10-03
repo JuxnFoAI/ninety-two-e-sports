@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { useEffectiveReducedMotion } from "@/features/accessibility";
+import { usePageTitle } from "@/shared/hooks";
 
 import { ContentSections, Hero, SiteShell } from "./components";
 import {
@@ -14,6 +15,7 @@ import {
 } from "./lib/homeEntrance";
 
 export const LandingPage = (): JSX.Element => {
+  usePageTitle();
   const prefersReducedMotion = useEffectiveReducedMotion();
   const [navbarInteractive, setNavbarInteractive] =
     useState(prefersReducedMotion);
