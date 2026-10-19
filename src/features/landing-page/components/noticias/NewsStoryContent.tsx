@@ -20,7 +20,11 @@ export const NewsStoryContent = ({
         {title}
       </h3>
 
-      <p className={styles.excerpt}>{excerpt}</p>
+      {excerpt.split(/\n\n+/).map((paragraph, index) => (
+        <p key={`${id}-${index}`} className={styles.excerpt}>
+          {paragraph}
+        </p>
+      ))}
 
       {creditsTitle && pilotCredits ? (
         <div className={styles.credits}>

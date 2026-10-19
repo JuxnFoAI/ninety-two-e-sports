@@ -1,7 +1,9 @@
 import arieFichajePhoto from "@assets/noticias/arie-fichaje.jpg";
+import campeonesGtPulpiPhoto from "@assets/noticias/campeones-gt-pulpi.jpg";
 import campeonesPhoto from "@assets/noticias/campeones.jpg";
 import eframFichajePhoto from "@assets/noticias/efram-fichaje.jpg";
 import ignasiLligadasFichajePhoto from "@assets/noticias/ignasi-lligadas-fichaje.jpg";
+import raceWeekPulpiPhoto from "@assets/noticias/race-week-pulpi.jpg";
 import resultsNationsRd2Photo from "@assets/noticias/results-nations-rd-2.jpg";
 import rondaSingapurPhoto from "@assets/noticias/ronda-singapur.jpg";
 import samuMorenoNationsPhoto from "@assets/noticias/samu-moreno-nations.jpg";
@@ -9,6 +11,22 @@ import samuMorenoNationsPhoto from "@assets/noticias/samu-moreno-nations.jpg";
 import type { NewsArticle } from "../types/news";
 
 export const NEWS_ARTICLES: readonly NewsArticle[] = [
+  {
+    id: "campeones-gt-pulpi-2026",
+    title: "Campeones GT Pulpí 2026",
+    excerpt:
+      "Nuestros corredores lograron una victoria importante en el mejor evento del organizador MACH25GAMING, y lograron quedarse con la victoria en la división de equipos.\n\nGracias por dejarlo todo en la pista.",
+    image: campeonesGtPulpiPhoto,
+    imageAlt: "Ninety Two campeones de GT Pulpí 2026",
+  },
+  {
+    id: "carrera-gt-pulpi",
+    title: "N2 se prepara para la carrera de GT PULPÍ",
+    excerpt:
+      "Nuestro equipo se prepara para uno de los torneos más importantes de MACH25GAMING, nuestro equipo está en busca de la gloria y no dudaremos en luchar por ella.",
+    image: raceWeekPulpiPhoto,
+    imageAlt: "Cartel de Ninety Two para la carrera de GT Pulpí",
+  },
   {
     id: "ronda-singapur-triplete",
     title:

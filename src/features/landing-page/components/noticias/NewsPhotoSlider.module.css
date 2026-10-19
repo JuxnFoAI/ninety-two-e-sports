@@ -171,7 +171,8 @@
   }
 
   0% {
-    transform: translate(-50%, -50%) translateX(420%) scale(0.78);
+    transform: translate(-50%, -50%) translateX(var(--card-travel, 420%))
+      scale(0.78);
   }
 
   14% {
@@ -203,7 +204,8 @@
   }
 
   100% {
-    transform: translate(-50%, -50%) translateX(-420%) scale(0.78);
+    transform: translate(-50%, -50%)
+      translateX(calc(var(--card-travel, 420%) * -1)) scale(0.78);
   }
 }
 

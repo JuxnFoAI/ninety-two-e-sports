@@ -1,4 +1,11 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type KeyboardEvent,
+  type PointerEvent,
+} from "react";
 
 import { useEffectiveReducedMotion } from "@/features/accessibility";
 import { COARSE_LAYOUT_QUERY, useMediaQuery } from "@/shared/hooks";
@@ -10,6 +17,29 @@ import { useRevealSection } from "../reveal/useRevealSection";
 import styles from "./DesignsGallery.module.css";
 
 const MARQUEE_DURATION_S = 180;
+const DRAG_THRESHOLD_PX = 8;
+
+type MarqueeDrag = {
+  pointerId: number;
+  startX: number;
+  lastX: number;
+  moved: boolean;
+};
+
+/** One full set of cards. The track renders two copies so the loop is seamless. */
+const marqueeLoopWidth = (track: HTMLElement): number => track.scrollWidth / 2;
+
+/** `progress` is a fraction of one loop, so a later layout change does not jump. */
+const applyMarqueeProgress = (track: HTMLElement, progress: number): number => {
+  const width = marqueeLoopWidth(track);
+  const wrapped = ((progress % 1) + 1) % 1;
+
+  if (width > 0) {
+    track.style.transform = `translate3d(${-wrapped * width}px, 0, 0)`;
+  }
+
+  return wrapped;
+};
 
 const nearCardListeners = new Map<Element, () => void>();
 let nearCardObserver: IntersectionObserver | null = null;
@@ -119,6 +149,164 @@ export const DesignsGallery = ({
   const isVisible = useRevealSection();
   const prefersReducedMotion = useEffectiveReducedMotion();
   const coarseLayout = useMediaQuery(COARSE_LAYOUT_QUERY);
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const dragRef = useRef<MarqueeDrag | null>(null);
+  const progressRef = useRef(0);
+  const directionRef = useRef<1 | -1>(1);
+  const [dragging, setDragging] = useState(false);
+
+  useEffect(() => {
+    if (prefersReducedMotion || coarseLayout) {
+      return undefined;
+    }
+
+    const track = trackRef.current;
+    const viewport = viewportRef.current;
+    if (!track || !viewport) {
+      return undefined;
+    }
+
+    let frame = 0;
+    let last = performance.now();
+    let active = true;
+    let onScreen = true;
+
+    const stop = (): void => {
+      cancelAnimationFrame(frame);
+      frame = 0;
+    };
+
+    const tick = (now: number): void => {
+      frame = 0;
+      if (!active || !onScreen || document.hidden) {
+        return;
+      }
+
+      const dt = Math.min(now - last, 64);
+      last = now;
+
+      if (!dragRef.current && marqueeLoopWidth(track) > 0) {
+        progressRef.current = applyMarqueeProgress(
+          track,
+          progressRef.current +
+            (directionRef.current * dt) / (MARQUEE_DURATION_S * 1000),
+        );
+      }
+
+      frame = requestAnimationFrame(tick);
+    };
+
+    const start = (): void => {
+      if (!active || frame !== 0 || !onScreen || document.hidden) {
+        return;
+      }
+
+      last = performance.now();
+      frame = requestAnimationFrame(tick);
+    };
+
+    const observer = new IntersectionObserver(([entry]) => {
+      onScreen = entry.isIntersecting;
+      if (onScreen) {
+        start();
+        return;
+      }
+
+      stop();
+    });
+    const onVisibility = (): void => {
+      if (document.hidden) {
+        stop();
+        return;
+      }
+
+      start();
+    };
+
+    observer.observe(viewport);
+    document.addEventListener("visibilitychange", onVisibility);
+    start();
+
+    return () => {
+      active = false;
+      stop();
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
+      track.style.transform = "";
+    };
+  }, [coarseLayout, prefersReducedMotion]);
+
+  const onPointerDown = (event: PointerEvent<HTMLDivElement>): void => {
+    if (event.button !== 0) {
+      return;
+    }
+
+    event.preventDefault();
+    viewportRef.current?.setPointerCapture(event.pointerId);
+    dragRef.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      lastX: event.clientX,
+      moved: false,
+    };
+  };
+
+  const onPointerMove = (event: PointerEvent<HTMLDivElement>): void => {
+    const drag = dragRef.current;
+    const track = trackRef.current;
+    if (!drag || !track || event.pointerId !== drag.pointerId) {
+      return;
+    }
+
+    const dx = event.clientX - drag.lastX;
+    drag.lastX = event.clientX;
+    if (Math.abs(event.clientX - drag.startX) < DRAG_THRESHOLD_PX) {
+      return;
+    }
+
+    if (!drag.moved) {
+      drag.moved = true;
+      setDragging(true);
+    }
+
+    const width = marqueeLoopWidth(track);
+    if (width <= 0) {
+      return;
+    }
+
+    progressRef.current = applyMarqueeProgress(
+      track,
+      progressRef.current - dx / width,
+    );
+  };
+
+  const onKeyDown = (event: KeyboardEvent<HTMLDivElement>): void => {
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") {
+      return;
+    }
+
+    event.preventDefault();
+    directionRef.current = event.key === "ArrowRight" ? -1 : 1;
+  };
+
+  const endDrag = (event: PointerEvent<HTMLDivElement>): void => {
+    const drag = dragRef.current;
+    if (!drag || event.pointerId !== drag.pointerId) {
+      return;
+    }
+
+    if (drag.moved) {
+      directionRef.current = event.clientX - drag.startX > 0 ? -1 : 1;
+    }
+
+    if (viewportRef.current?.hasPointerCapture(event.pointerId)) {
+      viewportRef.current.releasePointerCapture(event.pointerId);
+    }
+
+    dragRef.current = null;
+    setDragging(false);
+  };
 
   const riseClassName = `${styles.rise} ${
     isVisible
@@ -132,10 +320,6 @@ export const DesignsGallery = ({
     isVisible && !prefersReducedMotion && revealDelayMs > 0
       ? ({ animationDelay: `${revealDelayMs}ms` } as CSSProperties)
       : undefined;
-
-  const cards = TEAM_DESIGNS.map((design) => (
-    <DesignCard key={design.id} design={design} loading="lazy" />
-  ));
 
   if (prefersReducedMotion || coarseLayout) {
     return (
@@ -164,20 +348,29 @@ export const DesignsGallery = ({
     );
   }
 
+  const cards = TEAM_DESIGNS.map((design) => (
+    <DesignCard key={design.id} design={design} loading="lazy" />
+  ));
+
   return (
     <div className={styles.entranceMask}>
       <div className={riseClassName} style={riseStyle}>
         <div
-          className={styles.viewport}
+          ref={viewportRef}
+          className={`${styles.viewport} ${styles.viewportMarquee} ${
+            dragging ? styles.viewportDragging : ""
+          }`.trim()}
           role="region"
-          aria-label="Diseños del equipo en desplazamiento continuo"
-          style={
-            {
-              "--designs-marquee-duration": `${MARQUEE_DURATION_S}s`,
-            } as CSSProperties
-          }
+          aria-label="Diseños del equipo en desplazamiento continuo. Arrastra, o usa las flechas del teclado, para moverlos a la izquierda o a la derecha."
+          tabIndex={0}
+          onKeyDown={onKeyDown}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={endDrag}
+          onPointerCancel={endDrag}
+          onDragStart={(event) => event.preventDefault()}
         >
-          <div className={`${styles.track} ${styles.trackAnimated}`}>
+          <div ref={trackRef} className={styles.track}>
             {cards}
             {TEAM_DESIGNS.map((design) => (
               <DesignCard

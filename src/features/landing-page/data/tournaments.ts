@@ -159,25 +159,6 @@ const TOURNAMENT_CIE_2026_VIDEOS: readonly TournamentVideo[] = [
   },
 ];
 
-const SEC_SERIES_2026_VIDEOS: readonly TournamentVideo[] = [
-  {
-    round: 2,
-    roundLabel: "R1",
-    youtubeId: "Dm6VAblG6JE",
-    circuit: "Monza",
-    headline: "3 horas de Monza",
-    title: "【SEC SERIES 2026】3 HORAS DE MONZA - GT3 - CARRERA",
-  },
-  {
-    round: 1,
-    roundLabel: "Clasif.",
-    youtubeId: "YWsgWM1RCXY",
-    circuit: "Monza",
-    headline: "Se decide la parrilla",
-    title: "【SEC SERIES 2026】3 HORAS DE MONZA - GT3 - CLASIFICACION",
-  },
-];
-
 const MASTER_ROAD_2026_VIDEOS: readonly TournamentVideo[] = [
   {
     round: 1,
@@ -278,7 +259,34 @@ const INFINITY_G_SERIES_2026_VIDEOS: readonly TournamentVideo[] = [
   },
 ];
 
+const GT_PULPI_2026_VIDEOS: readonly TournamentVideo[] = [
+  {
+    round: 2,
+    roundLabel: "Día 2",
+    youtubeId: "ZJ8jv-EQugs",
+    circuit: "Pulpí",
+    headline: "Llegan las finales",
+    title: "GT PULPÍ · DÍA 2 | ¡LLEGAN LAS FINALES!",
+  },
+  {
+    round: 1,
+    roundLabel: "Día 1",
+    youtubeId: "HqaB0Gn7b3k",
+    circuit: "Pulpí",
+    headline: "La competición presencial más esperada",
+    title: "GT PULPÍ · DÍA 1 | LA COMPETICIÓN PRESENCIAL MÁS ESPERADA DE GT7",
+  },
+];
+
 export const TOURNAMENT_CHAMPIONSHIPS: readonly TournamentChampionship[] = [
+  {
+    id: "gt-pulpi-2026",
+    label: "GT Pulpí · 2026",
+    videos: orderTournamentVideosForSeasonCalendar(
+      GT_PULPI_2026_VIDEOS,
+      "desc",
+    ),
+  },
   {
     id: "gt-world-series-2026",
     label: "GT World Series · 2026",
@@ -300,14 +308,6 @@ export const TOURNAMENT_CHAMPIONSHIPS: readonly TournamentChampionship[] = [
     label: "Tournament CIE · 2026",
     videos: orderTournamentVideosForSeasonCalendar(
       TOURNAMENT_CIE_2026_VIDEOS,
-      "desc",
-    ),
-  },
-  {
-    id: "sec-series-2026",
-    label: "SEC Series · 2026",
-    videos: orderTournamentVideosForSeasonCalendar(
-      SEC_SERIES_2026_VIDEOS,
       "desc",
     ),
   },

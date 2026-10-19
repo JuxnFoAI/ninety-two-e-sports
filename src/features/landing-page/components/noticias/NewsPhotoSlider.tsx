@@ -16,8 +16,15 @@ type NewsPhotoSliderProps = {
   onSelect: (id: string) => void;
 };
 
+/**
+ * Center-to-center distance, in card widths. Above 1 leaves a gap so extra
+ * stories do not pile the posters up. Card size stays the same.
+ */
+const CARD_SPACING = 1.16;
+
 /** Full travel of one card, as a percentage of its own width (right edge to left edge). */
-const CARD_TRAVEL_PERCENT = 420;
+const cardTravelPercent = (count: number): number =>
+  (CARD_SPACING * Math.max(count, 1) * 100) / 2;
 const LOOP_MS = 26_000;
 const DRAG_THRESHOLD_PX = 12;
 /** How long one arrow step takes to glide into place. */
@@ -76,7 +83,12 @@ const seekBy = (list: HTMLElement, deltaMs: number): void => {
 };
 
 const sampleSlide = (slide: SlideTween, now: number): number => {
-  const progress = Math.min(1, (now - slide.startedAt) / slide.durationMs);
+  // The click can land after this frame's timestamp, so the first sample
+  // would otherwise step backward before the cards move the right way.
+  const progress = Math.min(
+    1,
+    Math.max(0, (now - slide.startedAt) / slide.durationMs),
+  );
   return slide.from + (slide.to - slide.from) * easeOut(progress);
 };
 
@@ -221,7 +233,8 @@ export const NewsPhotoSlider = ({
       return;
     }
 
-    const travelPx = cardWidth * ((CARD_TRAVEL_PERCENT * 2) / 100);
+    const travelPx =
+      cardWidth * ((cardTravelPercent(photos.length) * 2) / 100);
     seekBy(list, (-dx / travelPx) * duration);
   };
 
@@ -250,6 +263,7 @@ export const NewsPhotoSlider = ({
       style={
         {
           "--photo-count": String(photos.length),
+          "--card-travel": `${cardTravelPercent(photos.length)}%`,
           "--loop-duration": `${LOOP_MS}ms`,
         } as CSSProperties
       }

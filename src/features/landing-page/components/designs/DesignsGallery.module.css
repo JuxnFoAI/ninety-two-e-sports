@@ -38,16 +38,35 @@
   overflow: hidden;
 }
 
+.viewportMarquee {
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.viewportMarquee:focus {
+  outline: none;
+}
+
+.viewportMarquee:focus-visible {
+  outline: 2px solid rgb(247 233 174 / 0.7);
+  outline-offset: 4px;
+}
+
+.viewportDragging {
+  cursor: grabbing;
+}
+
+.viewportMarquee .track {
+  will-change: transform;
+}
+
 .track {
   display: flex;
   align-items: stretch;
   width: max-content;
   gap: 1.5rem;
   padding-block: 0.5rem;
-}
-
-.trackAnimated {
-  animation: designsMarquee var(--designs-marquee-duration, 75s) linear infinite;
 }
 
 .trackStatic {
@@ -103,16 +122,6 @@
   );
 }
 
-@keyframes designsMarquee {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-
-  to {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-
 @media (max-width: 1023px) {
   .card {
     width: min(82vw, 22rem);
@@ -126,9 +135,5 @@
     opacity: 1;
     transform: none;
     will-change: auto;
-  }
-
-  .trackAnimated {
-    animation: none;
   }
 }
