@@ -102,6 +102,30 @@ const SUMMER_MADNESS_2026_VIDEOS: readonly TournamentVideo[] = [
 
 const TOURNAMENT_CIE_2026_VIDEOS: readonly TournamentVideo[] = [
   {
+    round: 10,
+    roundLabel: "R7",
+    youtubeId: "boKR6QWbm-8",
+    circuit: "Suzuka",
+    headline: "Suzuka recibe la séptima ronda",
+    title: "CIE 2026 Clausura - Ronda 7 SUZUKA",
+  },
+  {
+    round: 9,
+    roundLabel: "R6",
+    youtubeId: "k0h3MfZMk6Q",
+    circuit: "Tokyo",
+    headline: "Tokio recibe la sexta ronda",
+    title: "CIE 2026 Clausura - Ronda 6: TOKYO",
+  },
+  {
+    round: 8,
+    roundLabel: "R5",
+    youtubeId: "jEforksZqSQ",
+    circuit: "Kyoto",
+    headline: "Kyoto recibe la quinta ronda",
+    title: "CIE 2026 Clausura - Ronda 5: KYOTO",
+  },
+  {
     round: 7,
     roundLabel: "R4",
     youtubeId: "L0WzhI-MTHA",
