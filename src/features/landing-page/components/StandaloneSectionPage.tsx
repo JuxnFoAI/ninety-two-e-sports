@@ -16,10 +16,7 @@ export const StandaloneSectionPage = ({
   connectToFooter = false,
   opaqueNight = false,
 }: StandaloneSectionPageProps): JSX.Element => (
-  <SiteShell
-    connectFooterToContent={connectToFooter}
-    opaqueNight={opaqueNight}
-  >
+  <SiteShell connectFooterToContent={connectToFooter} opaqueNight={opaqueNight}>
     <div
       className={
         connectToFooter
