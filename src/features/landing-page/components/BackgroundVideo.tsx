@@ -51,7 +51,9 @@ export const BackgroundVideo = (): JSX.Element => {
       className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-black"
       aria-hidden="true"
     >
-      <div className={`relative h-full w-full ${A11Y_COLOR_FILTER_LAYER_CLASS}`}>
+      <div
+        className={`relative h-full w-full ${A11Y_COLOR_FILTER_LAYER_CLASS}`}
+      >
         {showVideo ? (
           <video
             ref={videoRef}
