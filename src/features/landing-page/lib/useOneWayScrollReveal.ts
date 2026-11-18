@@ -30,6 +30,10 @@ export const useOneWayScrollReveal = ({
   });
 
   useLayoutEffect(() => {
+    if (prefersReducedMotion) {
+      return undefined;
+    }
+
     const apply = (value: number): void => {
       if (value > progress.get()) {
         progress.set(value);
@@ -41,15 +45,25 @@ export const useOneWayScrollReveal = ({
 
     apply(scrollYProgress.get());
     return scrollYProgress.on("change", apply);
-  }, [progress, scrollYProgress]);
+  }, [prefersReducedMotion, progress, scrollYProgress]);
 
   const opacity = useTransform(progress, [0, 1], [0, 1]);
   const y = useTransform(progress, [0, 1], [yFrom ?? 0, 0]);
   const x = useTransform(progress, [0, 1], [xFrom ?? 0, 0]);
   const scale = useTransform(progress, [0, 1], [scaleFrom ?? 1, 1]);
 
-  if (prefersReducedMotion || settled) {
-    return { ref, progress, settled, prefersReducedMotion };
+  if (prefersReducedMotion) {
+    return { ref, progress, settled: true, prefersReducedMotion };
+  }
+
+  if (settled) {
+    return {
+      ref,
+      progress,
+      settled,
+      prefersReducedMotion,
+      style: { opacity: 1 },
+    };
   }
 
   return {

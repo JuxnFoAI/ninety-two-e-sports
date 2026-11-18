@@ -3,6 +3,7 @@ import type { CSSProperties } from "react";
 import { useEffectiveReducedMotion } from "@/features/accessibility";
 
 import {
+  FOTOS_LETTER_RISE_DURATION_MS,
   FOTOS_LETTER_STAGGER_MS,
   FOTOS_TITLE_SWEEP_DELAY_MS,
 } from "../../lib/fotosTitleTiming";
@@ -51,6 +52,7 @@ export const FotosTitle = ({
                 style={
                   {
                     "--letter-delay": `${index * FOTOS_LETTER_STAGGER_MS}ms`,
+                    "--letter-rise-duration": `${FOTOS_LETTER_RISE_DURATION_MS}ms`,
                     "--sweep-delay": `${FOTOS_TITLE_SWEEP_DELAY_MS}ms`,
                   } as CSSProperties
                 }

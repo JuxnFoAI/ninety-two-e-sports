@@ -1,6 +1,8 @@
 export interface LoadingScreenProps {
-  /** Animation duration in milliseconds. Default: 4000 desktop / 2200 mobile. */
+  /** Animation duration in milliseconds. Default: 2000. */
   duration?: number;
-  /** Called once after the fade-out transition finishes. */
+  /** Called once when the overlay begins fading and the site underneath can enter. */
+  onFadeStart?: () => void;
+  /** Called once after the fade-out transition finishes and the site is shown. */
   onComplete?: () => void;
 }

@@ -5,5 +5,5 @@ export { COARSE_LAYOUT_QUERY, useMediaQuery } from "./useMediaQuery";
 export { useOverlayDialog } from "./useOverlayDialog";
 export { usePageTitle } from "./usePageTitle";
 export { usePrefersReducedMotion } from "./usePrefersReducedMotion";
-export { isDocumentScrollLocked, useScrollLock } from "./useScrollLock";
+export { useScrollLock } from "./useScrollLock";
 export { useScrolledPast } from "./useScrolledPast";

@@ -6,7 +6,7 @@ import { easeInOutCubic } from "@/shared/lib/easings";
 /** Gallery band inside `#disenos` — white veil begins as photos reach mid-viewport. */
 const TARGET_ID = "disenos-galeria";
 /** CSS var consumed by the home content stack background (0–1). */
-export const SCROLL_DESIGNS_WHITE_VAR = "--scroll-designs-white";
+const SCROLL_DESIGNS_WHITE_VAR = "--scroll-designs-white";
 /** Full strength reaches pure white on the home stack. */
 const MAX_STRENGTH = 1;
 /** Distance above mid-viewport over which the veil eases in. */

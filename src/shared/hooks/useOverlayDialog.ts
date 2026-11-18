@@ -9,6 +9,9 @@ import { useScrollLock } from "./useScrollLock";
 export const useOverlayDialog = (onClose: () => void) => {
   const closeRef = useRef<HTMLButtonElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
+  const onCloseRef = useRef(onClose);
+
+  onCloseRef.current = onClose;
 
   useScrollLock(true);
 
@@ -19,7 +22,7 @@ export const useOverlayDialog = (onClose: () => void) => {
     const handleKeyDown = (event: KeyboardEvent): void => {
       if (event.key === "Escape") {
         event.preventDefault();
-        onClose();
+        onCloseRef.current();
       }
     };
 
@@ -29,7 +32,7 @@ export const useOverlayDialog = (onClose: () => void) => {
       window.removeEventListener("keydown", handleKeyDown);
       previousFocusRef.current?.focus({ preventScroll: true });
     };
-  }, [onClose]);
+  }, []);
 
   return closeRef;
 };

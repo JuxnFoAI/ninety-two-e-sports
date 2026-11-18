@@ -1,9 +1,6 @@
 import { useEffect } from "react";
 
-export const SCROLL_LOCK_CLASS = "scroll-locked";
-
-export const isDocumentScrollLocked = (): boolean =>
-  document.documentElement.classList.contains(SCROLL_LOCK_CLASS);
+const SCROLL_LOCK_CLASS = "scroll-locked";
 
 interface BodyStyleSnapshot {
   position: string;

@@ -121,6 +121,18 @@ body {
   min-height: 100dvh;
 }
 
+@media (max-width: 1023px) {
+  #root {
+    min-height: calc(100dvh + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* Entrance animations wait until the loader starts fading, or they finish unseen. */
+.intro-hold,
+.intro-hold * {
+  animation: none !important;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

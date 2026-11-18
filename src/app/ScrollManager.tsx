@@ -30,6 +30,20 @@ export const ScrollManager = (): null => {
         target.scrollIntoView();
         return;
       }
+
+      const retry = window.requestAnimationFrame(() => {
+        const lateTarget = document.getElementById(id);
+        if (lateTarget) {
+          lateTarget.scrollIntoView();
+          return;
+        }
+
+        if (pathChanged) {
+          scrollToPageTop(true);
+        }
+      });
+
+      return () => window.cancelAnimationFrame(retry);
     }
 
     // Path change (e.g. /equipos → /) or /#inicio: jump to the true top.

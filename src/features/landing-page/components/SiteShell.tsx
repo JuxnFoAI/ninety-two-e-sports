@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 import {
   A11Y_COLOR_FILTER_LAYER_CLASS,
@@ -41,12 +41,16 @@ export const SiteShell = ({
       ? ""
       : "motion-safe:animate-[fadeIn_1s_ease_both] motion-safe:[animation-delay:60ms]";
 
-  const footerEntranceClass =
+  const sequenceFooterEntrance =
     sequencedHomeEntrance &&
     !prefersReducedMotion &&
-    footerEntranceDelayMs != null
-      ? `motion-safe:animate-[fadeIn_0.7s_ease_both] motion-safe:[animation-delay:${footerEntranceDelayMs}ms] opacity-0`
-      : "";
+    footerEntranceDelayMs != null;
+  const footerEntranceClass = sequenceFooterEntrance
+    ? "motion-safe:animate-[fadeIn_0.7s_ease_both] opacity-0"
+    : "";
+  const footerEntranceStyle: CSSProperties | undefined = sequenceFooterEntrance
+    ? { animationDelay: `${footerEntranceDelayMs}ms` }
+    : undefined;
 
   return (
     <div className="relative min-h-dvh text-white">
@@ -89,11 +93,14 @@ export const SiteShell = ({
 
           <footer
             role="contentinfo"
-            className={`${opaqueNight ? "bg-black" : "bg-black/90"} px-[clamp(1rem,4vw,4rem)] py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:py-7 ${
+            className={`${
+              opaqueNight ? "bg-black" : "bg-black/90 max-lg:bg-transparent"
+            } px-[clamp(1rem,4vw,4rem)] py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:py-7 ${
               connectFooterToContent ? "relative z-[1]" : ""
             } ${footerEntranceClass}`.trim()}
+            style={footerEntranceStyle}
           >
-            <p className="m-0 text-[0.68rem] font-medium uppercase tracking-[0.14em] text-white/40">
+            <p className="m-0 text-[0.68rem] font-medium uppercase tracking-[0.14em] text-white/40 max-lg:text-white/55 max-lg:[text-shadow:0_1px_14px_rgb(0_0_0/0.9)]">
               © {new Date().getFullYear()} Ninety Two E-Sports
             </p>
           </footer>

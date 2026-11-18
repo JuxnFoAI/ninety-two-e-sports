@@ -1,4 +1,4 @@
-import { usePrefersReducedMotion } from "@/shared/hooks";
+import { useEffectiveReducedMotion } from "@/features/accessibility";
 
 type NavbarMobileBackdropProps = {
   open: boolean;
@@ -10,7 +10,7 @@ export const NavbarMobileBackdrop = ({
   open,
   onClose,
 }: NavbarMobileBackdropProps): JSX.Element => {
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const prefersReducedMotion = useEffectiveReducedMotion();
   const transitionClass = prefersReducedMotion
     ? ""
     : "transition-opacity duration-300 ease-out";

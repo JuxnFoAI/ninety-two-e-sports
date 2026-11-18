@@ -1,132 +1,109 @@
+import { useEffect, useLayoutEffect, useRef } from "react";
+import gsap from "gsap";
+
+import { useEffectiveReducedMotion } from "@/features/accessibility";
+import { MOBILE_MEDIA_QUERY } from "@/shared/constants/breakpoints";
+
 import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
-import {
-  useAnimationLoop,
-  useMediaQuery,
-  usePrefersReducedMotion,
-} from "@/shared/hooks";
-import { easeOut } from "@/shared/lib/easings";
-import { applyLogoAnimation } from "../animation/logoAnimation";
-import { paintStage } from "../canvas/paintStage";
-import { setupCanvas } from "../canvas/setupCanvas";
+  applyLoaderEndState,
+  createLoaderTimeline,
+} from "../animation/createLoaderTimeline";
 import {
   DEFAULT_LOADING_DURATION_MS,
+  FADE_OUT_DELAY_MS,
+  FADE_OUT_TRANSITION_MS,
   MOBILE_LOADING_DURATION_MS,
-  MOBILE_LOADING_MEDIA_QUERY,
-  REDUCED_MOTION_TIMEOUT_MS,
 } from "../constants";
 import type { LoadingScreenProps } from "../LoadingScreen.types";
 import { useFadeOutSequence } from "./useFadeOutSequence";
 
+const resolveInitialDuration = (overrideMs?: number): number => {
+  if (overrideMs != null) {
+    return overrideMs;
+  }
+
+  const isMobile = window.matchMedia(MOBILE_MEDIA_QUERY).matches;
+
+  return isMobile ? MOBILE_LOADING_DURATION_MS : DEFAULT_LOADING_DURATION_MS;
+};
+
 export const useLoadingScreen = ({
   duration,
   onComplete,
+  onFadeStart,
 }: LoadingScreenProps) => {
-  const isMobile = useMediaQuery(MOBILE_LOADING_MEDIA_QUERY);
-  const resolvedDuration =
-    duration ??
-    (isMobile ? MOBILE_LOADING_DURATION_MS : DEFAULT_LOADING_DURATION_MS);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useLayoutEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) {
-      return undefined;
-    }
-
-    setupCanvas(canvas);
-    return undefined;
-  }, []);
+  const resolvedDurationRef = useRef(resolveInitialDuration(duration));
+  const resolvedDuration = duration ?? resolvedDurationRef.current;
+  const scopeRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLImageElement>(null);
-  const prefersReducedMotion = usePrefersReducedMotion();
-  const [animationEnabled, setAnimationEnabled] = useState(true);
-  const [progress, setProgress] = useState(0);
+  const barRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useEffectiveReducedMotion();
 
-  const { isFading, announceLoaded, startFadeOut, complete } =
+  const { isFading, announceLoaded, startFadeOut, notifyFadeTransitionEnd } =
     useFadeOutSequence({
       onComplete,
+      onFadeStart,
     });
 
-  useEffect(() => {
-    if (!prefersReducedMotion) {
+  useLayoutEffect(() => {
+    const logo = logoRef.current;
+    const bar = barRef.current;
+    if (!logo || !bar) {
       return undefined;
     }
 
-    setAnimationEnabled(false);
-
-    const canvas = canvasRef.current;
-    const ctx = canvas ? setupCanvas(canvas) : null;
-    if (ctx) {
-      paintStage({ ctx, elapsed: resolvedDuration, t: 1 });
+    if (prefersReducedMotion) {
+      applyLoaderEndState(logo, bar);
+      bar.setAttribute("aria-valuenow", "100");
+      startFadeOut();
+      return undefined;
     }
 
-    const logo = logoRef.current;
-    if (logo) {
-      applyLogoAnimation(logo, 1);
-    }
+    bar.setAttribute("aria-valuenow", "0");
 
-    setProgress(1);
+    const seconds = Math.max(resolvedDuration, 1) / 1000;
+    let timeline: gsap.core.Timeline | null = null;
 
-    const timer = setTimeout(complete, REDUCED_MOTION_TIMEOUT_MS);
+    const context = gsap.context(() => {
+      timeline = createLoaderTimeline({
+        logo,
+        bar,
+        onProgress: (progress) => {
+          bar.setAttribute("aria-valuenow", String(Math.round(progress * 100)));
+        },
+        onComplete: () => {
+          startFadeOut();
+        },
+      });
+      timeline.timeScale(1 / seconds);
+      timeline.play();
+    }, scopeRef);
 
     return () => {
-      clearTimeout(timer);
+      timeline?.kill();
+      context.revert();
     };
-  }, [complete, prefersReducedMotion, resolvedDuration]);
+  }, [prefersReducedMotion, resolvedDuration, startFadeOut]);
 
-  useLayoutEffect(() => {
-    if (prefersReducedMotion) {
-      return undefined;
-    }
+  useEffect(() => {
+    const failsafeMs =
+      resolvedDuration + FADE_OUT_DELAY_MS + FADE_OUT_TRANSITION_MS + 2500;
 
-    const logo = logoRef.current;
-    if (logo) {
-      applyLogoAnimation(logo, 0);
-    }
-
-    return undefined;
-  }, [prefersReducedMotion]);
-
-  const paintFrame = useCallback((elapsed: number, t: number) => {
-    const canvas = canvasRef.current;
-    if (!canvas) {
-      return;
-    }
-
-    const ctx = setupCanvas(canvas);
-    if (!ctx) {
-      return;
-    }
-
-    paintStage({ ctx, elapsed, t });
-    setProgress(easeOut(t));
-
-    const logo = logoRef.current;
-    if (logo) {
-      applyLogoAnimation(logo, t);
-    }
-  }, []);
-
-  useAnimationLoop({
-    duration: resolvedDuration,
-    enabled: animationEnabled && !prefersReducedMotion,
-    onFrame: paintFrame,
-    onTimelineEnd: () => {
-      setAnimationEnabled(false);
+    const timer = window.setTimeout(() => {
       startFadeOut();
-    },
-  });
+    }, failsafeMs);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [resolvedDuration, startFadeOut]);
 
   return {
-    canvasRef,
+    scopeRef,
     logoRef,
+    barRef,
     isFading,
     announceLoaded,
-    progress,
+    notifyFadeTransitionEnd,
   };
 };
