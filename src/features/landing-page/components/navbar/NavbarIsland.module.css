@@ -57,14 +57,37 @@
 
 .islandActive .frost {
   opacity: 1;
-  background-color: rgb(0 0 0 / 0.22);
-  backdrop-filter: blur(56px) saturate(1.25);
-  -webkit-backdrop-filter: blur(56px) saturate(1.25);
+  background-color: rgb(0 0 0 / var(--navbar-frost-tint, 0.22));
+  backdrop-filter: blur(var(--navbar-frost-blur, 56px))
+    saturate(var(--navbar-frost-saturate, 1.25));
+  -webkit-backdrop-filter: blur(var(--navbar-frost-blur, 56px))
+    saturate(var(--navbar-frost-saturate, 1.25));
 }
 
-@media (max-width: 1023px), (hover: none) and (pointer: coarse) {
+/* iPad-class touch only: long blur is too heavy; flat bar reads better there. */
+@media (min-width: 1024px) and (hover: none) and (pointer: coarse) {
   .islandActive .frost {
     background-color: rgb(0 0 0 / 0.82);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* Phone: floating pill + short vivid glass (20px, light tint, +saturate). */
+@media (max-width: 1023px) {
+  .shell {
+    --navbar-frost-blur: 20px;
+    --navbar-frost-tint: 0.3;
+    --navbar-frost-saturate: 1.55;
+  }
+
+  .islandActive .frost {
+    border-radius: inherit;
+  }
+
+  /* Open menu: solid so links read at a glance. */
+  .islandActive.islandMenu .frost {
+    background-color: rgb(0 0 0 / 0.92);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }

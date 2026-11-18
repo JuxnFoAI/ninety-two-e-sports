@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import {
   A11Y_COLOR_FILTER_LAYER_CLASS,
@@ -6,7 +6,9 @@ import {
 } from "@/features/accessibility";
 import { useScrolledPast, useScrollLock } from "@/shared/hooks";
 
-import { getNavbarEntranceClass } from "../../styles/navbarAnimation";
+import { useInert } from "@/shared/lib/inert";
+
+import { NAVBAR_ENTRANCE_CLASS } from "../../styles/navbarAnimation";
 import { NavbarBrand } from "./NavbarBrand";
 import { NavbarDesktopNav } from "./NavbarLinkList";
 import { NavbarHeaderActions } from "./NavbarHeaderActions";
@@ -35,10 +37,12 @@ export const Navbar = ({
   const [mobileAccessibilityOpen, setMobileAccessibilityOpen] = useState(false);
   /** Drop entrance animation after it finishes so leftover transform doesn’t kill backdrop-filter. */
   const [entranceClass, setEntranceClass] = useState(() =>
-    prefersReducedMotion ? "" : getNavbarEntranceClass(entranceDelayMs),
+    prefersReducedMotion ? "" : NAVBAR_ENTRANCE_CLASS,
   );
+  const headerRef = useRef<HTMLElement>(null);
 
   useScrollLock(menuOpen);
+  useInert(headerRef, !interactive);
 
   useEffect(() => {
     if (prefersReducedMotion) {
@@ -46,8 +50,8 @@ export const Navbar = ({
       return;
     }
 
-    setEntranceClass(getNavbarEntranceClass(entranceDelayMs));
-  }, [entranceDelayMs, prefersReducedMotion]);
+    setEntranceClass(NAVBAR_ENTRANCE_CLASS);
+  }, [prefersReducedMotion]);
 
   useEffect(() => {
     if (!menuOpen) {
@@ -88,9 +92,13 @@ export const Navbar = ({
 
   return (
     <header
+      ref={headerRef}
       className={`${styles.shell} ${entranceClass} ${
         interactive ? "" : styles.shellInactive
       }`}
+      style={
+        entranceClass ? { animationDelay: `${entranceDelayMs}ms` } : undefined
+      }
       aria-hidden={interactive ? undefined : true}
       onAnimationEnd={(event) => {
         if (event.target !== event.currentTarget) {

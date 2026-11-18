@@ -70,8 +70,8 @@
 
 .letterAnimated {
   animation:
-    fotosTitleLetterRise 0.75s cubic-bezier(0.16, 1, 0.3, 1)
-      var(--letter-delay, 0ms) both,
+    fotosTitleLetterRise var(--letter-rise-duration, 0.75s)
+      cubic-bezier(0.16, 1, 0.3, 1) var(--letter-delay, 0ms) both,
     fotosTitleColorSweep 1.2s cubic-bezier(0.4, 0, 0.2, 1)
       var(--sweep-delay, 1000ms) both;
 }

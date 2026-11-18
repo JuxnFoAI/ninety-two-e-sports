@@ -23,7 +23,7 @@ export const Hero = (): JSX.Element => {
   return (
     <section
       id="inicio"
-      className="relative flex min-h-dvh flex-col items-center justify-center px-[clamp(1rem,4vw,4rem)] pb-[clamp(2.5rem,8vh,4rem)] pt-[calc(var(--header-height)+clamp(2rem,8vh,4rem))] text-center"
+      className="relative flex min-h-dvh flex-col items-center justify-center px-[clamp(1rem,4vw,4rem)] pb-[max(clamp(2.5rem,8vh,4rem),env(safe-area-inset-bottom))] pt-[calc(var(--header-height)+clamp(2rem,8vh,4rem))] text-center"
       style={chromeStyle}
       aria-labelledby="hero-title"
     >

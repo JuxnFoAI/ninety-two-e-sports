@@ -5,7 +5,9 @@ import { useEffectiveReducedMotion } from "@/features/accessibility";
 import {
   TORNEOS_LETTER_STAGGER_MS,
   TORNEOS_LINE_DELAY_MS,
+  TORNEOS_LINE_DURATION_MS,
   TORNEOS_TITLE_SWEEP_DELAY_MS,
+  TORNEOS_TITLE_SWEEP_DURATION_MS,
 } from "../../lib/torneosTitleTiming";
 import { useRevealSection } from "../reveal/useRevealSection";
 import styles from "./TorneosTitle.module.css";
@@ -46,6 +48,7 @@ export const TorneosTitle = ({
                   {
                     "--letter-delay": `${Math.abs(index - mid) * TORNEOS_LETTER_STAGGER_MS}ms`,
                     "--sweep-delay": `${TORNEOS_TITLE_SWEEP_DELAY_MS}ms`,
+                    "--sweep-duration": `${TORNEOS_TITLE_SWEEP_DURATION_MS}ms`,
                   } as CSSProperties
                 }
               >
@@ -65,6 +68,7 @@ export const TorneosTitle = ({
           style={
             {
               "--line-delay": `${TORNEOS_LINE_DELAY_MS}ms`,
+              "--line-duration": `${TORNEOS_LINE_DURATION_MS}ms`,
             } as CSSProperties
           }
           aria-hidden

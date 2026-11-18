@@ -1,20 +1,17 @@
-/** Default desktop animation duration in milliseconds. */
-export const DEFAULT_LOADING_DURATION_MS = 4000;
+/** Loading animation duration on desktop and mobile, in milliseconds. */
+export const DEFAULT_LOADING_DURATION_MS = 2000;
 
-/** Shorter mobile animation duration in milliseconds. */
-export const MOBILE_LOADING_DURATION_MS = 2200;
+/** Same length as desktop. Kept so the mobile path stays explicit. */
+export const MOBILE_LOADING_DURATION_MS = 2000;
 
-/** Viewport treated as mobile for the loading timeline. */
-export const MOBILE_LOADING_MEDIA_QUERY = "(max-width: 47.9375rem)";
+/** Delay before the reveal begins after the loading animation ends (ms). */
+export const FADE_OUT_DELAY_MS = 0;
 
-/** Delay before fade-out begins after timeline completes (ms). */
-export const FADE_OUT_DELAY_MS = 200;
-
-/** Duration of the CSS opacity transition on the stage (ms). */
-export const FADE_OUT_TRANSITION_MS = 1200;
+/** Crossfade from the loader into the site (ms). */
+export const FADE_OUT_TRANSITION_MS = 1000;
 
 /** Reduced-motion fallback before onComplete (ms). */
 export const REDUCED_MOTION_TIMEOUT_MS = 300;
 
-/** Logo image width inside the stage (px). */
-export const LOGO_WIDTH_PX = 210;
+/** Logo image width inside the loader (px). */
+export const LOGO_WIDTH_PX = 248;

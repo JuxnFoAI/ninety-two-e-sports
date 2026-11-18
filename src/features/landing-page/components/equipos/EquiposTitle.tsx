@@ -3,6 +3,7 @@ import { useEffect, useState, type CSSProperties } from "react";
 import { useEffectiveReducedMotion } from "@/features/accessibility";
 
 import {
+  EQUIPOS_HALF_IN_DURATION_MS,
   EQUIPOS_IMPACT_DELAY_MS,
   EQUIPOS_TITLE_SWEEP_DELAY_MS,
   EQUIPOS_TITLE_SWEEP_DURATION_MS,
@@ -67,6 +68,7 @@ export const EquiposTitle = ({
       style={
         {
           "--sweep-delay": `${EQUIPOS_TITLE_SWEEP_DELAY_MS}ms`,
+          "--sweep-duration": `${EQUIPOS_TITLE_SWEEP_DURATION_MS}ms`,
         } as CSSProperties
       }
     >
@@ -87,6 +89,7 @@ export const EquiposTitle = ({
         style={
           {
             "--impact-delay": `${EQUIPOS_IMPACT_DELAY_MS}ms`,
+            "--half-in-duration": `${EQUIPOS_HALF_IN_DURATION_MS}ms`,
           } as CSSProperties
         }
         aria-hidden

@@ -233,8 +233,7 @@ export const NewsPhotoSlider = ({
       return;
     }
 
-    const travelPx =
-      cardWidth * ((cardTravelPercent(photos.length) * 2) / 100);
+    const travelPx = cardWidth * ((cardTravelPercent(photos.length) * 2) / 100);
     seekBy(list, (-dx / travelPx) * duration);
   };
 

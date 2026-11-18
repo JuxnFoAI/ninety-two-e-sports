@@ -49,11 +49,13 @@
 }
 
 .halfLeftAnimated {
-  animation: equiposHalfFromLeft 0.82s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: equiposHalfFromLeft var(--half-in-duration, 0.82s)
+    cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .halfRightAnimated {
-  animation: equiposHalfFromRight 0.82s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: equiposHalfFromRight var(--half-in-duration, 0.82s)
+    cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .halfVisible {
@@ -84,8 +86,8 @@
 }
 
 .letterAnimated {
-  animation: equiposTitleColorSweep 1.2s cubic-bezier(0.4, 0, 0.2, 1)
-    var(--sweep-delay, 900ms) both;
+  animation: equiposTitleColorSweep var(--sweep-duration, 1.2s)
+    cubic-bezier(0.4, 0, 0.2, 1) var(--sweep-delay, 900ms) both;
 }
 
 @keyframes equiposHalfFromLeft {

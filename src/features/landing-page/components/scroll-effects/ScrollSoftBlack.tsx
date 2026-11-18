@@ -5,7 +5,7 @@ import { easeInOutCubic } from "@/shared/lib/easings";
 
 const TARGET_SECTION_ID = "quienes-somos";
 /** Shared 0–1 progress for the night settle (veil, navbar, etc.). */
-export const SCROLL_SOFT_BLACK_VAR = "--scroll-soft-black";
+const SCROLL_SOFT_BLACK_VAR = "--scroll-soft-black";
 /** Full night once Quiénes somos has clearly entered the viewport. */
 const MAX_OPACITY = 0.9;
 
