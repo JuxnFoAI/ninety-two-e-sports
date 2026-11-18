@@ -57,14 +57,12 @@
 
 .islandActive .frost {
   opacity: 1;
-  background-color: rgb(0 0 0 / var(--navbar-frost-tint, 0.22));
-  backdrop-filter: blur(var(--navbar-frost-blur, 56px))
-    saturate(var(--navbar-frost-saturate, 1.25));
-  -webkit-backdrop-filter: blur(var(--navbar-frost-blur, 56px))
-    saturate(var(--navbar-frost-saturate, 1.25));
+  background-color: rgb(0 0 0 / 0.22);
+  backdrop-filter: blur(56px) saturate(1.25);
+  -webkit-backdrop-filter: blur(56px) saturate(1.25);
 }
 
-/* iPad-class touch only: long blur is too heavy; flat bar reads better there. */
+/* Large touch screens stay flat: the desktop blur is too heavy there. */
 @media (min-width: 1024px) and (hover: none) and (pointer: coarse) {
   .islandActive .frost {
     background-color: rgb(0 0 0 / 0.82);
@@ -73,19 +71,40 @@
   }
 }
 
-/* Phone: floating pill + short vivid glass (20px, light tint, +saturate). */
+/*
+  Phone: short glass so the page stays visible under the bar.
+  Top padding moves onto the island, and the bar goes edge to edge,
+  so one layer covers the notch and the clock. Blur is not transitioned.
+*/
 @media (max-width: 1023px) {
   .shell {
-    --navbar-frost-blur: 20px;
-    --navbar-frost-tint: 0.3;
-    --navbar-frost-saturate: 1.55;
+    padding-top: 0;
+  }
+
+  .island {
+    padding-top: max(0.65rem, env(safe-area-inset-top));
+    /* Drop the invisible side and top borders so the glass meets the screen. */
+    border-top-width: 0;
+    border-inline-width: 0;
+  }
+
+  .islandActive {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0;
+    border-color: transparent;
+    border-bottom-color: rgb(255 255 255 / 0.12);
+    padding-inline: clamp(1rem, 4vw, 4rem);
   }
 
   .islandActive .frost {
-    border-radius: inherit;
+    border-radius: 0;
+    background-color: rgb(0 0 0 / 0.4);
+    backdrop-filter: blur(20px) saturate(1.25);
+    -webkit-backdrop-filter: blur(20px) saturate(1.25);
   }
 
-  /* Open menu: solid so links read at a glance. */
+  /* Open menu: a solid fill. Blur behind the links makes them harder to read. */
   .islandActive.islandMenu .frost {
     background-color: rgb(0 0 0 / 0.92);
     backdrop-filter: none;
