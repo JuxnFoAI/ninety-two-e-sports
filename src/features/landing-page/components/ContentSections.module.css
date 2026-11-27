@@ -5,7 +5,7 @@
   isolation: isolate;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  /* Option 1 — soft white veil on the home stack (incl. behind the carousel). */
+  /* Night by default; turns white as `--scroll-designs-white` reaches 1. */
   background-color: color-mix(
     in srgb,
     rgb(0 0 0 / 0.9) calc(100% - var(--scroll-designs-white, 0) * 100%),

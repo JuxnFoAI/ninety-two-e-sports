@@ -1,12 +1,22 @@
 import { useLayoutEffect, useRef, useState } from "react";
-import { useMotionValue, useScroll, useTransform } from "motion/react";
+import {
+  useMotionValue,
+  useScroll,
+  useTransform,
+  type UseScrollOptions,
+} from "motion/react";
 
 import { useEffectiveReducedMotion } from "@/features/accessibility";
+
+/** About copy: the element top travels from 92% to 40% of the viewport. */
+const DEFAULT_OFFSET: UseScrollOptions["offset"] = ["start 0.92", "start 0.4"];
 
 type OneWayScrollRevealOptions = {
   yFrom?: number;
   xFrom?: number;
   scaleFrom?: number;
+  /** Scroll span that maps to progress 0 → 1. Defaults to the about-copy range. */
+  offset?: UseScrollOptions["offset"];
 };
 
 /**
@@ -17,6 +27,7 @@ export const useOneWayScrollReveal = ({
   yFrom,
   xFrom,
   scaleFrom,
+  offset = DEFAULT_OFFSET,
 }: OneWayScrollRevealOptions = {}) => {
   // `| null` in the generic keeps `.current` writable. `useRef<HTMLElement>(null)` is read-only.
   const ref = useRef<HTMLElement | null>(null);
@@ -26,7 +37,7 @@ export const useOneWayScrollReveal = ({
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start 0.92", "start 0.4"],
+    offset,
   });
 
   useLayoutEffect(() => {

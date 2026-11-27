@@ -1,4 +1,3 @@
-export { useAnimationLoop } from "./useAnimationLoop";
 export { useHorizontalDragScroll } from "./useHorizontalDragScroll";
 export { useIntersectionReveal } from "./useIntersectionReveal";
 export { COARSE_LAYOUT_QUERY, useMediaQuery } from "./useMediaQuery";

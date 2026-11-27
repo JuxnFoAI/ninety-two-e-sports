@@ -19,7 +19,7 @@ const addLogo = (timeline: gsap.core.Timeline, logo: HTMLElement): void => {
   );
 };
 
-const addEje = (timeline: gsap.core.Timeline, bar: HTMLElement): void => {
+const addBar = (timeline: gsap.core.Timeline, bar: HTMLElement): void => {
   const fill = query(bar, "[data-fill]");
   const core = query(bar, "[data-core]");
   if (!fill || !core) {
@@ -58,7 +58,7 @@ export const createLoaderTimeline = ({
   const timeline = gsap.timeline({ paused: true, onComplete });
 
   addLogo(timeline, logo);
-  addEje(timeline, bar);
+  addBar(timeline, bar);
   timeline.set({}, {}, 1);
   timeline.eventCallback("onUpdate", () => {
     onProgress(timeline.progress());

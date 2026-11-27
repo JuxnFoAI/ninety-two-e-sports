@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>N2 · Liquid Logo Lab</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body data-theme="dark">
+    <header class="lab-header">
+      <div>
+        <p class="lab-eyebrow">Ninety Two E-Sports · Motion Lab</p>
+        <h1 class="lab-title">De tinta líquida a N2</h1>
+        <p class="lab-lede">
+          Cinco propuestas de transformación. Todas parten de la imagen de tinta
+          de referencia y terminan en el logo N2, siempre en ese sentido. Haz
+          clic en una tarjeta para verla a pantalla completa.
+        </p>
+      </div>
+      <div class="lab-actions">
+        <button type="button" class="lab-btn" data-action="theme">
+          Tema: oscuro
+        </button>
+        <button type="button" class="lab-btn" data-action="sync">
+          Sincronizar
+        </button>
+      </div>
+    </header>
+
+    <main class="lab-grid" id="grid"></main>
+
+    <template id="card-template">
+      <article class="card">
+        <div class="card-stage">
+          <canvas class="card-canvas"></canvas>
+          <span class="card-index"></span>
+          <button type="button" class="card-close" aria-label="Cerrar">
+            Esc
+          </button>
+        </div>
+        <div class="card-body">
+          <h2 class="card-title"></h2>
+          <p class="card-intent"></p>
+          <dl class="card-specs"></dl>
+          <div class="card-controls">
+            <button type="button" class="card-btn" data-role="play">
+              Pausa
+            </button>
+            <input
+              type="range"
+              class="card-scrub"
+              min="0"
+              max="1000"
+              value="0"
+              aria-label="Línea de tiempo"
+            />
+            <span class="card-time">0.00s</span>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

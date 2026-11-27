@@ -102,6 +102,30 @@ const SUMMER_MADNESS_2026_VIDEOS: readonly TournamentVideo[] = [
 
 const TOURNAMENT_CIE_2026_VIDEOS: readonly TournamentVideo[] = [
   {
+    round: 13,
+    roundLabel: "R10",
+    youtubeId: "6-FBkHs73vE",
+    circuit: "Clausura",
+    headline: "La final cierra la clausura",
+    title: "CIE 2026 Clausura - Ronda 10 FINAL",
+  },
+  {
+    round: 12,
+    roundLabel: "R9",
+    youtubeId: "XG04AHENP2o",
+    circuit: "Clausura",
+    headline: "Arranca la novena ronda",
+    title: "CIE 2026 Clausura - Ronda 9",
+  },
+  {
+    round: 11,
+    roundLabel: "R8",
+    youtubeId: "3h5der7ksfI",
+    circuit: "Clausura",
+    headline: "Arranca la octava ronda",
+    title: "CIE clausura 2026 - Ronda 8",
+  },
+  {
     round: 10,
     roundLabel: "R7",
     youtubeId: "boKR6QWbm-8",

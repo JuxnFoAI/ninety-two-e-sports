@@ -16,9 +16,11 @@ export const LoadingScreen = ({
   onFadeStart,
 }: LoadingScreenProps): JSX.Element => {
   const {
+    variant,
     scopeRef,
     logoRef,
     barRef,
+    canvasRef,
     isFading,
     announceLoaded,
     notifyFadeTransitionEnd,
@@ -52,18 +54,27 @@ export const LoadingScreen = ({
         notifyFadeTransitionEnd();
       }}
     >
-      <div className={styles.loader}>
-        <img
-          ref={logoRef}
-          className={styles.logo}
-          src={n2Logo}
-          alt="Ninety Two"
-          width={LOGO_WIDTH_PX}
-          height={LOGO_WIDTH_PX}
-          draggable={false}
+      {variant === "sculpt" ? (
+        <canvas
+          ref={canvasRef}
+          className={styles.sculpt}
+          role="img"
+          aria-label="Ninety Two"
         />
-        <LoadingBar barRef={barRef} />
-      </div>
+      ) : (
+        <div className={styles.loader}>
+          <img
+            ref={logoRef}
+            className={styles.logo}
+            src={n2Logo}
+            alt="Ninety Two"
+            width={LOGO_WIDTH_PX}
+            height={LOGO_WIDTH_PX}
+            draggable={false}
+          />
+          <LoadingBar barRef={barRef} />
+        </div>
+      )}
       <div className={styles.srOnly} role="status" aria-live="polite">
         {announceLoaded ? "Contenido cargado" : ""}
       </div>

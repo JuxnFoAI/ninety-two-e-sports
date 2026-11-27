@@ -30,6 +30,13 @@
   opacity: 1;
 }
 
+.sculpt {
+  display: block;
+  width: min(380px, 82vw, 60dvh);
+  aspect-ratio: 1;
+  background-color: #000;
+}
+
 .logo {
   width: min(248px, 64vw);
   height: auto;

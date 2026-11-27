@@ -55,11 +55,11 @@ export const BackgroundVideo = (): JSX.Element => {
 
   return (
     <div
-      className="pointer-events-none fixed inset-x-0 top-0 z-0 overflow-hidden bg-black max-lg:h-[calc(100dvh+env(safe-area-inset-bottom,0px))] max-lg:min-h-[100dvh] lg:inset-0 lg:h-auto"
+      className="pointer-events-none fixed inset-x-0 top-0 z-0 overflow-hidden bg-transparent max-lg:h-[calc(100dvh+env(safe-area-inset-bottom,0px))] max-lg:min-h-[100dvh] lg:inset-0 lg:h-auto"
       aria-hidden="true"
     >
       <div
-        className={`relative h-full w-full ${A11Y_COLOR_FILTER_LAYER_CLASS}`}
+        className={`relative h-full w-full bg-black ${A11Y_COLOR_FILTER_LAYER_CLASS}`}
       >
         {showVideo ? (
           <video

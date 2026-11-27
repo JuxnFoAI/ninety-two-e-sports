@@ -1,7 +1,6 @@
 import { SPONSORS } from "../../data/sponsors";
-import { SECTION_DISPLAY_TITLE_SEQUENCE_MS } from "../../lib/sectionDisplayTitleTiming";
 import { RevealSection } from "../reveal";
-import { SectionDisplayTitle } from "../SectionDisplayTitle";
+import { ScrollAppearText } from "../scroll-effects";
 import { SponsorGrid } from "./SponsorGrid";
 
 export const PatrocinadoresSection = (): JSX.Element => {
@@ -12,18 +11,10 @@ export const PatrocinadoresSection = (): JSX.Element => {
       surface="flush"
     >
       <div className="text-center">
-        <SectionDisplayTitle
-          id="patrocinadores-title"
-          label="Patrocinadores"
-          sweep="dual"
-        />
+        <ScrollAppearText id="patrocinadores-title" text="Patrocinadores" />
       </div>
 
-      <SponsorGrid
-        revealStartIndex={0}
-        baseDelayMs={SECTION_DISPLAY_TITLE_SEQUENCE_MS}
-        sponsors={SPONSORS}
-      />
+      <SponsorGrid revealStartIndex={0} sponsors={SPONSORS} />
     </RevealSection>
   );
 };

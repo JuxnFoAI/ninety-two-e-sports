@@ -5,10 +5,7 @@ import { useEffectiveReducedMotion } from "@/features/accessibility";
 import { usePageTitle } from "@/shared/hooks";
 
 import { ContentSections, Hero, SiteShell } from "./components";
-import {
-  ScrollDesignsWhite,
-  ScrollSoftBlack,
-} from "./components/scroll-effects";
+import { ScrollSoftBlack } from "./components/scroll-effects";
 import {
   getHomeChromeItemDelayMs,
   getHomeChromeStartMs,
@@ -44,12 +41,7 @@ export const LandingPage = (): JSX.Element => {
 
   return (
     <SiteShell
-      behindContent={
-        <>
-          <ScrollSoftBlack />
-          <ScrollDesignsWhite />
-        </>
-      }
+      behindContent={<ScrollSoftBlack />}
       sequencedHomeEntrance
       navbarEntranceDelayMs={getHomeChromeItemDelayMs(
         HOME_CHROME_ENTRANCE.navbarOffsetMs,

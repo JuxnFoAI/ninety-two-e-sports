@@ -6,7 +6,11 @@
   padding: 0;
   border: 0;
   background: transparent;
-  color: rgb(255 255 255 / 0.8);
+  color: color-mix(
+    in srgb,
+    rgb(255 255 255 / 0.8),
+    rgb(0 0 0 / 0.88) calc(var(--scroll-designs-white, 0) * 100%)
+  );
   cursor: pointer;
   transition: color 200ms ease;
 }
@@ -27,6 +31,8 @@
   height: 2.5rem;
   gap: 0.15rem;
   justify-content: flex-start;
+  /* Inside the menu sheet the page wash should not flip this label. */
+  color: rgb(255 255 255 / 0.8);
 }
 
 .inline .icon {

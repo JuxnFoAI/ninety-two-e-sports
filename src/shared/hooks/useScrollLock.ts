@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 
 const SCROLL_LOCK_CLASS = "scroll-locked";
+export const EFFECTIVE_SCROLL_EVENT = "effectivescroll";
 
 interface BodyStyleSnapshot {
   position: string;
@@ -14,6 +15,11 @@ let lockCount = 0;
 let savedScrollY = 0;
 let bodySnapshot: BodyStyleSnapshot | null = null;
 let htmlOverflowSnapshot = "";
+let htmlScrollbarGutterSnapshot = "";
+
+const notifyEffectiveScroll = (): void => {
+  window.dispatchEvent(new Event(EFFECTIVE_SCROLL_EVENT));
+};
 
 const restoreScrollPosition = (scrollY: number): void => {
   const htmlStyle = document.documentElement.style;
@@ -39,6 +45,12 @@ const lockScroll = (): void => {
       touchAction: bodyStyle.touchAction,
     };
     htmlOverflowSnapshot = htmlStyle.overflow;
+    htmlScrollbarGutterSnapshot = htmlStyle.scrollbarGutter;
+
+    // Keep the scrollbar's space reserved so the page doesn't widen while locked.
+    if (window.innerWidth > document.documentElement.clientWidth) {
+      htmlStyle.scrollbarGutter = "stable";
+    }
 
     document.documentElement.classList.add(SCROLL_LOCK_CLASS);
     htmlStyle.overflow = "hidden";
@@ -51,6 +63,10 @@ const lockScroll = (): void => {
   }
 
   lockCount += 1;
+
+  if (lockCount === 1) {
+    notifyEffectiveScroll();
+  }
 };
 
 const unlockScroll = (): void => {
@@ -70,6 +86,7 @@ const unlockScroll = (): void => {
   const scrollY = savedScrollY;
 
   htmlStyle.overflow = htmlOverflowSnapshot;
+  htmlStyle.scrollbarGutter = htmlScrollbarGutterSnapshot;
 
   if (snapshot) {
     bodyStyle.position = snapshot.position;
@@ -82,6 +99,18 @@ const unlockScroll = (): void => {
   bodySnapshot = null;
   restoreScrollPosition(scrollY);
   document.documentElement.classList.remove(SCROLL_LOCK_CLASS);
+  notifyEffectiveScroll();
+};
+
+export const isScrollLocked = (): boolean => lockCount > 0;
+
+/** Scroll offset while the body is scroll-locked (`position: fixed`). */
+export const getEffectiveScrollY = (): number => {
+  if (lockCount > 0) {
+    return savedScrollY;
+  }
+
+  return window.scrollY;
 };
 
 /** Locks document scroll (iOS-safe) while `locked` is true. Restores position on release. */

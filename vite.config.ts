@@ -10,6 +10,18 @@ const appVersion = JSON.parse(
   readFileSync(path.resolve(__dirname, "package.json"), "utf8"),
 ).version as string;
 
+/** Libraries that change less often than app code get their own cacheable chunk. */
+const VENDOR_CHUNKS: Record<string, RegExp> = {
+  react:
+    /[\\/]node_modules[\\/](react|react-dom|react-router|react-router-dom|scheduler)[\\/]/,
+  motion:
+    /[\\/]node_modules[\\/](motion|motion-dom|motion-utils|framer-motion)[\\/]/,
+  gsap: /[\\/]node_modules[\\/]gsap[\\/]/,
+};
+
+const vendorChunk = (id: string): string | undefined =>
+  Object.keys(VENDOR_CHUNKS).find((name) => VENDOR_CHUNKS[name].test(id));
+
 const htmlVersionCacheBust = (): Plugin => ({
   name: "html-version-cache-bust",
   transformIndexHtml(html) {
@@ -32,6 +44,13 @@ export default defineConfig({
   preview: {
     open: true,
     port: 4173,
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: vendorChunk,
+      },
+    },
   },
   resolve: {
     alias: {

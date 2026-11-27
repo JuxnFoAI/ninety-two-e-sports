@@ -1,2 +1,2 @@
-export { ScrollDesignsWhite } from "./ScrollDesignsWhite";
+export { ScrollAppearText } from "./ScrollAppearText";
 export { ScrollSoftBlack } from "./ScrollSoftBlack";

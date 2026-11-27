@@ -15,10 +15,7 @@ interface FotosTitleProps {
   label?: string;
 }
 
-/**
- * Intro opciones 1 + 2:
- * wipe horizontal + letras en rise escalonado + barrido azul.
- */
+/** Intro: wipe horizontal + letras en rise escalonado + barrido azul. */
 export const FotosTitle = ({
   id,
   label = "Fotos",

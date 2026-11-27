@@ -1,0 +1,8 @@
+.marker {
+  width: 100%;
+  height: clamp(6rem, 16vh, 9rem);
+  margin-top: clamp(1rem, 3vw, 2rem);
+  margin-bottom: clamp(-2rem, -4vw, -1rem);
+  pointer-events: none;
+  visibility: hidden;
+}

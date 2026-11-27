@@ -17,7 +17,9 @@
     "ci": "npm run format:check && npm run lint && npm run typecheck && npm run test && npm run build",
     "test": "vitest run --config vitest.config.ts",
     "typecheck": "tsc -b --noEmit",
-    "tournaments:sync-titles": "node scripts/sync-tournament-video-titles.mjs"
+    "tournaments:sync-titles": "node scripts/sync-tournament-video-titles.mjs",
+    "perf:k6": "node scripts/run-k6.mjs",
+    "perf": "npm run build && npm run perf:k6"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.0",

@@ -16,7 +16,12 @@
   width: 2.75rem;
   height: 2.75rem;
   flex-shrink: 0;
-  background-color: #fff;
+  /* White on the dark page; black once Diseños washes the stack white. */
+  background-color: color-mix(
+    in srgb,
+    #fff,
+    #000 calc(var(--scroll-designs-white, 0) * 100%)
+  );
   opacity: 0.95;
   mask-image: var(--logo-mask);
   mask-position: center;

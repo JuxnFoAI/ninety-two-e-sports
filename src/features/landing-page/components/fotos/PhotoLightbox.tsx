@@ -1,4 +1,10 @@
-import { useCallback, useRef, type MouseEvent } from "react";
+import {
+  useCallback,
+  useRef,
+  useState,
+  type AnimationEvent,
+  type MouseEvent,
+} from "react";
 import { createPortal } from "react-dom";
 
 import { useEffectiveReducedMotion } from "@/features/accessibility";
@@ -15,12 +21,39 @@ interface PhotoLightboxProps {
   onClose: () => void;
 }
 
+/** Blob URL for the image, or null so the caller can fall back to the plain URL. */
+const fetchObjectUrl = async (src: string): Promise<string | null> => {
+  try {
+    const response = await fetch(src);
+    return response.ok ? URL.createObjectURL(await response.blob()) : null;
+  } catch {
+    return null;
+  }
+};
+
 export const PhotoLightbox = ({
   design,
   onClose,
 }: PhotoLightboxProps): JSX.Element => {
   const prefersReducedMotion = useEffectiveReducedMotion();
-  const closeRef = useOverlayDialog(onClose);
+  const [closing, setClosing] = useState(false);
+
+  const requestClose = useCallback((): void => {
+    if (prefersReducedMotion) {
+      onClose();
+      return;
+    }
+
+    setClosing(true);
+  }, [onClose, prefersReducedMotion]);
+
+  const handleAnimationEnd = (event: AnimationEvent<HTMLDivElement>): void => {
+    if (closing && event.target === event.currentTarget) {
+      onClose();
+    }
+  };
+
+  const closeRef = useOverlayDialog(requestClose);
   const closeIconRef = useRef<AnimatedIconHandle>(null);
   const downloadIconRef = useRef<AnimatedIconHandle>(null);
 
@@ -28,19 +61,21 @@ export const PhotoLightbox = ({
     async (event: MouseEvent<HTMLButtonElement>): Promise<void> => {
       event.stopPropagation();
 
-      const response = await fetch(design.src);
-      const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
       const pathname = design.src.split("?")[0] ?? "";
       const ext = pathname.match(/\.([a-z0-9]+)$/i)?.[1] ?? "png";
+      const objectUrl = await fetchObjectUrl(design.src);
+      const link = document.createElement("a");
 
-      link.href = url;
+      link.href = objectUrl ?? design.src;
       link.download = `${design.id}.${ext}`;
       document.body.append(link);
       link.click();
       link.remove();
-      URL.revokeObjectURL(url);
+
+      if (objectUrl) {
+        // Revoking in the same tick can cancel the download in some browsers.
+        window.setTimeout(() => URL.revokeObjectURL(objectUrl), 0);
+      }
     },
     [design.id, design.src],
   );
@@ -65,11 +100,12 @@ export const PhotoLightbox = ({
     <div
       className={`${styles.scrim} ${
         prefersReducedMotion ? styles.scrimStatic : styles.scrimAnimated
-      }`}
+      } ${closing ? styles.scrimClosing : ""}`}
       role="dialog"
       aria-modal="true"
       aria-label={design.alt}
-      onClick={onClose}
+      onClick={requestClose}
+      onAnimationEnd={handleAnimationEnd}
     >
       <div
         className={styles.actions}
@@ -82,7 +118,7 @@ export const PhotoLightbox = ({
           aria-label="Cerrar foto"
           onClick={(event) => {
             event.stopPropagation();
-            onClose();
+            requestClose();
           }}
           onMouseEnter={startCloseIcon}
           onMouseLeave={stopCloseIcon}

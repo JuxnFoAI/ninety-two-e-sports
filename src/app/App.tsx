@@ -1,4 +1,4 @@
-import { lazy, Suspense, useRef, useState } from "react";
+import { lazy, Suspense, useRef, useState, type ComponentType } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { AccessibilityProvider } from "@/features/accessibility";
@@ -7,31 +7,34 @@ import { LandingPage } from "@/features/landing-page/LandingPage";
 import { useInert } from "@/shared/lib/inert";
 
 import { IntroReadyProvider } from "./introReady";
+import { MobileBottomBlur } from "./MobileBottomBlur";
 import { ScrollManager } from "./ScrollManager";
-const EquiposPage = lazy(() =>
-  import("@/features/landing-page/EquiposPage").then((module) => ({
-    default: module.EquiposPage,
-  })),
+
+/** `React.lazy` for a module that uses a named export instead of `default`. */
+const lazyNamed = <K extends string, M extends Record<K, ComponentType>>(
+  load: () => Promise<M>,
+  name: K,
+) => lazy(async () => ({ default: (await load())[name] }));
+
+const EquiposPage = lazyNamed(
+  () => import("@/features/landing-page/EquiposPage"),
+  "EquiposPage",
 );
-const FotosPage = lazy(() =>
-  import("@/features/landing-page/FotosPage").then((module) => ({
-    default: module.FotosPage,
-  })),
+const FotosPage = lazyNamed(
+  () => import("@/features/landing-page/FotosPage"),
+  "FotosPage",
 );
-const NoticiasPage = lazy(() =>
-  import("@/features/landing-page/NoticiasPage").then((module) => ({
-    default: module.NoticiasPage,
-  })),
+const NoticiasPage = lazyNamed(
+  () => import("@/features/landing-page/NoticiasPage"),
+  "NoticiasPage",
 );
-const TorneosPage = lazy(() =>
-  import("@/features/landing-page/TorneosPage").then((module) => ({
-    default: module.TorneosPage,
-  })),
+const TorneosPage = lazyNamed(
+  () => import("@/features/landing-page/TorneosPage"),
+  "TorneosPage",
 );
-const NotFoundPage = lazy(() =>
-  import("@/features/landing-page/NotFoundPage").then((module) => ({
-    default: module.NotFoundPage,
-  })),
+const NotFoundPage = lazyNamed(
+  () => import("@/features/landing-page/NotFoundPage"),
+  "NotFoundPage",
 );
 
 export const App = (): JSX.Element => {
@@ -60,6 +63,7 @@ export const App = (): JSX.Element => {
               </Routes>
             </Suspense>
           </BrowserRouter>
+          <MobileBottomBlur />
         </div>
       </IntroReadyProvider>
       {!isLoaded ? (

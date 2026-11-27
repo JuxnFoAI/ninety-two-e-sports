@@ -72,7 +72,6 @@ const EquiposSectionBody = (): JSX.Element => {
 
       <DivisionRoster
         key={activeDivision.id}
-        animatedKey={activeDivision.id}
         division={activeDivision}
         revealDelayMs={rosterRevealDelayMs}
         revealStaggerMs={EQUIPOS_ROSTER_STAGGER_MS}

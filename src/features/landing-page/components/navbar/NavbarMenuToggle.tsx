@@ -3,6 +3,8 @@ import { MorphIcon } from "morphicons/react";
 
 import { useEffectiveReducedMotion } from "@/features/accessibility";
 
+import styles from "./NavbarMenuToggle.module.css";
+
 type NavbarMenuToggleProps = {
   menuOpen: boolean;
   onToggle: () => void;
@@ -17,7 +19,7 @@ export const NavbarMenuToggle = ({
   return (
     <button
       type="button"
-      className="relative z-10 inline-flex h-8 w-8 shrink-0 items-center justify-center border-0 bg-transparent p-0 text-white/80 transition-colors duration-200 hover:text-white focus-visible:text-white sm:h-9 sm:w-9 lg:hidden"
+      className={styles.root}
       aria-expanded={menuOpen}
       aria-controls="mobile-nav"
       aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}

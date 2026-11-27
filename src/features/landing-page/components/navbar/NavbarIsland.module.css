@@ -72,9 +72,14 @@
 }
 
 /*
-  Phone: short glass so the page stays visible under the bar.
-  Top padding moves onto the island, and the bar goes edge to edge,
-  so one layer covers the notch and the clock. Blur is not transitioned.
+  Phone: no glass bar behind the logo, socials, or menu.
+  Punch-hole phones (Galaxy S25 Ultra, Pixel 9 Pro, and the same class of
+  Samsung, Xiaomi, and Poco) keep the selfie camera in the status band.
+  That band is short — about 23–37 dp on Galaxy, ~34 dp on the S25 Ultra,
+  ~52 dp on Pixel 9 Pro — and the hole starts at the top edge, centered,
+  only ~18 dp wide. It is not a Dynamic Island, so the blur is only
+  env(safe-area-inset-top). In a normal browser tab that inset is 0 and
+  there is no strip at all. Logos stay on the same padding.
 */
 @media (max-width: 1023px) {
   .shell {
@@ -93,22 +98,52 @@
     max-width: 100%;
     border-radius: 0;
     border-color: transparent;
-    border-bottom-color: rgb(255 255 255 / 0.12);
+    border-bottom-color: transparent;
     padding-inline: clamp(1rem, 4vw, 4rem);
   }
 
-  .islandActive .frost {
-    border-radius: 0;
-    background-color: rgb(0 0 0 / 0.4);
-    backdrop-filter: blur(20px) saturate(1.25);
-    -webkit-backdrop-filter: blur(20px) saturate(1.25);
+  .shell .islandTop.islandNight {
+    border-bottom-color: transparent;
+    background-color: transparent;
   }
 
-  /* Open menu: a solid fill. Blur behind the links makes them harder to read. */
+  .islandActive .frost,
   .islandActive.islandMenu .frost {
-    background-color: rgb(0 0 0 / 0.92);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+    top: 0;
+    right: 0;
+    bottom: auto;
+    left: 0;
+    height: env(safe-area-inset-top, 0px);
+    border-radius: 0;
+    background-color: rgb(0 0 0 / 0.28);
+    background-image: linear-gradient(
+      to bottom,
+      rgb(0 0 0 / 0.38),
+      rgb(0 0 0 / 0.12)
+    );
+    backdrop-filter: blur(20px) saturate(1.6);
+    -webkit-backdrop-filter: blur(20px) saturate(1.6);
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 68%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(to bottom, #000 0%, #000 68%, transparent 100%);
+  }
+
+  /* Open menu keeps a translucent sheet under the links, not behind the controls. */
+  .islandMenu .panel::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -0.55rem;
+    right: calc(clamp(1rem, 4vw, 4rem) * -1);
+    bottom: -0.85rem;
+    left: calc(clamp(1rem, 4vw, 4rem) * -1);
+    background-color: rgb(255 255 255 / 0.12);
+    backdrop-filter: blur(24px) saturate(1.5);
+    -webkit-backdrop-filter: blur(24px) saturate(1.5);
   }
 }
 

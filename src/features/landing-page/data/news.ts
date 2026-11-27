@@ -3,14 +3,32 @@ import campeonesGtPulpiPhoto from "@assets/noticias/campeones-gt-pulpi.jpg";
 import campeonesPhoto from "@assets/noticias/campeones.jpg";
 import eframFichajePhoto from "@assets/noticias/efram-fichaje.jpg";
 import ignasiLligadasFichajePhoto from "@assets/noticias/ignasi-lligadas-fichaje.jpg";
+import lewisBurtonFichajePhoto from "@assets/noticias/lewis-burton-fichaje.jpg";
 import raceWeekPulpiPhoto from "@assets/noticias/race-week-pulpi.jpg";
 import resultsNationsRd2Photo from "@assets/noticias/results-nations-rd-2.jpg";
 import rondaSingapurPhoto from "@assets/noticias/ronda-singapur.jpg";
 import samuMorenoNationsPhoto from "@assets/noticias/samu-moreno-nations.jpg";
+import simoneBorgianniFichajePhoto from "@assets/noticias/simone-borgianni-fichaje.jpg";
 
 import type { NewsArticle } from "../types/news";
 
 export const NEWS_ARTICLES: readonly NewsArticle[] = [
+  {
+    id: "simone-borgianni-fichaje",
+    title: "Bienvenido Simone",
+    excerpt:
+      "Un reconocido piloto que tuvo una excelente participación con el equipo NRG SIM RACING, viene a demostrar porque es uno de los mejores, compitiendo con jugadores de alto nivel, este joven piloto se pondrá a prueba en esta nueva familia.",
+    image: simoneBorgianniFichajePhoto,
+    imageAlt: "Simone Borgianni",
+  },
+  {
+    id: "lewis-burton-fichaje",
+    title: "Bienvenido Lewis",
+    excerpt:
+      "Se une un piloto reconocido por su rapidez en contrarreloj y carreras con reconocidos corredores de Gran Turismo, Lewis seguirá mostrando porque es de los mejores de dicho juego, muy bienvenido seas.",
+    image: lewisBurtonFichajePhoto,
+    imageAlt: "Lewis Burton",
+  },
   {
     id: "campeones-gt-pulpi-2026",
     title: "Campeones GT Pulpí 2026",

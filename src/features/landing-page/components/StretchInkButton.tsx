@@ -38,8 +38,6 @@ type StretchInkButtonProps = {
    * are not nudged when the group re-centers.
    */
   isolateLayout?: boolean;
-  /** White+black letters on dark veil; black+white letters as the home stack goes white. */
-  followDesignsWhite?: boolean;
   "aria-label"?: string;
   "aria-pressed"?: boolean;
 };
@@ -51,7 +49,6 @@ export const StretchInkButton = ({
   className = "",
   style,
   isolateLayout = false,
-  followDesignsWhite = false,
   "aria-label": ariaLabel,
   "aria-pressed": ariaPressed,
 }: StretchInkButtonProps): JSX.Element => {
@@ -121,9 +118,7 @@ export const StretchInkButton = ({
       type="button"
       className={`${styles.root} ${hovered ? styles.hovered : ""} ${
         prefersReducedMotion ? styles.reduced : ""
-      } ${isolateLayout ? styles.isolateLayout : ""} ${
-        followDesignsWhite ? styles.followDesignsWhite : ""
-      } ${className}`.trim()}
+      } ${isolateLayout ? styles.isolateLayout : ""} ${className}`.trim()}
       aria-label={ariaLabel}
       aria-pressed={ariaPressed}
       animate={
