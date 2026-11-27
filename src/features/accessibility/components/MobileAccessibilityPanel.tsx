@@ -1,4 +1,6 @@
-import { useId } from "react";
+import { useId, useRef } from "react";
+
+import { useInert } from "@/shared/lib/inert";
 
 import { AccessibilityPanelContent } from "./AccessibilityPanelContent";
 import { AccessibilityResetButton } from "./AccessibilityResetButton";
@@ -14,6 +16,8 @@ export const MobileAccessibilityPanel = ({
   onOpenChange,
 }: MobileAccessibilityPanelProps): JSX.Element => {
   const panelId = useId();
+  const panelRef = useRef<HTMLDivElement>(null);
+  useInert(panelRef, !open);
 
   return (
     <div className="border-t border-white/10 pt-3 lg:hidden">
@@ -27,6 +31,7 @@ export const MobileAccessibilityPanel = ({
       </div>
 
       <div
+        ref={panelRef}
         id={panelId}
         role="region"
         aria-label="Opciones de accesibilidad"

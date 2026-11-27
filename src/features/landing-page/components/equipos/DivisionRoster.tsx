@@ -9,20 +9,18 @@ interface DivisionRosterProps {
   revealDelayMs: number;
   /** Stagger between consecutive pilot cards. */
   revealStaggerMs?: number;
-  animatedKey: string;
 }
 
 export const DivisionRoster = ({
   division,
   revealDelayMs,
   revealStaggerMs = 70,
-  animatedKey,
 }: DivisionRosterProps): JSX.Element => {
   const { leader, pilots } = division;
   const roster = [leader, ...pilots];
 
   return (
-    <div key={animatedKey} className={styles.roster}>
+    <div className={styles.roster}>
       <div className="px-0 py-2 sm:px-0">
         <ul className={styles.grid} role="list">
           <RevealItem as="li" delayMs={revealDelayMs}>

@@ -90,8 +90,10 @@ export const ScrollSoftBlack = (): JSX.Element | null => {
   return (
     <div
       ref={veilRef}
-      className="pointer-events-none fixed inset-0 z-[1] bg-black opacity-0"
+      className="pointer-events-none fixed inset-0 z-[1] opacity-0"
       aria-hidden="true"
-    />
+    >
+      <div className="absolute inset-0 bg-black" />
+    </div>
   );
 };

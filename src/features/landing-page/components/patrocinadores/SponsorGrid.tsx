@@ -11,14 +11,11 @@ import styles from "./SponsorGrid.module.css";
 interface SponsorGridProps {
   revealStartIndex: number;
   sponsors: readonly Sponsor[];
-  /** Extra wait before the first card rises (e.g. after the section title). */
-  baseDelayMs?: number;
 }
 
 export const SponsorGrid = ({
   revealStartIndex,
   sponsors,
-  baseDelayMs = 0,
 }: SponsorGridProps): JSX.Element => {
   const isVisible = useRevealSection();
   const prefersReducedMotion = useEffectiveReducedMotion();
@@ -28,7 +25,7 @@ export const SponsorGrid = ({
       {sponsors.map((sponsor, sponsorIndex) => {
         const delayMs = prefersReducedMotion
           ? 0
-          : baseDelayMs + getRevealDelayMs(revealStartIndex + sponsorIndex);
+          : getRevealDelayMs(revealStartIndex + sponsorIndex);
 
         return (
           <li key={sponsor.id} className={styles.item}>

@@ -1,0 +1,42 @@
+.root {
+  position: relative;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: color-mix(
+    in srgb,
+    rgb(255 255 255 / 0.8),
+    rgb(0 0 0 / 0.88) calc(var(--scroll-designs-white, 0) * 100%)
+  );
+  cursor: pointer;
+  transition: color 200ms ease;
+}
+
+@media (min-width: 640px) {
+  .root {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+}
+
+.root:hover,
+.root:focus-visible {
+  color: color-mix(
+    in srgb,
+    #fff,
+    #000 calc(var(--scroll-designs-white, 0) * 100%)
+  );
+}
+
+@media (min-width: 1024px) {
+  .root {
+    display: none;
+  }
+}

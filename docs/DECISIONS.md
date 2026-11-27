@@ -58,7 +58,7 @@ Detalle de imports y nombres: `docs/CONVENTIONS.md`.
 
 `/equipos`, `/fotos`, `/noticias`, `/torneos` son rutas propias con el mismo shell.
 Motivo: secciones profundas merecen URL propia sin recargar toda la app.
-`/fotos` no va en el menú; se abre desde Diseños («Ver todas»).
+`/fotos` no va en el menú; en inicio los diseños se ven en la sección `#disenos` (sin CTA a `/fotos`).
 
 ### Panel de accesibilidad propio
 
@@ -67,7 +67,7 @@ Motivo: control centralizado y anuncios para lectores de pantalla, no depender s
 
 ### Torneos como broadcast (última carrera)
 
-El vídeo activo ocupa casi todo el ancho, con overlay de ronda, circuito y CTA tipo «Todas las fotos».
+El vídeo activo ocupa casi todo el ancho, con overlay de ronda, circuito y CTA «Reproducir» (`StretchInkButton`).
 Motivo: que el cierre se lea como retransmisión del club, no como una lista de YouTube.
 El título de YouTube se guarda para atribución; el titular (`headline`) lo escribe el equipo.
 
@@ -99,13 +99,14 @@ Motivo: los assets de marcas ya no se publican; el layout de tres columnas queda
 Lead y closing usaban el mismo markup de marco + scrub de scroll.
 Motivo: dos componentes idénticos solo por el JSDoc; un solo marco evita copiar el encuadre.
 
-### Tres capas de animación (CSS + `motion` + `morphicons`)
+### Cuatro capas de animación (CSS + `motion` + GSAP + `morphicons`)
 
 No hay un solo motor: cada gesto usa la herramienta más barata.
 CSS (`@keyframes` / modules): intros de título, panel noche, isla del navbar — one-shots, sin JS por frame.
-`motion`: hover de iconos, scrub de scroll (Quiénes somos) y el botón de tinta — gestos y progreso ligado al scroll.
-`morphicons` + `lucide`: solo el morph menú ↔ cierre, un trazo que cambia de estado.
-Canvas propio: la loading screen, control frame a frame. Descartado: Framer/GSAP para todo.
+`motion`: hover de iconos, scrub de scroll (Quiénes somos, título de Patrocinadores) y el botón de tinta.
+WebGL2 (shader propio): la loading screen "esculpida" en gama alta y media; la tinta fluye dentro del N2 y un barrido la deja en blanco sólido.
+GSAP: la loading screen clásica (respaldo en gama baja) y la entrada escalonada de Diseños (`ScrollTrigger`).
+`morphicons` + `lucide`: solo el morph menú ↔ cierre. Descartado: un solo motor para todo.
 
 ### Tailwind + CSS modules
 
@@ -148,13 +149,13 @@ Así el móvil descarga la ruta en la que estás.
 
 _(2026-10-01)_
 
-### Diseños deslizables en móvil
+### Diseños en rejilla con entrada al scroll
 
-En táctil o ventana estrecha la marquesina infinita pasa a una fila que se mueve con el dedo, sin duplicar fotos ni animarlas siempre.
-Motivo: el bucle movía decenas de imágenes a la vez y el teléfono perdía frames.
-En escritorio con ratón sigue el desplazamiento continuo.
+La marquesina infinita se sustituyó por una rejilla (3 columnas en escritorio). Las fichas suben escalonadas con el scroll (GSAP `ScrollTrigger`) y el clic abre el lightbox.
+Motivo: el bucle movía decenas de imágenes a la vez y el teléfono perdía frames; la rejilla se pinta una vez.
+Con reduced motion, rejilla quieta. El botón «Todas las fotos» se quitó (`/fotos` sigue por URL).
 
-_(2026-10-01)_
+_(2026-11-25)_
 
 ### Título de pestaña por ruta y 404
 

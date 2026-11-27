@@ -1,103 +1,32 @@
-.entranceMask {
-  overflow: hidden;
+.grid {
+  display: grid;
   width: 100%;
-}
-
-.rise {
-  width: 100%;
-  opacity: 0;
-  transform: translate3d(0, 115%, 0);
-  will-change: transform, opacity;
-}
-
-.riseVisible {
-  opacity: 1;
-  transform: none;
-  will-change: auto;
-}
-
-.riseAnimated {
-  animation: designsGalleryRise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-@keyframes designsGalleryRise {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 115%, 0);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-.viewport {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-}
-
-.viewportMarquee {
-  cursor: grab;
-  touch-action: pan-y;
-  user-select: none;
-}
-
-.viewportMarquee:focus {
-  outline: none;
-}
-
-.viewportMarquee:focus-visible {
-  outline: 2px solid rgb(247 233 174 / 0.7);
-  outline-offset: 4px;
-}
-
-.viewportDragging {
-  cursor: grabbing;
-}
-
-.viewportMarquee .track {
-  will-change: transform;
-}
-
-.track {
-  display: flex;
-  align-items: stretch;
-  width: max-content;
-  gap: 1.5rem;
-  padding-block: 0.5rem;
-}
-
-.trackStatic {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16.5rem), 1fr));
+  gap: clamp(1rem, 2.5vw, 1.75rem);
   padding-inline: clamp(1rem, 4vw, 4rem);
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
+  padding-block: 0.25rem 0.5rem;
 }
 
 .card {
-  flex: 0 0 auto;
-  width: clamp(24rem, 52vw, 40rem);
-  aspect-ratio: 16 / 9;
+  display: block;
+  width: 100%;
   margin: 0;
+  padding: 0;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   border: 0;
-  border-radius: 1rem;
+  border-radius: 0.65rem;
   background: #0a0a0a;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.38);
-  scroll-snap-align: start;
+  cursor: pointer;
+  isolation: isolate;
+  transform: translateZ(0);
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  will-change: transform, opacity;
 }
 
-.media {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: #0a0a0a;
+.card:focus-visible {
+  outline: 2px solid rgb(56 189 248 / 0.85);
+  outline-offset: 3px;
 }
 
 .image {
@@ -107,33 +36,19 @@
   object-fit: cover;
   object-position: center;
   border: 0;
+  border-radius: inherit;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
-.overlay {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(
-    to top right,
-    rgba(0, 0, 0, 0.16),
-    transparent 42%,
-    rgba(255, 255, 255, 0.03)
-  );
-}
-
-@media (max-width: 1023px) {
-  .card {
-    width: min(82vw, 22rem);
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .rise,
-  .riseAnimated {
-    animation: none !important;
-    opacity: 1;
-    transform: none;
+  .card {
     will-change: auto;
   }
 }

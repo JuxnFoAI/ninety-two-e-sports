@@ -19,6 +19,9 @@ coverage
 # Local overrides
 *.local
 
+# Informes locales de k6
+k6/results/
+
 # OS
 .DS_Store
 Thumbs.db

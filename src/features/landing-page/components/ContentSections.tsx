@@ -1,4 +1,5 @@
 import { DesignsSection } from "./designs";
+import { DesignsWhiteScroll } from "./designs/DesignsWhiteScroll";
 import { PatrocinadoresSection } from "./patrocinadores";
 import { QuienesSomosSection } from "./quienes-somos";
 
@@ -14,6 +15,7 @@ export const ContentSections = (): JSX.Element => {
       />
       <div className={styles.stack} data-home-content-stack>
         <QuienesSomosSection />
+        <DesignsWhiteScroll />
         <DesignsSection />
         <PatrocinadoresSection />
       </div>

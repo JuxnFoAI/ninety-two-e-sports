@@ -10,7 +10,6 @@ interface UseFadeOutSequenceResult {
   isFading: boolean;
   announceLoaded: boolean;
   startFadeOut: () => void;
-  complete: () => void;
   notifyFadeTransitionEnd: () => void;
 }
 
@@ -91,7 +90,6 @@ export const useFadeOutSequence = ({
     isFading,
     announceLoaded,
     startFadeOut,
-    complete: fireCompleteOnce,
     notifyFadeTransitionEnd,
   };
 };

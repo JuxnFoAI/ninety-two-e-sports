@@ -8,7 +8,7 @@ Guía para quien mantenga o extienda el código de Ninety Two E-Sports.
 | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
 | `src/app/`                     | Composición raíz (`AccessibilityProvider` → `LoadingScreen` → rutas + `ScrollManager`)                                  |
 | `src/features/landing-page/`   | Inicio (`/`), páginas propias (`/equipos`, `/fotos`, `/noticias`, `/torneos`) vía `SiteShell` / `StandaloneSectionPage` |
-| `src/features/loading-screen/` | Animación de carga (canvas)                                                                                             |
+| `src/features/loading-screen/` | Animación de carga (esculpido WebGL2, con la timeline GSAP como respaldo en gama baja)                                  |
 | `src/features/accessibility/`  | Panel de accesibilidad, preferencias y anuncios para lectores de pantalla                                               |
 | `src/shared/`                  | Hooks y utilidades reutilizables entre features                                                                         |
 | `assets/`                      | Imágenes y videos importados con `@assets`                                                                              |
@@ -24,7 +24,7 @@ Cada feature puede tener `components/`, `hooks/`, `data/`, `lib/`, `types/` seg�
 | Dentro de la misma feature | Rutas relativas | `../../data/pilots`            |
 | Medios estáticos           | Alias `@assets` | `@assets/marca/ninety-two.png` |
 
-Evita mezclar `@/` y `../` en el mismo archivo salvo casos justificados (p. ej. canvas que usa `@/shared/lib/geometry` y `./stageLayout`).
+Un archivo puede usar `@/` para lo compartido y rutas relativas para su propia feature (p. ej. `useLoadingScreen` importa `@/features/accessibility` y `../constants`). Lo que no se hace es llegar a otra feature con `../../..`.
 
 ## Nombres en español e inglés
 
@@ -32,7 +32,7 @@ Es intencional y coherente con el producto:
 
 - **Carpetas y secciones (UI):** español — `equipos`, `noticias`, `disenos`, `PatrocinadoresSection`.
 - **Inicio (`/`):** hero + `#quienes-somos` + `#disenos` + `#patrocinadores` (bloque continuo, `surface="flush"`).
-- **Rutas independientes:** español en path — `/equipos`, `/fotos`, `/noticias`, `/torneos` (misma pestaña vía React Router). `/fotos` no va en el menú; se abre desde Diseños. Cualquier otra ruta muestra la página 404. Cada ruta pone su sección en `document.title`.
+- **Rutas independientes:** español en path — `/equipos`, `/fotos`, `/noticias`, `/torneos` (misma pestaña vía React Router). `/fotos` no va en el menú (solo URL directa). Cualquier otra ruta muestra la página 404. Cada ruta pone su sección en `document.title`.
 - **Componentes internos / datos:** inglés — `SponsorCard`, `PilotCard`, `NewsPhotoSlider`.
 - **Diseños:** assets en `assets/Designs/` (`@assets/Designs/...`).
 
@@ -40,16 +40,20 @@ Al añadir una sección nueva en el inicio, mantén el patrón: carpeta en espa�
 
 ## Animaciones reveal
 
-Las secciones usan `RevealSection` + `RevealItem` con índices de stagger (`index`). Las páginas propias (`/equipos`, `/fotos`, `/noticias`, `/torneos`) comparten `NightPanelSection` (título + panel noche). Equipos, Fotos y Torneos tienen intro de título propia; Patrocinadores, Diseños y Noticias usan `SectionDisplayTitle`.
+Las secciones usan `RevealSection` + `RevealItem` con índices de stagger (`index`). Las páginas propias (`/equipos`, `/fotos`, `/noticias`, `/torneos`) comparten `NightPanelSection` (título + panel noche). Equipos, Fotos y Torneos tienen intro de título propia; Diseños y Noticias usan `SectionDisplayTitle`; Patrocinadores usa `ScrollAppearText` (las letras aparecen con el scroll).
 
-## Loading screen: dos “geometry”
+## Loading screen
 
-| Archivo                                             | Contenido                                                  |
-| --------------------------------------------------- | ---------------------------------------------------------- |
-| `src/shared/lib/geometry.ts`                        | Matemáticas genéricas (ángulos, puntos en círculo)         |
-| `src/features/loading-screen/canvas/stageLayout.ts` | Tamaño del canvas, radios de anillos, tiempos de animación |
+Código de producción en `src/features/loading-screen/` (el laboratorio
+`prototypes/n2-liquid/` prueba variantes históricas; lo que publica el sitio es
+`sculpt/`).
 
-No renombrar `stageLayout.ts` a `geometry.ts`: colisionaría con el módulo compartido.
+`useLoadingScreen` elige la variante con `detectDeviceTier` (`src/shared/lib/deviceTier.ts`):
+
+- **Esculpido** (PC y móviles de gama alta y media): `sculpt/playSculptIntro.ts` dibuja en WebGL2 el logo N2 relleno de tinta que fluye, que un barrido diagonal solidifica en blanco. Las fases viven en `SCULPT_PHASES_S` y duran `SCULPT_DURATION_MS` antes del fundido.
+- **Clásica** (gama baja, movimiento reducido, ahorro de datos o si WebGL falla): `animation/createLoaderTimeline.ts` arma una timeline GSAP de 1 s y `useLoadingScreen` le aplica `timeScale` para que dure `LOADING_DURATION_MS`.
+
+Los tiempos viven en `constants.ts`.
 
 ## Tipos de dominio
 

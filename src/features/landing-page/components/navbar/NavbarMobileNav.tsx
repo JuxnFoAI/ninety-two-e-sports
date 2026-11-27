@@ -6,7 +6,6 @@ import { useInert } from "@/shared/lib/inert";
 import { NavbarLinkList } from "./NavbarLinkList";
 
 type NavbarMobileNavProps = {
-  className?: string;
   menuOpen: boolean;
   mobileAccessibilityOpen: boolean;
   onNavigate: () => void;
@@ -14,7 +13,6 @@ type NavbarMobileNavProps = {
 };
 
 export const NavbarMobileNav = ({
-  className = "",
   menuOpen,
   mobileAccessibilityOpen,
   onNavigate,
@@ -27,7 +25,7 @@ export const NavbarMobileNav = ({
     <nav
       ref={navRef}
       id="mobile-nav"
-      className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out lg:hidden ${className} ${
+      className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out lg:hidden ${
         menuOpen
           ? "grid-rows-[1fr] opacity-100"
           : "pointer-events-none grid-rows-[0fr] opacity-0"

@@ -63,9 +63,17 @@ export const MarqueeText = ({
     if (track) {
       observer.observe(track);
     }
-    void document.fonts?.ready.then(measure);
+    let disposed = false;
+    void document.fonts?.ready.then(() => {
+      if (!disposed) {
+        measure();
+      }
+    });
 
-    return () => observer.disconnect();
+    return () => {
+      disposed = true;
+      observer.disconnect();
+    };
   }, [measure, text]);
 
   const shouldMarquee = overflowPx > 0 && !prefersReducedMotion;

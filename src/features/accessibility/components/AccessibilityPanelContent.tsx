@@ -1,3 +1,5 @@
+import { useId } from "react";
+
 import { getAccessibilitySectionsForViewport } from "../lib/getSectionsForViewport";
 import type {
   AccessibilityBooleanKey,
@@ -103,13 +105,13 @@ const SelectOptionRow = ({
 );
 
 const renderOption = (
-  sectionId: string,
+  sectionDomId: string,
   option: AccessibilityOption,
   settings: ReturnType<typeof useAccessibility>["settings"],
   setBoolean: (key: AccessibilityBooleanKey, value: boolean) => void,
   setColorBlindMode: (value: ColorBlindMode) => void,
 ): JSX.Element => {
-  const optionId = `a11y-${sectionId}-${option.key}`;
+  const optionId = `${sectionDomId}-${option.key}`;
 
   if (option.kind === "boolean") {
     return (
@@ -138,49 +140,49 @@ const renderOption = (
 };
 
 interface AccessibilityPanelContentProps {
-  className?: string;
   viewport?: AccessibilityViewport;
   /** When false, omit inline reset control (e.g. mobile footer handles it). */
   showResetButton?: boolean;
 }
 
 export const AccessibilityPanelContent = ({
-  className = "",
   viewport = "desktop",
   showResetButton = true,
 }: AccessibilityPanelContentProps): JSX.Element => {
   const { settings, setBoolean, setColorBlindMode } = useAccessibility();
   const sections = getAccessibilitySectionsForViewport(viewport);
+  // Desktop popover and mobile panel can be mounted together; ids must not collide.
+  const idPrefix = useId();
 
   return (
-    <div className={`a11y-panel flex flex-col gap-5 ${className}`.trim()}>
-      {sections.map((section) => (
-        <section
-          key={section.id}
-          aria-labelledby={`a11y-section-${section.id}`}
-        >
-          <h3
-            id={`a11y-section-${section.id}`}
-            className="m-0 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-[#1591dc]"
-          >
-            {section.title}
-          </h3>
-          <p className="m-0 mt-1 text-[0.68rem] leading-relaxed text-white/55">
-            {section.description}
-          </p>
-          <div className="mt-3 flex flex-col gap-2">
-            {section.options.map((option) =>
-              renderOption(
-                section.id,
-                option,
-                settings,
-                setBoolean,
-                setColorBlindMode,
-              ),
-            )}
-          </div>
-        </section>
-      ))}
+    <div className="a11y-panel flex flex-col gap-5">
+      {sections.map((section) => {
+        const sectionDomId = `${idPrefix}-${section.id}`;
+        return (
+          <section key={section.id} aria-labelledby={`${sectionDomId}-title`}>
+            <h3
+              id={`${sectionDomId}-title`}
+              className="m-0 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-[#1591dc]"
+            >
+              {section.title}
+            </h3>
+            <p className="m-0 mt-1 text-[0.68rem] leading-relaxed text-white/55">
+              {section.description}
+            </p>
+            <div className="mt-3 flex flex-col gap-2">
+              {section.options.map((option) =>
+                renderOption(
+                  sectionDomId,
+                  option,
+                  settings,
+                  setBoolean,
+                  setColorBlindMode,
+                ),
+              )}
+            </div>
+          </section>
+        );
+      })}
 
       {showResetButton ? <AccessibilityResetButton /> : null}
     </div>
